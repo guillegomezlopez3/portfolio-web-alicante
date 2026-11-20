@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clínica Bienestar Alicante – Demo | Guillermo Gómez</title>
+  <meta name="description" content="Demo de web para clínica de fisioterapia, estética y dental con selector de cita previa. Alicante.">
+  <meta name="robots" content="index, follow">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    body { background: #f0fdfa; color: #134e4a; }
+    .card { background: #fff; border-color: #ccfbf1; }
+    .card:hover { border-color: #14b8a6; }
+    input, select { background: #fff; border-color: #99f6e4; color: #134e4a; }
+    .btn-teal { background: #0d9488; color: #fff; font-weight: 600; transition: background .2s, transform .2s; }
+    .btn-teal:hover { background: #0f766e; transform: translateY(-2px); }
+    .opt { border: 1px solid #99f6e4; background: #fff; border-radius: .6rem; padding: .55rem .9rem; transition: all .2s; }
+    .opt:hover:not(:disabled), .opt.sel { background: #0d9488; color: #fff; border-color: #0d9488; }
+    .opt:disabled { opacity: .35; text-decoration: line-through; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+<div class="demo-banner px-4 py-2 flex justify-between items-center">
+  <span class="text-slate-400">Demo de ejemplo · Diseño por Guillermo Gómez</span>
+  <a href="../index.html#demos" class="text-cyan-400 hover:underline">← Volver al portfolio</a>
+</div>
+
+<header class="bg-white/90 backdrop-blur border-b border-teal-100 sticky top-0 z-40">
+  <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="#" class="font-bold text-xl text-teal-700">🌿 Clínica Bienestar</a>
+    <nav class="hidden sm:flex gap-6 text-sm" aria-label="Principal"><a href="#servicios" class="hover:text-teal-600">Servicios</a><a href="#equipo" class="hover:text-teal-600">Equipo</a><a href="#opiniones" class="hover:text-teal-600">Opiniones</a><a href="#cita" class="hover:text-teal-600">Cita previa</a></nav>
+    <a href="#cita" class="btn-teal rounded-lg px-4 py-2 text-sm">Pedir cita</a>
+  </div>
+</header>
+
+<section class="max-w-6xl mx-auto px-4 py-14 grid lg:grid-cols-2 gap-10 items-center">
+  <div>
+    <p class="text-teal-600 font-semibold text-sm">Fisioterapia · Estética · Dental — Alicante</p>
+    <h1 class="text-4xl sm:text-5xl font-extrabold mt-2 leading-tight">Cuidamos de ti con un trato cercano y profesional</h1>
+    <p class="mt-4 text-teal-800/80">Más de 15 años ayudando a las familias de Alicante a sentirse mejor. Primera valoración sin coste.</p>
+    <div class="mt-6 flex gap-3 flex-wrap"><a href="#cita" class="btn-teal rounded-lg px-6 py-3">Reservar cita</a><a href="tel:+34600000000" class="rounded-lg px-6 py-3 border border-teal-300 bg-white">📞 965 00 00 00</a></div>
+  </div>
+  <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=900&q=70" alt="Sala de la clínica" width="900" height="620" class="rounded-2xl shadow-xl object-cover aspect-[3/2]" fetchpriority="high">
+</section>
+
+<section id="servicios" class="max-w-6xl mx-auto px-4 py-14">
+  <h2 class="text-3xl font-bold">Nuestros servicios</h2>
+  <div id="services" class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+</section>
+
+<section id="equipo" class="max-w-6xl mx-auto px-4 py-14">
+  <h2 class="text-3xl font-bold">Nuestro equipo</h2>
+  <div id="team" class="mt-8 grid sm:grid-cols-3 gap-6"></div>
+</section>
+
+<section id="opiniones" class="max-w-6xl mx-auto px-4 py-14">
+  <h2 class="text-3xl font-bold">Lo que dicen nuestros pacientes</h2>
+  <p class="text-teal-700 mt-1">⭐ 4,9 / 5 · +230 opiniones</p>
+  <div class="mt-8 grid md:grid-cols-3 gap-5">
+    <blockquote class="card p-6"><p>"Llegué con una lumbalgia horrible y en tres sesiones estaba otra persona. Muy atentos y profesionales."</p><footer class="mt-3 text-sm text-teal-600 font-semibold">⭐⭐⭐⭐⭐ María J., San Vicente</footer></blockquote>
+    <blockquote class="card p-6"><p>"Instalaciones impecables y cero dolor en mi limpieza dental. Me explicaron todo el tratamiento con claridad."</p><footer class="mt-3 text-sm text-teal-600 font-semibold">⭐⭐⭐⭐⭐ Antonio R., Alicante</footer></blockquote>
+    <blockquote class="card p-6"><p>"El tratamiento facial superó mis expectativas. Pedir cita online es facilísimo, repetiré seguro."</p><footer class="mt-3 text-sm text-teal-600 font-semibold">⭐⭐⭐⭐⭐ Laura P., Playa de San Juan</footer></blockquote>
+  </div>
+</section>
+
+<section id="cita" class="max-w-3xl mx-auto px-4 py-14">
+  <div class="card p-6 sm:p-8">
+    <h2 class="text-3xl font-bold">Pide tu cita previa</h2>
+    <p class="text-sm text-teal-700/70 mt-1">Simulador interactivo · no se envía ningún dato real.</p>
+    <form id="appt" class="mt-6 space-y-6">
+      <fieldset><legend class="font-semibold mb-2">1. Elige servicio</legend><div id="svc-opts" class="flex flex-wrap gap-2"></div></fieldset>
+      <fieldset><legend class="font-semibold mb-2">2. Profesional</legend><div id="pro-opts" class="flex flex-wrap gap-2"></div></fieldset>
+      <fieldset><legend class="font-semibold mb-2">3. Día</legend><div id="day-opts" class="flex flex-wrap gap-2"></div></fieldset>
+      <fieldset><legend class="font-semibold mb-2">4. Hora</legend><div id="hour-opts" class="flex flex-wrap gap-2"></div></fieldset>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div><label for="pname" class="text-sm">Nombre completo</label><input id="pname" required autocomplete="name"></div>
+        <div><label for="pphone" class="text-sm">Teléfono</label><input id="pphone" type="tel" required autocomplete="tel"></div>
+      </div>
+      <div id="summary" class="rounded-lg bg-teal-50 p-4 text-sm" aria-live="polite">Selecciona servicio, profesional, día y hora.</div>
+      <button class="btn-teal rounded-lg px-6 py-3 w-full" type="submit">Confirmar cita</button>
+    </form>
+    <div id="done" class="hidden text-center py-8" role="status">
+      <div class="text-5xl">🎉</div><h3 class="text-2xl font-bold mt-3">¡Cita confirmada!</h3>
+      <p id="done-text" class="mt-2"></p>
+      <button id="again" class="mt-6 rounded-lg px-5 py-2 border border-teal-300">Pedir otra cita</button>
+    </div>
+  </div>
+</section>
+
+<footer class="border-t border-teal-100 py-8 text-center text-sm text-teal-700/70">
+  Clínica Bienestar Alicante · Av. de la Constitución, 5 · Demo ficticia creada por <a class="text-teal-700 underline" href="../index.html">Guillermo Gómez</a>
+</footer>
+
+<script src="../js/main.js"></script>
+<script>
+const SERVICES = [
+  { id: 's1', n: 'Fisioterapia', ic: '💆', d: 'Rehabilitación, terapia manual y punción seca.', min: 45, p: 'Desde 40 €' },
+  { id: 's2', n: 'Limpieza dental', ic: '🦷', d: 'Higiene bucodental profesional y revisión.', min: 30, p: 'Desde 45 €' },
+  { id: 's3', n: 'Tratamiento facial', ic: '✨', d: 'Limpieza profunda, hidratación y antiedad.', min: 60, p: 'Desde 55 €' },
+  { id: 's4', n: 'Masaje relajante', ic: '🌿', d: 'Descontractura y alivio del estrés.', min: 50, p: 'Desde 38 €' },
+  { id: 's5', n: 'Blanqueamiento dental', ic: '😁', d: 'Sonrisa más luminosa en una sola sesión.', min: 60, p: 'Desde 180 €' },
+  { id: 's6', n: 'Depilación láser', ic: '⚡', d: 'Tecnología diodo, resultados duraderos.', min: 40, p: 'Desde 35 €' }
+];
+const TEAM = [
+  { id: 'p1', n: 'Dra. Laura Martínez', r: 'Odontóloga', s: ['s2', 's5'], i: '1559757148-5c350d0d3c56' },
+  { id: 'p2', n: 'Carlos Vidal', r: 'Fisioterapeuta', s: ['s1', 's4'], i: '1612349317150-e413f6a5b16d' },
+  { id: 'p3', n: 'Marta Soler', r: 'Esteticista', s: ['s3', 's4', 's6'], i: '1582750433449-648ed127bb54' }
+];
+const HOURS = ['09:00', '10:00', '11:00', '12:00', '16:00', '17:00', '18:00', '19:00'];
+const $ = id => document.getElementById(id);
+const st = { svc: null, pro: null, day: null, hour: null };
+
+$('services').innerHTML = SERVICES.map(s => `<article class="card p-6"><div class="text-3xl">${s.ic}</div><h3 class="font-bold text-lg mt-2">${s.n}</h3><p class="text-sm text-teal-800/70 mt-1">${s.d}</p><p class="text-sm mt-3 text-teal-700 font-semibold">${s.p} · ${s.min} min</p><a href="#cita" data-pick="${s.id}" class="mt-3 inline-block text-sm text-teal-600 underline">Pedir cita →</a></article>`).join('');
+$('team').innerHTML = TEAM.map(t => `<article class="card overflow-hidden"><img src="https://images.unsplash.com/photo-${t.i}?auto=format&fit=crop&w=500&h=500&q=70" alt="${t.n}" width="500" height="500" loading="lazy" class="aspect-square object-cover w-full"><div class="p-4"><h3 class="font-bold">${t.n}</h3><p class="text-sm text-teal-600">${t.r}</p></div></article>`).join('');
+
+function days() {
+  const out = [], d = new Date();
+  while (out.length < 7) { d.setDate(d.getDate() + 1); if (d.getDay() !== 0) out.push(new Date(d)); }
+  return out;
+}
+const DAYS = days();
+const dkey = d => d.toISOString().slice(0, 10);
+const dlabel = d => d.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' });
+// Disponibilidad simulada y estable
+const busy = (pro, day, h) => (pro.charCodeAt(1) + day.charCodeAt(9) * 3 + h * 5) % 4 === 0;
+
+function btn(group, val, label, sel, dis) { return `<button type="button" class="opt ${sel ? 'sel' : ''}" data-g="${group}" data-v="${val}" ${dis ? 'disabled' : ''}>${label}</button>`; }
+function render() {
+  $('svc-opts').innerHTML = SERVICES.map(s => btn('svc', s.id, s.n, st.svc === s.id)).join('');
+  $('pro-opts').innerHTML = TEAM.map(t => btn('pro', t.id, `${t.n} <span class="opacity-70">· ${t.r}</span>`, st.pro === t.id, st.svc && !t.s.includes(st.svc))).join('');
+  $('day-opts').innerHTML = DAYS.map(d => btn('day', dkey(d), dlabel(d), st.day === dkey(d))).join('');
+  $('hour-opts').innerHTML = HOURS.map((h, i) => btn('hour', h, h, st.hour === h, st.pro && st.day && busy(st.pro, st.day, i))).join('');
+  const s = SERVICES.find(x => x.id === st.svc), p = TEAM.find(x => x.id === st.pro);
+  $('summary').innerHTML = (s && p && st.day && st.hour)
+    ? `<strong>${s.n}</strong> con ${p.n} el <strong>${dlabel(new Date(st.day + 'T00:00'))}</strong> a las <strong>${st.hour}</strong> (${s.min} min).`
+    : 'Selecciona servicio, profesional, día y hora.';
+}
+$('appt').addEventListener('click', e => {
+  const b = e.target.closest('button[data-g]'); if (!b || b.disabled) return;
+  const g = b.dataset.g, v = b.dataset.v;
+  st[g] = v;
+  if (g === 'svc' && st.pro && !TEAM.find(t => t.id === st.pro).s.includes(v)) st.pro = null;
+  if (st.pro && st.day && st.hour && busy(st.pro, st.day, HOURS.indexOf(st.hour))) st.hour = null;
+  render();
+});
+document.addEventListener('click', e => {
+  const a = e.target.closest('[data-pick]'); if (a) { st.svc = a.dataset.pick; render(); }
+});
+$('appt').addEventListener('submit', e => {
+  e.preventDefault();
+  if (!(st.svc && st.pro && st.day && st.hour)) { Demo.toast('Completa los 4 pasos de la cita'); return; }
+  $('done-text').textContent = `${$('pname').value}, ${$('summary').textContent} Te enviaremos un recordatorio.`;
+  $('appt').classList.add('hidden'); $('done').classList.remove('hidden');
+});
+$('again').addEventListener('click', () => {
+  Object.assign(st, { svc: null, pro: null, day: null, hour: null });
+  $('appt').reset(); render();
+  $('done').classList.add('hidden'); $('appt').classList.remove('hidden');
+});
+render();
+</script>
+</body>
+</html>

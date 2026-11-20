@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La Terreta Gastrobar – Demo | Guillermo Gómez</title>
+  <meta name="description" content="Demo de web para restaurante con carta interactiva y reserva de mesa. Gastrobar mediterráneo en Alicante.">
+  <meta name="robots" content="index, follow">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    body { background: #1a1410; --accent: #f59e0b; }
+    .card { background: #241b14; border-color: #3a2c20; }
+    input, select { background: #1a1410; border-color: #3a2c20; }
+    .chip { border: 1px solid #3a2c20; border-radius: 999px; padding: .45rem 1.1rem; transition: all .2s; }
+    .chip.active, .chip:hover { background: #f59e0b; color: #1a1410; border-color: #f59e0b; }
+    .btn-amber { background: #f59e0b; color: #1a1410; font-weight: 700; transition: transform .2s; }
+    .btn-amber:hover { transform: translateY(-2px); }
+  </style>
+</head>
+<body>
+<div class="demo-banner px-4 py-2 flex justify-between items-center">
+  <span class="text-slate-400">Demo de ejemplo · Diseño por Guillermo Gómez</span>
+  <a href="../index.html#demos" class="text-cyan-400 hover:underline">← Volver al portfolio</a>
+</div>
+
+<header class="relative">
+  <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1600&q=70" alt="Sala del gastrobar La Terreta" class="w-full h-[70vh] object-cover" width="1600" height="1000" fetchpriority="high">
+  <div class="absolute inset-0 bg-gradient-to-t from-[#1a1410] via-[#1a1410]/60 to-transparent"></div>
+  <div class="absolute inset-0 flex flex-col justify-end max-w-5xl mx-auto px-4 pb-14">
+    <p class="mono text-amber-400 text-sm">Cocina mediterránea · Alicante</p>
+    <h1 class="text-5xl sm:text-6xl font-extrabold mt-2">La Terreta Gastrobar</h1>
+    <p class="mt-3 text-lg text-stone-300 max-w-xl">Arroces al fuego lento, producto de la huerta y el mar, y tapeo con alma alicantina.</p>
+    <div class="mt-6 flex gap-3 flex-wrap">
+      <a href="#reserva" class="btn-amber rounded-lg px-6 py-3">Reservar mesa</a>
+      <a href="#carta" class="btn-ghost rounded-lg px-6 py-3">Ver la carta</a>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-5xl mx-auto px-4">
+  <section id="carta" class="py-16">
+    <h2 class="text-3xl font-bold">Nuestra carta</h2>
+    <div id="chips" class="mt-6 flex flex-wrap gap-2" role="tablist" aria-label="Categorías de la carta"></div>
+    <div id="menu" class="mt-8 grid sm:grid-cols-2 gap-5" aria-live="polite"></div>
+  </section>
+
+  <section class="py-10 grid md:grid-cols-2 gap-6">
+    <div class="card p-6">
+      <h2 class="text-2xl font-bold">Horarios</h2>
+      <table class="mt-4 w-full text-sm">
+        <tbody class="divide-y divide-[#3a2c20]">
+          <tr><td class="py-2">Lunes</td><td class="text-right text-stone-400">Cerrado</td></tr>
+          <tr><td class="py-2">Martes – Jueves</td><td class="text-right">13:00–16:00 · 20:00–23:30</td></tr>
+          <tr><td class="py-2">Viernes – Sábado</td><td class="text-right">13:00–16:30 · 20:00–00:30</td></tr>
+          <tr><td class="py-2">Domingo</td><td class="text-right">13:00–17:00</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card p-6">
+      <h2 class="text-2xl font-bold">Cómo llegar</h2>
+      <p class="mt-3 text-stone-300">Calle Mayor, 12 · 03002 Alicante</p>
+      <p class="text-stone-400 text-sm">A 3 minutos de la Explanada de España.</p>
+      <iframe title="Mapa de Alicante" loading="lazy" class="mt-4 w-full h-44 rounded-lg border-0" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.4950%2C38.3380%2C-0.4660%2C38.3520&layer=mapnik"></iframe>
+    </div>
+  </section>
+
+  <section id="reserva" class="py-16">
+    <div class="card p-6 sm:p-8 max-w-2xl mx-auto">
+      <h2 class="text-3xl font-bold">Reserva tu mesa</h2>
+      <p class="text-stone-400 mt-1 text-sm">Simulador de reserva · no se envía ningún dato real.</p>
+      <form id="booking" class="mt-6 grid sm:grid-cols-2 gap-4">
+        <div><label for="rname" class="text-sm">Nombre</label><input id="rname" required></div>
+        <div><label for="rphone" class="text-sm">Teléfono</label><input id="rphone" type="tel" required></div>
+        <div><label for="rdate" class="text-sm">Fecha</label><input id="rdate" type="date" required></div>
+        <div><label for="rguests" class="text-sm">Comensales</label>
+          <select id="rguests"></select></div>
+        <div class="sm:col-span-2"><span class="text-sm">Hora</span>
+          <div id="slots" class="mt-2 flex flex-wrap gap-2"></div></div>
+        <button class="btn-amber rounded-lg px-6 py-3 sm:col-span-2" type="submit">Confirmar reserva</button>
+      </form>
+      <div id="confirm" class="hidden text-center py-6" role="status">
+        <div class="text-5xl">✅</div>
+        <h3 class="text-2xl font-bold mt-3">¡Reserva confirmada!</h3>
+        <p id="confirm-text" class="mt-2 text-stone-300"></p>
+        <p class="mono text-amber-400 mt-3" id="confirm-code"></p>
+        <button id="new-booking" class="mt-6 btn-ghost rounded-lg px-5 py-2">Hacer otra reserva</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="border-t border-[#3a2c20] py-8 text-center text-sm text-stone-500">
+  La Terreta Gastrobar · Demo ficticia creada por <a class="text-cyan-400" href="../index.html">Guillermo Gómez</a>
+</footer>
+
+<script src="../js/main.js"></script>
+<script>
+const DISHES = [
+  { c: 'Entrantes', n: 'Croquetas de gamba roja', d: 'Cremosas, con alioli de limón', p: 9.5, i: '1546069901-ba9599a7e63c' },
+  { c: 'Entrantes', n: 'Ensalada de tomate de huerta', d: 'Ventresca, cebolla tierna y AOVE', p: 11, i: '1476224203421-9ac39bcb3327' },
+  { c: 'Entrantes', n: 'Pulpo a la brasa', d: 'Parmentier de patata y pimentón', p: 16.5, i: '1414235077428-338989a2e8c0' },
+  { c: 'Arroces', n: 'Arroz del senyoret', d: 'Pescado y marisco pelado (mín. 2 pers.)', p: 19, i: '1534080564583-6be75777b70a' },
+  { c: 'Arroces', n: 'Arroz con conejo y caracoles', d: 'Receta tradicional de leña', p: 17.5, i: '1515443961218-a51367888e4b' },
+  { c: 'Arroces', n: 'Arroz negro con alioli', d: 'Sepia y calamar de la lonja', p: 18, i: '1504674900247-0877df9cc836' },
+  { c: 'Carnes', n: 'Entrecot de ternera madurada', d: 'Con patatas panadera y pimientos', p: 24, i: '1544025162-d76694265947' },
+  { c: 'Carnes', n: 'Secreto ibérico a la brasa', d: 'Cebolla caramelizada y mojo', p: 18.5, i: '1558030006-450675393462' },
+  { c: 'Postres', n: 'Tarta de queso cremosa', d: 'Con coulis de frutos rojos', p: 6.5, i: '1551024601-bec78aea704b' },
+  { c: 'Postres', n: 'Turrón helado de Jijona', d: 'Con crujiente de almendra', p: 6, i: '1488477181946-6428a0291777' }
+];
+const CATS = ['Todos', 'Entrantes', 'Arroces', 'Carnes', 'Postres'];
+let cat = 'Todos';
+const chips = document.getElementById('chips'), menu = document.getElementById('menu');
+
+function renderMenu() {
+  menu.innerHTML = DISHES.filter(x => cat === 'Todos' || x.c === cat).map(x => `
+    <article class="card overflow-hidden flex">
+      <img src="https://images.unsplash.com/photo-${x.i}?auto=format&fit=crop&w=300&h=300&q=70" alt="${x.n}" width="120" height="120" loading="lazy" class="w-28 h-28 sm:w-32 sm:h-auto object-cover">
+      <div class="p-4 flex-1"><div class="flex justify-between gap-2"><h3 class="font-semibold">${x.n}</h3><span class="text-amber-400 font-bold whitespace-nowrap">${Demo.eur(x.p)}</span></div>
+      <p class="text-sm text-stone-400 mt-1">${x.d}</p><p class="mono text-xs text-stone-500 mt-2">${x.c}</p></div>
+    </article>`).join('');
+}
+chips.innerHTML = CATS.map(c => `<button role="tab" class="chip ${c === cat ? 'active' : ''}" data-c="${c}">${c}</button>`).join('');
+chips.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  cat = b.dataset.c;
+  chips.querySelectorAll('.chip').forEach(x => x.classList.toggle('active', x === b));
+  renderMenu();
+});
+renderMenu();
+
+// Reserva
+const guests = document.getElementById('rguests');
+guests.innerHTML = Array.from({ length: 10 }, (_, i) => `<option value="${i + 1}">${i + 1} ${i ? 'personas' : 'persona'}</option>`).join('') + '<option value="11">Más de 10</option>';
+const date = document.getElementById('rdate');
+const today = new Date().toISOString().slice(0, 10);
+date.min = today; date.value = today;
+const TIMES = ['13:30', '14:00', '14:30', '15:00', '20:30', '21:00', '21:30', '22:00'];
+let slot = '';
+const slotsEl = document.getElementById('slots');
+function renderSlots() {
+  // Disponibilidad simulada y estable por fecha
+  const seed = [...date.value].reduce((a, ch) => a + ch.charCodeAt(0), 0);
+  slotsEl.innerHTML = TIMES.map((t, i) => {
+    const full = (seed + i * 7) % 5 === 0;
+    return `<button type="button" class="chip ${t === slot ? 'active' : ''} ${full ? 'opacity-40 line-through cursor-not-allowed' : ''}" ${full ? 'disabled' : ''} data-t="${t}">${t}</button>`;
+  }).join('');
+  if (slot && !slotsEl.querySelector(`[data-t="${slot}"]:not([disabled])`)) slot = '';
+}
+date.addEventListener('change', renderSlots);
+slotsEl.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b || b.disabled) return;
+  slot = b.dataset.t;
+  slotsEl.querySelectorAll('.chip').forEach(x => x.classList.toggle('active', x === b));
+});
+renderSlots();
+
+const form = document.getElementById('booking'), conf = document.getElementById('confirm');
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  if (!slot) { Demo.toast('Elige una hora para tu reserva'); return; }
+  const f = new Date(date.value + 'T00:00').toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+  document.getElementById('confirm-text').textContent = `${document.getElementById('rname').value}, te esperamos el ${f} a las ${slot} para ${guests.value} ${guests.value === '1' ? 'persona' : 'personas'}.`;
+  document.getElementById('confirm-code').textContent = 'Código: TERRETA-' + Math.floor(1000 + Math.random() * 9000);
+  form.classList.add('hidden'); conf.classList.remove('hidden');
+});
+document.getElementById('new-booking').addEventListener('click', () => {
+  form.reset(); date.value = today; slot = ''; renderSlots();
+  conf.classList.add('hidden'); form.classList.remove('hidden');
+});
+</script>
+</body>
+</html>

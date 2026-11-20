@@ -1,0 +1,32 @@
+:root {
+  --bg: #0b0f17;
+  --surface: #111827;
+  --border: #1f2937;
+  --accent: #22d3ee;
+  --accent-2: #3b82f6;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+.mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+.gradient-text { background: linear-gradient(90deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.btn-primary { background: linear-gradient(90deg, var(--accent-2), var(--accent)); color: #04121f; font-weight: 700; transition: transform .2s, box-shadow .2s; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -10px rgba(34, 211, 238, .6); }
+.btn-ghost { border: 1px solid var(--border); transition: border-color .2s, background .2s; }
+.btn-ghost:hover { border-color: var(--accent); background: rgba(34, 211, 238, .06); }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 1rem; transition: transform .25s, border-color .25s; }
+.card:hover { transform: translateY(-4px); border-color: rgba(34, 211, 238, .5); }
+.hero-glow { background: radial-gradient(60% 50% at 50% 0%, rgba(59, 130, 246, .25), transparent 70%), radial-gradient(40% 40% at 85% 20%, rgba(34, 211, 238, .15), transparent 70%); }
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+details > summary { cursor: pointer; list-style: none; }
+details > summary::-webkit-details-marker { display: none; }
+details[open] summary .chev { transform: rotate(180deg); }
+.chev { transition: transform .2s; }
+input, select, textarea { background: #0b1220; border: 1px solid var(--border); border-radius: .6rem; padding: .7rem .9rem; width: 100%; color: var(--text); }
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.toast { position: fixed; bottom: 1.25rem; right: 1.25rem; z-index: 60; transform: translateY(150%); transition: transform .3s; }
+.toast.show { transform: none; }
+.demo-banner { background: #0b0f17; border-bottom: 1px solid #1f2937; font-size: .8rem; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } .reveal { opacity: 1; transform: none; } }

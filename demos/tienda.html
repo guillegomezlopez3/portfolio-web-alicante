@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alicante Urban Store – Demo | Guillermo Gómez</title>
+  <meta name="description" content="Demo de tienda online con catálogo, vista rápida y carrito funcional. Comercio local en Alicante.">
+  <meta name="robots" content="index, follow">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    body { background: #f8fafc; color: #0f172a; }
+    .card { background: #fff; border-color: #e2e8f0; }
+    .card:hover { border-color: #0f172a; }
+    .chip { border: 1px solid #cbd5e1; border-radius: 999px; padding: .4rem 1rem; transition: all .2s; background: #fff; }
+    .chip.active, .chip:hover { background: #0f172a; color: #fff; border-color: #0f172a; }
+    .btn-dark { background: #0f172a; color: #fff; font-weight: 600; transition: background .2s; }
+    .btn-dark:hover { background: #1e293b; }
+    #drawer { transform: translateX(100%); transition: transform .3s; }
+    #drawer.open { transform: none; }
+    dialog { border-radius: 1rem; padding: 0; max-width: 56rem; width: calc(100% - 2rem); color: #0f172a; }
+    dialog::backdrop { background: rgba(15, 23, 42, .6); }
+    input, select { background: #fff; border-color: #cbd5e1; color: #0f172a; }
+  </style>
+</head>
+<body>
+<div class="demo-banner px-4 py-2 flex justify-between items-center">
+  <span class="text-slate-400">Demo de ejemplo · Diseño por Guillermo Gómez</span>
+  <a href="../index.html#demos" class="text-cyan-400 hover:underline">← Volver al portfolio</a>
+</div>
+
+<header class="bg-white border-b border-slate-200 sticky top-0 z-40">
+  <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="#" class="font-extrabold text-xl tracking-tight">ALICANTE <span class="text-sky-600">URBAN</span> STORE</a>
+    <button id="open-cart" class="relative btn-dark rounded-lg px-4 py-2 text-sm" aria-label="Abrir carrito">🛒 Carrito <span id="count" class="ml-1 bg-sky-500 text-white rounded-full px-2 text-xs">0</span></button>
+  </div>
+</header>
+
+<section class="relative">
+  <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=70" alt="Interior de la tienda" class="w-full h-72 sm:h-96 object-cover" width="1600" height="700" fetchpriority="high">
+  <div class="absolute inset-0 bg-slate-900/60 flex items-center">
+    <div class="max-w-6xl mx-auto px-4 text-white">
+      <h1 class="text-4xl sm:text-5xl font-extrabold">Moda y accesorios con<br>sabor mediterráneo</h1>
+      <p class="mt-3 text-slate-200">Envío gratis en Alicante capital a partir de 50 €.</p>
+      <a href="#catalogo" class="mt-5 inline-block bg-white text-slate-900 font-semibold rounded-lg px-6 py-3">Ver catálogo</a>
+    </div>
+  </div>
+</section>
+
+<main id="catalogo" class="max-w-6xl mx-auto px-4 py-12">
+  <div class="flex flex-wrap items-center justify-between gap-4">
+    <div id="chips" class="flex flex-wrap gap-2"></div>
+    <label class="text-sm flex items-center gap-2">Ordenar:
+      <select id="sort" class="!w-auto !py-1.5"><option value="">Destacados</option><option value="asc">Precio ↑</option><option value="desc">Precio ↓</option></select></label>
+  </div>
+  <div id="grid" class="mt-8 grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"></div>
+</main>
+
+<dialog id="quick" aria-label="Vista rápida del producto"></dialog>
+
+<aside id="drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 flex flex-col" aria-label="Carrito de la compra">
+  <div class="p-5 border-b flex justify-between items-center"><h2 class="text-xl font-bold">Tu carrito</h2><button id="close-cart" class="text-2xl leading-none" aria-label="Cerrar carrito">×</button></div>
+  <div id="items" class="flex-1 overflow-y-auto p-5 space-y-4"></div>
+  <div class="p-5 border-t space-y-3">
+    <div class="flex justify-between text-sm text-slate-500"><span>Envío</span><span id="ship">—</span></div>
+    <div class="flex justify-between text-lg font-bold"><span>Total</span><span id="total">0,00 €</span></div>
+    <button id="checkout" class="btn-dark rounded-lg w-full py-3">Finalizar compra</button>
+    <button id="clear" class="text-sm text-slate-500 underline w-full">Vaciar carrito</button>
+  </div>
+</aside>
+<div id="overlay" class="hidden fixed inset-0 bg-slate-900/50 z-40"></div>
+
+<footer class="border-t border-slate-200 py-8 text-center text-sm text-slate-500">
+  Alicante Urban Store · Demo ficticia creada por <a class="text-sky-600" href="../index.html">Guillermo Gómez</a>
+</footer>
+
+<script src="../js/main.js"></script>
+<script>
+const PRODUCTS = [
+  { id: 1, n: 'Zapatillas Urban Runner', c: 'Calzado', p: 89.9, i: '1542291026-7eec264c27ff', d: 'Amortiguación ligera y suela de alto agarre para el día a día.' },
+  { id: 2, n: 'Sneakers Mediterráneo', c: 'Calzado', p: 74.5, i: '1491553895911-0055eca6402d', d: 'Estilo casual en piel vegana, cómodas desde el primer uso.' },
+  { id: 3, n: 'Camiseta Básica Algodón', c: 'Ropa', p: 19.9, i: '1521572163474-6864f9cf17ab', d: '100% algodón orgánico, corte regular.' },
+  { id: 4, n: 'Chaqueta Casual Costa', c: 'Ropa', p: 69, i: '1523381210434-271e8be1f52b', d: 'Ligera y transpirable, ideal para las noches de verano.' },
+  { id: 5, n: 'Mochila Urban 20L', c: 'Accesorios', p: 49.9, i: '1553062407-98eeb64c6a62', d: 'Compartimento para portátil de 15" y tejido resistente al agua.' },
+  { id: 6, n: 'Bolso Tote Lino', c: 'Accesorios', p: 34, i: '1548036328-c9fa89d128fa', d: 'Hecho con lino natural, interior forrado con bolsillo.' },
+  { id: 7, n: 'Gafas de sol Playa', c: 'Accesorios', p: 39.9, i: '1572635196237-14b3f281503f', d: 'Protección UV400 y montura ligera.' },
+  { id: 8, n: 'Auriculares Sound Pro', c: 'Tecnología', p: 99, i: '1505740420928-5e560c06d30e', d: 'Cancelación de ruido y 30 h de batería.' },
+  { id: 9, n: 'Reloj Minimal Steel', c: 'Tecnología', p: 129, i: '1523275335684-37898b6baf30', d: 'Acero inoxidable, resistente al agua 5 ATM.' }
+];
+const CATS = ['Todos', ...new Set(PRODUCTS.map(p => p.c))];
+const img = (p, w) => `https://images.unsplash.com/photo-${p.i}?auto=format&fit=crop&w=${w}&h=${w}&q=70`;
+let cat = 'Todos', cart = [];
+try { cart = JSON.parse(localStorage.getItem('aus-cart')) || []; } catch (e) {}
+const $ = id => document.getElementById(id);
+
+function renderGrid() {
+  let list = PRODUCTS.filter(p => cat === 'Todos' || p.c === cat);
+  const s = $('sort').value;
+  if (s) list = [...list].sort((a, b) => s === 'asc' ? a.p - b.p : b.p - a.p);
+  $('grid').innerHTML = list.map(p => `
+    <article class="card overflow-hidden flex flex-col">
+      <button data-quick="${p.id}" class="block text-left" aria-label="Vista rápida de ${p.n}"><img src="${img(p, 500)}" alt="${p.n}" width="500" height="500" loading="lazy" class="aspect-square object-cover w-full"></button>
+      <div class="p-4 flex flex-col flex-1"><p class="text-xs text-slate-500">${p.c}</p><h3 class="font-semibold">${p.n}</h3>
+        <p class="font-bold mt-1">${Demo.eur(p.p)}</p>
+        <div class="mt-auto pt-3 flex gap-2"><button data-add="${p.id}" class="btn-dark rounded-lg flex-1 py-2 text-sm">Añadir</button><button data-quick="${p.id}" class="chip !rounded-lg text-sm">Vista rápida</button></div></div>
+    </article>`).join('');
+}
+$('chips').innerHTML = CATS.map(c => `<button class="chip ${c === cat ? 'active' : ''}" data-c="${c}">${c}</button>`).join('');
+$('chips').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  cat = b.dataset.c;
+  document.querySelectorAll('#chips .chip').forEach(x => x.classList.toggle('active', x === b));
+  renderGrid();
+});
+$('sort').addEventListener('change', renderGrid);
+
+function save() { try { localStorage.setItem('aus-cart', JSON.stringify(cart)); } catch (e) {} }
+function add(id) {
+  const it = cart.find(x => x.id === id);
+  it ? it.q++ : cart.push({ id, q: 1 });
+  save(); renderCart();
+  Demo.toast(PRODUCTS.find(p => p.id === id).n + ' añadido al carrito');
+}
+function change(id, d) {
+  const it = cart.find(x => x.id === id); if (!it) return;
+  it.q += d;
+  if (it.q <= 0) cart = cart.filter(x => x.id !== id);
+  save(); renderCart();
+}
+function renderCart() {
+  const n = cart.reduce((a, x) => a + x.q, 0);
+  $('count').textContent = n;
+  if (!cart.length) {
+    $('items').innerHTML = '<p class="text-slate-500 text-center mt-10">Tu carrito está vacío.</p>';
+  } else {
+    $('items').innerHTML = cart.map(x => {
+      const p = PRODUCTS.find(y => y.id === x.id);
+      return `<div class="flex gap-3 items-center"><img src="${img(p, 120)}" alt="" width="64" height="64" class="w-16 h-16 rounded-lg object-cover">
+        <div class="flex-1"><p class="font-medium text-sm">${p.n}</p><p class="text-sm text-slate-500">${Demo.eur(p.p)}</p>
+        <div class="mt-1 flex items-center gap-2"><button data-dec="${p.id}" class="chip !px-2 !py-0" aria-label="Quitar uno">−</button><span>${x.q}</span><button data-inc="${p.id}" class="chip !px-2 !py-0" aria-label="Añadir uno">+</button></div></div>
+        <button data-rm="${p.id}" class="text-slate-400 hover:text-red-500" aria-label="Eliminar ${p.n}">🗑</button></div>`;
+    }).join('');
+  }
+  const sub = cart.reduce((a, x) => a + x.q * PRODUCTS.find(y => y.id === x.id).p, 0);
+  const ship = sub === 0 ? 0 : sub >= 50 ? 0 : 4.95;
+  $('ship').textContent = sub === 0 ? '—' : ship === 0 ? 'Gratis' : Demo.eur(ship);
+  $('total').textContent = Demo.eur(sub + ship);
+  $('checkout').disabled = !cart.length;
+  $('checkout').classList.toggle('opacity-50', !cart.length);
+}
+function toggleCart(open) {
+  $('drawer').classList.toggle('open', open);
+  $('overlay').classList.toggle('hidden', !open);
+}
+$('open-cart').onclick = () => toggleCart(true);
+$('close-cart').onclick = $('overlay').onclick = () => toggleCart(false);
+$('clear').onclick = () => { cart = []; save(); renderCart(); };
+$('checkout').onclick = () => {
+  const total = $('total').textContent;
+  cart = []; save(); renderCart(); toggleCart(false);
+  Demo.toast(`✅ Compra simulada por ${total}. ¡Gracias! (demo)`);
+};
+$('items').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.inc) change(+b.dataset.inc, 1);
+  if (b.dataset.dec) change(+b.dataset.dec, -1);
+  if (b.dataset.rm) { cart = cart.filter(x => x.id !== +b.dataset.rm); save(); renderCart(); }
+});
+$('grid').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.add) add(+b.dataset.add);
+  if (b.dataset.quick) {
+    const p = PRODUCTS.find(x => x.id === +b.dataset.quick);
+    $('quick').innerHTML = `<div class="grid sm:grid-cols-2"><img src="${img(p, 700)}" alt="${p.n}" class="w-full h-full object-cover aspect-square">
+      <div class="p-6 flex flex-col"><button id="qclose" class="self-end text-2xl leading-none" aria-label="Cerrar">×</button>
+      <p class="text-sm text-slate-500">${p.c}</p><h2 class="text-2xl font-bold">${p.n}</h2><p class="text-2xl font-bold mt-2">${Demo.eur(p.p)}</p>
+      <p class="mt-3 text-slate-600">${p.d}</p><p class="mt-3 text-sm text-emerald-600">✓ En stock · Envío en 24-48 h</p>
+      <button id="qadd" class="btn-dark rounded-lg py-3 mt-auto">Añadir al carrito</button></div></div>`;
+    $('quick').showModal();
+    $('qclose').onclick = () => $('quick').close();
+    $('qadd').onclick = () => { add(p.id); $('quick').close(); };
+  }
+});
+$('quick').addEventListener('click', e => { if (e.target === $('quick')) $('quick').close(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') toggleCart(false); });
+renderGrid(); renderCart();
+</script>
+</body>
+</html>
