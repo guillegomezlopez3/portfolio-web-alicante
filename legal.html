@@ -6,28 +6,56 @@
   <title>Aviso legal, privacidad y cookies | Guillermo Gómez</title>
   <meta name="description" content="Aviso legal, política de privacidad y política de cookies de la web de Guillermo Gómez López.">
   <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#eeebe2">
+  <link rel="canonical" href="https://guillegomezlopez3.github.io/portfolio-web-alicante/legal.html">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta property="og:title" content="Aviso legal, privacidad y cookies | Guillermo Gómez">
+  <meta property="og:description" content="Aviso legal, política de privacidad y política de cookies de la web de Guillermo Gómez López.">
+  <meta property="og:url" content="https://guillegomezlopez3.github.io/portfolio-web-alicante/legal.html">
+  <meta property="og:locale" content="es_ES">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js')</script>
   <link rel="stylesheet" href="css/styles.css">
+  
 </head>
 <body>
-<main class="max-w-3xl mx-auto px-4 py-14 text-slate-300 space-y-4">
-  <a href="index.html" class="text-cyan-400">← Volver al inicio</a>
-  <h1 class="text-3xl font-bold text-white">Aviso legal, privacidad y cookies</h1>
-
-  <h2 id="aviso" class="text-2xl font-bold text-white pt-6">Aviso legal</h2>
+<header class="top">
+  <a href="index.html#inicio" class="brand">Guillermo Gómez <small>Dev · Alicante</small></a>
+  <nav class="nav mono" aria-label="Principal">
+    <a href="index.html#servicios"><sup>01</sup>Servicios</a><a href="index.html#demos"><sup>02</sup>Demos</a><a href="index.html#sobre-mi"><sup>03</sup>Sobre mí</a><a href="index.html#faq"><sup>04</sup>FAQ</a><a href="index.html#contacto"><sup>05</sup>Contacto</a>
+  </nav>
+  <div class="top-r"><span class="mono" id="clock" aria-label="Hora en Alicante">--:--:--</span><a class="pill mono" href="index.html#contacto">Escríbeme ↗</a><button class="pill mono menu-btn" id="menu-btn" aria-expanded="false" aria-controls="sheet">Menú</button></div>
+</header>
+<div class="sheet" id="sheet" aria-hidden="true"><nav aria-label="Menú móvil">
+  <a href="index.html#servicios"><sup>01</sup>Servicios</a><a href="index.html#demos"><sup>02</sup>Demos</a><a href="index.html#sobre-mi"><sup>03</sup>Sobre mí</a><a href="index.html#faq"><sup>04</sup>FAQ</a><a href="index.html#contacto"><sup>05</sup>Contacto</a></nav>
+  <p class="mono">+34 620 477 443 · Alicante</p></div>
+<main>
+<section class="page-h">
+  <p class="crumb mono"><a href="index.html">Inicio</a> / Legal</p>
+  <h1 class="h1" style="margin-top:1.4rem;font-size:clamp(2.4rem,7vw,7.4rem)"><span class="ln"><span>Aviso legal,</span></span><span class="ln"><span><em>privacidad</em> y cookies.</span></span></h1>
+</section>
+<section class="sec prose" style="padding-top:1rem">
+  <h2 id="aviso">Aviso legal</h2>
   <p>En cumplimiento de la Ley 34/2002 (LSSI-CE), se informa de que el titular de este sitio web es Guillermo Gómez López, con domicilio en Alicante (España). NIF: <strong>[pendiente de completar por el titular]</strong>. Teléfono: +34 620 477 443.</p>
   <p>Los contenidos de este sitio tienen carácter informativo. Las demos (restaurante, tienda, clínica, barbería y taller) son ejemplos ficticios: los negocios, direcciones, precios y reseñas que aparecen no son reales y las reservas, citas y compras son simulaciones que no envían ningún dato.</p>
-
-  <h2 id="privacidad" class="text-2xl font-bold text-white pt-6">Política de privacidad</h2>
+  <h2 id="privacidad">Política de privacidad</h2>
   <p><strong>Responsable:</strong> Guillermo Gómez López. <strong>Finalidad:</strong> atender las consultas y solicitudes de presupuesto. <strong>Base jurídica:</strong> consentimiento del interesado (art. 6.1.a RGPD).</p>
-  <p>El formulario de contacto no almacena datos en ningún servidor: al enviarlo se abre WhatsApp con el mensaje preparado, y los datos pasan a regirse por la política de WhatsApp. Si me escribes por email o WhatsApp, conservaré tus datos mientras dure la relación o la consulta.</p>
+  <p>El formulario de proyecto no almacena datos en ningún servidor: al enviarlo se abre WhatsApp con el mensaje preparado, y los datos pasan a regirse por la política de WhatsApp. Si me escribes por email o WhatsApp, conservaré tus datos mientras dure la relación o la consulta.</p>
   <p>No cedo datos a terceros salvo obligación legal. Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo por WhatsApp al +34 620 477 443, y reclamar ante la Agencia Española de Protección de Datos (aepd.es).</p>
-
-  <h2 id="cookies" class="text-2xl font-bold text-white pt-6">Política de cookies</h2>
-  <p>Este sitio no utiliza cookies propias, ni de analítica ni de publicidad. La demo de tienda guarda el contenido del carrito en el almacenamiento local de tu navegador (<code>localStorage</code>) únicamente para su funcionamiento, y no se envía a ningún servidor.</p>
-  <p>Para cargar recursos, el sitio se sirve desde GitHub Pages y utiliza Google Fonts, Tailwind CSS (CDN) e imágenes de Unsplash, cuyos proveedores pueden registrar datos técnicos como tu dirección IP al servir estos archivos. Puedes configurar tu navegador para bloquear o eliminar cookies y almacenamiento local en cualquier momento.</p>
+  <h2 id="cookies">Política de cookies</h2>
+  <p>Este sitio no utiliza cookies propias, ni de analítica ni de publicidad. Las demos guardan datos de uso (por ejemplo el carrito o una reserva simulada) en el almacenamiento local de tu navegador (<code>localStorage</code>) únicamente para su funcionamiento, y no se envían a ningún servidor.</p>
+  <p>Para cargar recursos, el sitio se sirve desde GitHub Pages y utiliza Google Fonts e imágenes de Unsplash, cuyos proveedores pueden registrar datos técnicos como tu dirección IP al servir estos archivos. Puedes configurar tu navegador para bloquear o eliminar cookies y almacenamiento local en cualquier momento.</p>
+</section>
 </main>
+<footer class="foot">
+  <div class="foot-g">
+    <div><h4 class="mono">Contacto</h4><ul><li><a href="tel:+34620477443">+34 620 477 443</a></li><li><a href="index.html#contacto">Formulario de proyecto</a></li><li>Alicante, España</li></ul></div>
+    <div><h4 class="mono">Diseño web en</h4><ul><li><a href="alicante.html">Alicante</a></li><li><a href="elche.html">Elche</a></li><li><a href="san-vicente-del-raspeig.html">San Vicente del Raspeig</a></li><li><a href="playa-de-san-juan.html">Playa de San Juan</a></li><li><a href="benidorm.html">Benidorm</a></li><li><a href="index.html">Inicio</a></li></ul></div>
+    <div><h4 class="mono">Demos</h4><ul><li><a href="demos/restaurante.html">Restaurante</a></li><li><a href="demos/tienda.html">Tienda online</a></li><li><a href="demos/clinica.html">Clínica</a></li><li><a href="demos/barberia.html">Barbería</a></li><li><a href="demos/taller.html">Taller</a></li></ul></div>
+  </div>
+  <div class="foot-end mono"><span>© Guillermo Gómez López</span><a href="legal.html">Aviso legal, privacidad y cookies</a></div>
+</footer>
+<script src="js/main.js"></script>
 </body>
 </html>

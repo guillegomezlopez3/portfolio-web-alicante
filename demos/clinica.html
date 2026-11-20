@@ -4,281 +4,136 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Clínica Bienestar Alicante – Demo | Guillermo Gómez</title>
-  <meta name="description" content="Demo de web para clínica: cita previa, área de paciente, test de orientación, tarifas, seguros, blog de salud y teleconsulta. Alicante.">
+  <meta name="description" content="Demo de web para clínica: cita previa, área de paciente, test de orientación, tarifas, seguros, consejos de salud y teleconsulta. Alicante.">
   <meta name="robots" content="index, follow">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="../css/styles.css">
-  <style>
-    body { background: #f0fdfa; color: #134e4a; }
-    .card { background: #fff; border-color: #ccfbf1; }
-    .card:hover { border-color: #14b8a6; }
-    input, select, textarea { background: #fff; border-color: #99f6e4; color: #134e4a; }
-    .btn-teal { background: #0d9488; color: #fff; font-weight: 600; transition: background .2s, transform .2s; }
-    .btn-teal:hover { background: #0f766e; transform: translateY(-2px); }
-    .opt { border: 1px solid #99f6e4; background: #fff; border-radius: .6rem; padding: .55rem .9rem; transition: all .2s; }
-    .opt:hover:not(:disabled), .opt.sel { background: #0d9488; color: #fff; border-color: #0d9488; }
-    .opt:disabled { opacity: .35; text-decoration: line-through; cursor: not-allowed; }
-    dialog { border-radius: 1rem; padding: 0; max-width: 40rem; width: calc(100% - 2rem); color: #134e4a; }
-    dialog::backdrop { background: rgba(19, 78, 74, .6); }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&family=Figtree:wght@400..700&family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/demo-base.css">
+  <link rel="stylesheet" href="../css/demo-clinica.css">
 </head>
 <body>
-<div class="demo-banner px-4 py-2 flex justify-between items-center">
-  <span class="text-slate-400">Demo de ejemplo · Diseño por Guillermo Gómez</span>
-  <a href="../index.html#demos" class="text-cyan-400 hover:underline">← Volver al portfolio</a>
-</div>
-<div class="bg-rose-600 text-white text-sm text-center py-2 px-4">🚑 Urgencias dentales y fisioterapia: <strong>965 00 00 00</strong> · Atención el mismo día</div>
+<div class="demo-bar"><span>Demo de ejemplo · Diseño por Guillermo Gómez</span><a href="../index.html#demos">← Volver al portfolio</a></div>
+<div class="urg">Urgencias dentales y de fisioterapia: <b>965 00 00 00</b> · Atención el mismo día</div>
 
-<header class="bg-white/90 backdrop-blur border-b border-teal-100 sticky top-0 z-40">
-  <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-    <a href="#" class="font-bold text-xl text-teal-700">🌿 Clínica Bienestar</a>
-    <nav class="hidden lg:flex gap-5 text-sm" aria-label="Principal"><a href="#servicios" class="hover:text-teal-600">Servicios</a><a href="#orientacion" class="hover:text-teal-600">Test</a><a href="#tarifas" class="hover:text-teal-600">Tarifas</a><a href="#equipo" class="hover:text-teal-600">Equipo</a><a href="#blog" class="hover:text-teal-600">Consejos</a><a href="#opiniones" class="hover:text-teal-600">Opiniones</a><a href="#faq" class="hover:text-teal-600">FAQ</a></nav>
-    <div class="flex gap-2"><button id="open-pat" class="opt text-sm">👤 Área paciente</button><a href="#cita" class="btn-teal rounded-lg px-4 py-2 text-sm">Pedir cita</a></div>
-  </div>
+<header class="hd">
+  <a href="#" class="logo"><i></i>bienestar</a>
+  <nav aria-label="Principal"><a href="#servicios">Servicios</a><a href="#orientacion">Test</a><a href="#tarifas">Tarifas</a><a href="#equipo">Equipo</a><a href="#blog">Consejos</a><a href="#opiniones">Opiniones</a></nav>
+  <div class="hd-r"><button class="lnk" id="open-pat">Área de paciente</button><a class="arr" href="#cita">Pedir cita</a></div>
 </header>
 
-<section class="max-w-6xl mx-auto px-4 py-14 grid lg:grid-cols-2 gap-10 items-center">
+<section class="hero">
   <div>
-    <p class="text-teal-600 font-semibold text-sm">Fisioterapia · Estética · Dental — Alicante</p>
-    <h1 class="text-4xl sm:text-5xl font-extrabold mt-2 leading-tight">Cuidamos de ti con un trato cercano y profesional</h1>
-    <p class="mt-4 text-teal-800/80">Más de 15 años ayudando a las familias de Alicante a sentirse mejor. Primera valoración sin coste.</p>
-    <div class="mt-6 flex gap-3 flex-wrap"><a href="#cita" class="btn-teal rounded-lg px-6 py-3">Reservar cita</a><a href="#orientacion" class="rounded-lg px-6 py-3 border border-teal-300 bg-white">¿Qué necesito? Haz el test</a></div>
-    <p id="status" class="mt-4 text-sm"></p>
+    <p class="eyebrow">Fisioterapia · Dental · Estética — Alicante</p>
+    <h1>Cuerpo, sonrisa y piel, <em>con calma.</em></h1>
+    <p class="lead">Más de 15 años cuidando de las familias de Alicante con un trato cercano. Primera valoración sin coste.</p>
+    <div class="cta"><a class="arr l" href="#cita">Reservar cita</a><a class="lnk" href="#orientacion">¿Qué necesito? Haz el test</a></div>
+    <p class="status" id="status"></p>
   </div>
-  <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=900&q=70" alt="Sala de la clínica" width="900" height="620" class="rounded-2xl shadow-xl object-cover aspect-[3/2]" fetchpriority="high">
-</section>
-
-<section class="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-  <div class="card p-5"><p class="text-3xl font-extrabold text-teal-600" data-count="15">0</p><p class="text-sm">años de experiencia</p></div>
-  <div class="card p-5"><p class="text-3xl font-extrabold text-teal-600" data-count="8500">0</p><p class="text-sm">pacientes atendidos</p></div>
-  <div class="card p-5"><p class="text-3xl font-extrabold text-teal-600" data-count="12">0</p><p class="text-sm">profesionales</p></div>
-  <div class="card p-5"><p class="text-3xl font-extrabold text-teal-600" data-count="98">0</p><p class="text-sm">% de satisfacción</p></div>
-</section>
-
-<section id="servicios" class="max-w-6xl mx-auto px-4 py-14">
-  <h2 class="text-3xl font-bold">Nuestros servicios</h2>
-  <div class="mt-4 flex flex-wrap gap-2" id="svc-filter"></div>
-  <div id="services" class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
-</section>
-
-<section id="orientacion" class="max-w-3xl mx-auto px-4 py-14">
-  <div class="card p-6 sm:p-8">
-    <h2 class="text-3xl font-bold">Test de orientación</h2>
-    <p class="text-sm text-teal-700/70 mt-1">Responde 3 preguntas y te recomendamos un servicio (orientativo, no es diagnóstico).</p>
-    <div id="quiz" class="mt-5" aria-live="polite"></div>
+  <div class="vis">
+    <svg class="rings" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46"/><circle cx="50" cy="50" r="40"/><circle cx="50" cy="50" r="34"/><circle cx="50" cy="50" r="28"/></svg>
+    <div class="blob"><img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=900&h=950&q=70" alt="Sala de la clínica" width="900" height="950" fetchpriority="high"></div>
+    <div class="dot"><img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=400&h=400&q=70" alt="Tratamiento de masaje" width="400" height="400"></div>
+    <p class="breath" aria-hidden="true"><span>Inspira…</span><span>Espira…</span></p>
   </div>
 </section>
 
-<section id="tarifas" class="max-w-6xl mx-auto px-4 py-14">
-  <h2 class="text-3xl font-bold">Tarifas y seguros</h2>
-  <div class="mt-6 grid lg:grid-cols-2 gap-6">
-    <div class="card p-6 overflow-x-auto"><table class="w-full text-sm"><thead><tr class="text-left text-teal-700"><th class="pb-2">Servicio</th><th class="pb-2">Duración</th><th class="pb-2 text-right">Precio</th></tr></thead><tbody id="rates" class="divide-y divide-teal-100"></tbody></table></div>
-    <div class="card p-6"><h3 class="font-bold text-xl">Aseguradoras con convenio</h3>
-      <div class="mt-3 flex flex-wrap gap-2 text-sm"><span class="opt">Sanitas</span><span class="opt">Adeslas</span><span class="opt">Asisa</span><span class="opt">DKV</span><span class="opt">Mapfre</span><span class="opt">AXA</span></div>
-      <h3 class="font-bold text-xl mt-6">Calculadora de financiación</h3>
-      <label for="fin-amt" class="text-sm">Importe del tratamiento: <strong id="fin-l">600 €</strong></label>
-      <input id="fin-amt" type="range" min="100" max="3000" step="50" value="600" class="!p-0" aria-label="Importe">
-      <div class="mt-2 flex gap-2" id="fin-m"></div>
-      <p class="mt-3 text-sm">Cuota aproximada: <strong id="fin-q" class="text-teal-700 text-xl"></strong> <span class="text-xs opacity-70">(0% de interés, simulación)</span></p></div>
+<section class="nums" aria-label="La clínica en cifras">
+  <div><b data-count="15">0</b><span>años de experiencia</span></div>
+  <div><b data-count="8500">0</b><span>pacientes atendidos</span></div>
+  <div><b data-count="12">0</b><span>profesionales</span></div>
+  <div><b data-count="98">0</b><span>% de satisfacción</span></div>
+</section>
+
+<section class="sec mist" id="servicios">
+  <h2 class="h2 rv"><small>Servicios</small>Lo que hacemos <em>por ti</em></h2>
+  <div class="svc">
+    <div><div class="tabs" id="svc-filter" role="tablist" aria-label="Especialidad"></div><ul class="sl" id="svc-list"></ul></div>
+    <article class="det" id="svc-detail" aria-live="polite"></article>
   </div>
 </section>
 
-<section id="equipo" class="max-w-6xl mx-auto px-4 py-14">
-  <h2 class="text-3xl font-bold">Nuestro equipo</h2>
-  <div id="team" class="mt-8 grid sm:grid-cols-3 gap-6"></div>
+<section class="sec test" id="orientacion">
+  <h2 class="h2 rv"><small>Test de orientación</small>Tres preguntas, <em style="color:var(--sage)">una pista</em></h2>
+  <div class="q-w" id="quiz" aria-live="polite"></div>
 </section>
 
-<section id="cita" class="max-w-3xl mx-auto px-4 py-14">
-  <div class="card p-6 sm:p-8">
-    <h2 class="text-3xl font-bold">Pide tu cita previa</h2>
-    <p class="text-sm text-teal-700/70 mt-1">Simulador interactivo · no se envía ningún dato real.</p>
-    <form id="appt" class="mt-6 space-y-6">
-      <fieldset><legend class="font-semibold mb-2">1. Elige servicio</legend><div id="svc-opts" class="flex flex-wrap gap-2"></div></fieldset>
-      <fieldset><legend class="font-semibold mb-2">2. Modalidad</legend><div id="mode-opts" class="flex flex-wrap gap-2"></div></fieldset>
-      <fieldset><legend class="font-semibold mb-2">3. Profesional</legend><div id="pro-opts" class="flex flex-wrap gap-2"></div></fieldset>
-      <fieldset><legend class="font-semibold mb-2">4. Día</legend><div id="day-opts" class="flex flex-wrap gap-2"></div></fieldset>
-      <fieldset><legend class="font-semibold mb-2">5. Hora</legend><div id="hour-opts" class="flex flex-wrap gap-2"></div></fieldset>
-      <div class="grid sm:grid-cols-2 gap-4">
-        <div><label for="pname" class="text-sm">Nombre completo</label><input id="pname" required autocomplete="name"></div>
-        <div><label for="pphone" class="text-sm">Teléfono</label><input id="pphone" type="tel" required autocomplete="tel"></div>
-        <div><label for="pins" class="text-sm">Aseguradora</label><select id="pins"><option>Particular</option><option>Sanitas</option><option>Adeslas</option><option>Asisa</option><option>DKV</option><option>Mapfre</option><option>AXA</option></select></div>
-        <div><label for="pnote" class="text-sm">Motivo de consulta (opcional)</label><input id="pnote"></div>
-      </div>
-      <label class="flex gap-2 text-sm"><input type="checkbox" required class="!w-auto"> Acepto la política de privacidad y recibir un recordatorio por SMS.</label>
-      <div id="summary" class="rounded-lg bg-teal-50 p-4 text-sm" aria-live="polite">Selecciona servicio, modalidad, profesional, día y hora.</div>
-      <button class="btn-teal rounded-lg px-6 py-3 w-full" type="submit">Confirmar cita</button>
-    </form>
-    <div id="done" class="hidden text-center py-8" role="status">
-      <div class="text-5xl">🎉</div><h3 class="text-2xl font-bold mt-3">¡Cita confirmada!</h3>
-      <p id="done-text" class="mt-2"></p>
-      <button id="again" class="mt-6 rounded-lg px-5 py-2 border border-teal-300">Pedir otra cita</button>
+<section class="sec" id="tarifas">
+  <h2 class="h2 rv"><small>Tarifas y seguros</small>Precios <em>claros</em>, sin sorpresas</h2>
+  <div class="tar">
+    <table class="rt"><thead><tr><th>Servicio</th><th>Duración</th><th>Precio</th></tr></thead><tbody id="rates"></tbody></table>
+    <div>
+      <h3 class="eyebrow">Aseguradoras con convenio</h3>
+      <p class="ins"><span>Sanitas</span><span>Adeslas</span><span>Asisa</span><span>DKV</span><span>Mapfre</span><span>AXA</span></p>
+      <div class="fin"><h3 class="eyebrow">Financia tu tratamiento</h3>
+        <p class="out" id="fin-q"></p>
+        <label for="fin-amt">Importe: <b id="fin-l">600 €</b></label><input id="fin-amt" type="range" min="100" max="3000" step="50" value="600">
+        <div class="mm" id="fin-m"></div><p style="font-size:.8rem;opacity:.55;margin-top:1rem">Simulación a 0 % de interés. No es una oferta vinculante.</p></div>
     </div>
   </div>
 </section>
 
-<section id="blog" class="max-w-6xl mx-auto px-4 py-14">
-  <h2 class="text-3xl font-bold">Consejos de salud</h2>
-  <div id="posts" class="mt-6 grid md:grid-cols-3 gap-5"></div>
+<section class="sec mist" id="equipo">
+  <h2 class="h2 rv"><small>Equipo</small>Las personas <em>que te cuidan</em></h2>
+  <div class="team" id="team"></div>
 </section>
 
-<section id="opiniones" class="max-w-6xl mx-auto px-4 py-14">
-  <h2 class="text-3xl font-bold">Lo que dicen nuestros pacientes</h2>
-  <p class="text-teal-700 mt-1">⭐ 4,9 / 5 · +230 opiniones</p>
-  <div id="reviews" class="mt-8 grid md:grid-cols-3 gap-5"></div>
-  <form id="rev-form" class="card p-5 mt-6 grid sm:grid-cols-4 gap-3 items-end">
-    <div><label for="rv-n" class="text-sm">Nombre</label><input id="rv-n" required></div>
-    <div><label for="rv-s" class="text-sm">Valoración</label><select id="rv-s"><option value="5">★★★★★</option><option value="4">★★★★☆</option></select></div>
-    <div class="sm:col-span-2"><label for="rv-t" class="text-sm">Tu opinión</label><input id="rv-t" required></div>
-    <button class="btn-teal rounded-lg py-3 sm:col-span-4">Publicar opinión</button>
-  </form>
-</section>
-
-<section id="faq" class="max-w-6xl mx-auto px-4 py-14 grid md:grid-cols-2 gap-8">
-  <div><h2 class="text-3xl font-bold">Preguntas frecuentes</h2><div id="faqs" class="mt-5 space-y-3"></div></div>
-  <div class="space-y-6">
-    <div class="card p-6"><h2 class="text-2xl font-bold">Horarios y contacto</h2>
-      <table class="mt-3 w-full text-sm"><tbody class="divide-y divide-teal-100"><tr><td class="py-1.5">Lunes – Viernes</td><td class="text-right">9:00–14:00 · 16:00–20:00</td></tr><tr><td class="py-1.5">Sábado</td><td class="text-right">9:00–13:00</td></tr><tr><td class="py-1.5">Domingo</td><td class="text-right">Cerrado</td></tr></tbody></table>
-      <p class="text-sm mt-3">📍 Av. de la Constitución, 5 · 03002 Alicante<br>📞 965 00 00 00</p>
-      <iframe title="Mapa" loading="lazy" class="mt-3 w-full h-40 rounded-lg border-0" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.4950%2C38.3380%2C-0.4660%2C38.3520&layer=mapnik"></iframe></div>
-    <div class="card p-6"><h2 class="text-xl font-bold">Boletín de salud</h2><form id="news" class="mt-3 flex gap-2"><input type="email" required placeholder="tu@email.com" aria-label="Email"><button class="btn-teal rounded-lg px-4">Suscribirme</button></form></div>
+<section class="sec cita" id="cita">
+  <div>
+    <h2 class="h2 rv"><small>Cita previa</small>Reserva <em>en cinco pasos</em></h2>
+    <p style="margin-top:1.2rem;max-width:36ch;opacity:.75">Simulador interactivo: no se envía ningún dato real. Los pasos se desbloquean según avanzas.</p>
+    <dl class="sum" id="sum"></dl>
+  </div>
+  <div>
+    <div id="steps"></div>
+    <form id="appt" class="st lock">
+      <span class="n">6</span>
+      <div><h3>Tus datos</h3>
+        <div class="fm">
+          <div><label for="pname">Nombre completo</label><input id="pname" required autocomplete="name"></div>
+          <div><label for="pphone">Teléfono</label><input id="pphone" type="tel" required autocomplete="tel"></div>
+          <div><label for="pins">Aseguradora</label><select id="pins"><option>Particular</option><option>Sanitas</option><option>Adeslas</option><option>Asisa</option><option>DKV</option><option>Mapfre</option><option>AXA</option></select></div>
+          <div><label for="pnote">Motivo (opcional)</label><input id="pnote"></div>
+          <label class="chk full"><input type="checkbox" required> Acepto la política de privacidad y recibir un recordatorio por SMS.</label>
+          <div class="full"><button class="btn w" type="submit">Confirmar cita</button></div>
+        </div></div>
+    </form>
+    <div class="ok" id="done" hidden role="status">
+      <svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="25"/><path d="M19 31l8 8 15-17"/></svg>
+      <h3>Cita confirmada</h3><p id="done-text"></p><button class="arr l" id="again">Pedir otra cita</button>
+    </div>
   </div>
 </section>
 
-<footer class="border-t border-teal-100 py-8 text-center text-sm text-teal-700/70">Clínica Bienestar Alicante · Demo ficticia creada por <a class="text-teal-700 underline" href="../index.html">Guillermo Gómez</a></footer>
+<section class="sec mist" id="blog">
+  <h2 class="h2 rv"><small>Consejos</small>Salud <em>en pequeñas dosis</em></h2>
+  <div class="posts" id="posts"></div>
+</section>
 
-<dialog id="post-d" aria-label="Artículo"></dialog>
-<dialog id="pat-d" aria-label="Área de paciente"></dialog>
+<section class="sec" id="opiniones">
+  <h2 class="h2 rv"><small>Opiniones</small>Lo que cuentan <em>nuestros pacientes</em></h2>
+  <p style="margin-top:.8rem;opacity:.7">4,9 de 5 · más de 230 opiniones</p>
+  <div class="revs" id="reviews"></div>
+  <form class="rf" id="rev-form"><div><label for="rv-n">Nombre</label><input id="rv-n" required></div><div><label for="rv-s">Valoración</label><select id="rv-s"><option value="5">★★★★★</option><option value="4">★★★★☆</option></select></div><div><label for="rv-t">Tu opinión</label><input id="rv-t" required></div><button class="btn">Publicar</button></form>
+</section>
 
-<script src="../js/main.js"></script>
-<script>
-const $ = id => document.getElementById(id);
-const store = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch (e) { return d; } };
-const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
-const SERVICES = [
-  { id: 's1', n: 'Fisioterapia', g: 'Fisio', ic: '💆', d: 'Rehabilitación, terapia manual y punción seca.', min: 45, pr: 40 },
-  { id: 's2', n: 'Limpieza dental', g: 'Dental', ic: '🦷', d: 'Higiene bucodental profesional y revisión.', min: 30, pr: 45 },
-  { id: 's3', n: 'Tratamiento facial', g: 'Estética', ic: '✨', d: 'Limpieza profunda, hidratación y antiedad.', min: 60, pr: 55 },
-  { id: 's4', n: 'Masaje relajante', g: 'Fisio', ic: '🌿', d: 'Descontractura y alivio del estrés.', min: 50, pr: 38 },
-  { id: 's5', n: 'Blanqueamiento dental', g: 'Dental', ic: '😁', d: 'Sonrisa más luminosa en una sola sesión.', min: 60, pr: 180 },
-  { id: 's6', n: 'Depilación láser', g: 'Estética', ic: '⚡', d: 'Tecnología diodo, resultados duraderos.', min: 40, pr: 35 },
-  { id: 's7', n: 'Ortodoncia invisible', g: 'Dental', ic: '😬', d: 'Alineadores transparentes, estudio gratuito.', min: 40, pr: 60 },
-  { id: 's8', n: 'Readaptación deportiva', g: 'Fisio', ic: '🏃', d: 'Recuperación de lesiones y vuelta al deporte.', min: 60, pr: 50 },
-  { id: 's9', n: 'Mesoterapia facial', g: 'Estética', ic: '💉', d: 'Revitalización con activos personalizados.', min: 45, pr: 90 }
-];
-const TEAM = [
-  { id: 'p1', n: 'Dra. Laura Martínez', r: 'Odontóloga', s: ['s2', 's5', 's7'], i: '1559757148-5c350d0d3c56', b: 'Colegiada nº 3.412. Especialista en ortodoncia y estética dental.' },
-  { id: 'p2', n: 'Carlos Vidal', r: 'Fisioterapeuta', s: ['s1', 's4', 's8'], i: '1612349317150-e413f6a5b16d', b: 'Máster en fisioterapia deportiva. Trabaja con equipos amateur de la provincia.' },
-  { id: 'p3', n: 'Marta Soler', r: 'Esteticista', s: ['s3', 's4', 's6', 's9'], i: '1582750433449-648ed127bb54', b: 'Experta en medicina estética no invasiva y cosmética avanzada.' }
-];
-const POSTS = [
-  { t: '5 ejercicios para aliviar la espalda en la oficina', c: 'Fisioterapia', x: 'Pasar horas sentado carga la zona lumbar. Haz una pausa cada 50 minutos: 1) estiramiento de cadera, 2) rotación torácica, 3) gato-camello, 4) elevación de talones, 5) caminata de 2 minutos. Si el dolor dura más de una semana, consulta con un fisioterapeuta.' },
-  { t: 'Cada cuánto debo hacerme una limpieza dental', c: 'Dental', x: 'En general, una limpieza profesional cada 6-12 meses ayuda a prevenir caries y encías inflamadas. Si tienes ortodoncia, implantes o tendencia al sarro, tu dentista puede recomendarte revisiones más frecuentes.' },
-  { t: 'Cuidar la piel en verano: lo que sí funciona', c: 'Estética', x: 'Protector solar SPF 30-50 cada 2 horas, limpieza suave por la noche, hidratación ligera y evitar tratamientos agresivos antes de tomar el sol. Pregunta siempre antes de láser o peelings en temporada alta.' }
-];
-const HOURS = ['09:00', '10:00', '11:00', '12:00', '16:00', '17:00', '18:00', '19:00'];
-const REV = [['María J., San Vicente', 5, 'Llegué con una lumbalgia horrible y en tres sesiones estaba otra persona. Muy atentos y profesionales.'], ['Antonio R., Alicante', 5, 'Instalaciones impecables y cero dolor en mi limpieza dental. Me explicaron todo con claridad.'], ['Laura P., Playa de San Juan', 5, 'El tratamiento facial superó mis expectativas. Pedir cita online es facilísimo.']];
+<section class="sec mist two" id="faq">
+  <div><h2 class="h2"><small>Dudas</small>Preguntas <em>frecuentes</em></h2><div id="faqs" style="margin-top:2rem"></div></div>
+  <div class="info">
+    <h3 class="eyebrow">Horarios y contacto</h3>
+    <div class="hrs"><div><span>Lunes a viernes</span><b>9:00–14:00 · 16:00–20:00</b></div><div><span>Sábado</span><b>9:00–13:00</b></div><div><span>Domingo</span><b>Cerrado</b></div></div>
+    <p>Av. de la Constitución, 5 · 03002 Alicante<br>Tel. 965 00 00 00</p>
+    <iframe title="Mapa de Alicante" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.4950%2C38.3380%2C-0.4660%2C38.3520&layer=mapnik"></iframe>
+    <div class="nl" style="margin-top:2.5rem"><h3 class="eyebrow">Boletín de salud</h3><form id="news"><label class="sr" for="n-mail">Email</label><input id="n-mail" type="email" required placeholder="tu@email.com"><button>Suscribirme</button></form></div>
+  </div>
+</section>
 
-// Contadores
-document.querySelectorAll('[data-count]').forEach(el => { const end = +el.dataset.count; let n = 0; const io = new IntersectionObserver(([e]) => { if (!e.isIntersecting) return; io.disconnect(); const t = setInterval(() => { n += Math.ceil(end / 40); if (n >= end) { n = end; clearInterval(t); } el.textContent = n.toLocaleString('es-ES'); }, 30); }); io.observe(el); });
-// Abierto ahora
-(function () { const d = new Date(), h = d.getHours() + d.getMinutes() / 60, w = d.getDay(); const open = (w >= 1 && w <= 5 && ((h >= 9 && h < 14) || (h >= 16 && h < 20))) || (w === 6 && h >= 9 && h < 13); $('status').innerHTML = open ? '<span class="text-emerald-600 font-semibold">● Abierto ahora</span>' : '<span class="text-rose-600 font-semibold">● Cerrado ahora</span> · Pide cita online 24 h'; })();
+<footer class="foot"><p class="foot-big" aria-hidden="true">bienestar</p><p>Clínica Bienestar Alicante · Demo ficticia creada por <a href="../index.html">Guillermo Gómez</a></p></footer>
 
-// Servicios con filtro
-let g = 'Todos';
-$('svc-filter').innerHTML = ['Todos', 'Fisio', 'Dental', 'Estética'].map(x => `<button class="opt ${x === g ? 'sel' : ''}" data-g="${x}">${x}</button>`).join('');
-function renderSvc() { $('services').innerHTML = SERVICES.filter(s => g === 'Todos' || s.g === g).map(s => `<article class="card p-6"><div class="text-3xl">${s.ic}</div><h3 class="font-bold text-lg mt-2">${s.n}</h3><p class="text-sm text-teal-800/70 mt-1">${s.d}</p><p class="text-sm mt-3 text-teal-700 font-semibold">Desde ${s.pr} € · ${s.min} min</p><a href="#cita" data-pick="${s.id}" class="mt-3 inline-block text-sm text-teal-600 underline">Pedir cita →</a></article>`).join(''); }
-$('svc-filter').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; g = b.dataset.g; $('svc-filter').querySelectorAll('.opt').forEach(x => x.classList.toggle('sel', x === b)); renderSvc(); });
-renderSvc();
-$('rates').innerHTML = SERVICES.map(s => `<tr><td class="py-2">${s.ic} ${s.n}</td><td>${s.min} min</td><td class="text-right font-semibold">${s.pr} €</td></tr>`).join('');
+<dialog class="art" id="post-d" aria-label="Artículo"></dialog>
+<dialog class="side" id="pat-d" aria-label="Área de paciente"></dialog>
 
-// Financiación
-let months = 6;
-function fin() { const a = +$('fin-amt').value; $('fin-l').textContent = a + ' €'; $('fin-q').textContent = (a / months).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }) + ' / mes'; $('fin-m').innerHTML = [3, 6, 12, 24].map(m => `<button type="button" class="opt ${m === months ? 'sel' : ''}" data-m="${m}">${m} meses</button>`).join(''); }
-$('fin-amt').oninput = fin; $('fin-m').onclick = e => { const b = e.target.closest('button'); if (b) { months = +b.dataset.m; fin(); } }; fin();
-
-// Equipo
-$('team').innerHTML = TEAM.map(t => `<article class="card overflow-hidden"><img src="https://images.unsplash.com/photo-${t.i}?auto=format&fit=crop&w=500&h=500&q=70" alt="${t.n}" width="500" height="500" loading="lazy" class="aspect-square object-cover w-full"><div class="p-4"><h3 class="font-bold">${t.n}</h3><p class="text-sm text-teal-600">${t.r}</p><p class="text-sm mt-2 text-teal-800/70">${t.b}</p><a href="#cita" data-pro="${t.id}" class="text-sm underline text-teal-600 mt-2 inline-block">Pedir cita con ${t.n.split(' ')[0] === 'Dra.' ? 'la doctora' : t.n.split(' ')[0]}</a></div></article>`).join('');
-
-// Test de orientación
-const Q = [['¿Dónde sientes la molestia o qué te preocupa?', ['Espalda, cuello o articulaciones', 'Dientes o encías', 'Piel o aspecto facial']], ['¿Desde cuándo?', ['Menos de una semana', 'Entre 1 semana y 3 meses', 'Más de 3 meses']], ['¿Qué buscas principalmente?', ['Aliviar dolor', 'Prevención y revisión', 'Mejorar mi imagen']]];
-const RES = [['s1', 'Fisioterapia'], ['s2', 'Limpieza dental / revisión'], ['s3', 'Tratamiento facial']];
-let qa = [];
-function renderQuiz() {
-  if (qa.length === 3) { const r = RES[qa[0]], urgent = qa[1] === 0 && qa[2] === 0;
-    $('quiz').innerHTML = `<div class="rounded-lg bg-teal-50 p-5"><p class="text-sm">Te recomendamos:</p><p class="text-2xl font-bold text-teal-700">${r[1]}</p>${urgent ? '<p class="text-sm mt-2 text-rose-600">Si hay dolor intenso o reciente, llámanos para una cita de urgencia.</p>' : ''}<div class="mt-4 flex gap-2"><a href="#cita" data-pick="${r[0]}" class="btn-teal rounded-lg px-4 py-2 text-sm">Pedir cita</a><button id="q-re" class="opt text-sm">Repetir test</button></div></div>`;
-    $('q-re').onclick = () => { qa = []; renderQuiz(); }; return; }
-  const [t, o] = Q[qa.length];
-  $('quiz').innerHTML = `<p class="text-xs text-teal-600">Pregunta ${qa.length + 1} de 3</p><div class="h-1.5 bg-teal-100 rounded mt-1"><div class="h-1.5 bg-teal-600 rounded" style="width:${(qa.length) / 3 * 100}%"></div></div><p class="font-semibold mt-4">${t}</p><div class="mt-3 grid gap-2">${o.map((x, i) => `<button class="opt text-left" data-a="${i}">${x}</button>`).join('')}</div>`;
-}
-$('quiz').addEventListener('click', e => { const b = e.target.closest('[data-a]'); if (b) { qa.push(+b.dataset.a); renderQuiz(); } });
-renderQuiz();
-
-// Blog
-$('posts').innerHTML = POSTS.map((p, i) => `<article class="card p-6"><p class="text-xs text-teal-600 font-semibold">${p.c}</p><h3 class="font-bold mt-1">${p.t}</h3><button data-post="${i}" class="mt-3 text-sm underline text-teal-600">Leer artículo →</button></article>`).join('');
-$('posts').addEventListener('click', e => { const b = e.target.closest('[data-post]'); if (!b) return; const p = POSTS[+b.dataset.post]; $('post-d').innerHTML = `<div class="p-6"><button id="pc" class="float-right text-2xl leading-none" aria-label="Cerrar">×</button><p class="text-xs text-teal-600 font-semibold">${p.c}</p><h2 class="text-2xl font-bold mt-1">${p.t}</h2><p class="mt-4">${p.x}</p><a href="#cita" id="pcta" class="btn-teal rounded-lg px-4 py-2 inline-block mt-5 text-sm">Reservar cita</a></div>`; $('post-d').showModal(); $('pc').onclick = $('pcta').onclick = () => $('post-d').close(); });
-[$('post-d'), $('pat-d')].forEach(d => d.addEventListener('click', e => { if (e.target === d) d.close(); }));
-
-// Reseñas
-let R = [...REV];
-function renderRev() { $('reviews').innerHTML = R.slice(0, 6).map(([n, s, t]) => `<blockquote class="card p-6"><p class="text-amber-500">${Demo.stars(s)}</p><p class="mt-2">"${t.replace(/</g, '&lt;')}"</p><footer class="mt-3 text-sm text-teal-600 font-semibold">${n.replace(/</g, '&lt;')}</footer></blockquote>`).join(''); }
-renderRev();
-$('rev-form').addEventListener('submit', e => { e.preventDefault(); R.unshift([$('rv-n').value, +$('rv-s').value, $('rv-t').value]); e.target.reset(); renderRev(); Demo.toast('Gracias por tu opinión'); });
-
-Demo.faq('faqs', [['¿La primera visita tiene coste?', 'La primera valoración es gratuita en fisioterapia y ortodoncia.'], ['¿Trabajáis con mutuas y aseguradoras?', 'Sí, consulta el listado de convenios en la sección de tarifas.'], ['¿Puedo cancelar una cita?', 'Sí, hasta 24 h antes sin coste desde tu Área de paciente o por teléfono.'], ['¿Ofrecéis teleconsulta?', 'Sí, para seguimiento y dudas. Selecciónala en el paso 2 de la cita.']]);
-Demo.newsletter('news', '✅ ¡Suscrito al boletín! (simulado)');
-
-// Cita
-const st = { svc: null, mode: 'Presencial', pro: null, day: null, hour: null };
-const DAYS = (() => { const o = [], d = new Date(); while (o.length < 7) { d.setDate(d.getDate() + 1); if (d.getDay() !== 0) o.push(new Date(d)); } return o; })();
-const dkey = d => d.toISOString().slice(0, 10), dlabel = d => d.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' });
-const busy = (pro, day, h) => (pro.charCodeAt(1) + day.charCodeAt(9) * 3 + h * 5) % 4 === 0;
-const btn = (gp, v, l, sel, dis) => `<button type="button" class="opt ${sel ? 'sel' : ''}" data-g="${gp}" data-v="${v}" ${dis ? 'disabled' : ''}>${l}</button>`;
-function render() {
-  $('svc-opts').innerHTML = SERVICES.map(s => btn('svc', s.id, s.n, st.svc === s.id)).join('');
-  $('mode-opts').innerHTML = ['Presencial', 'Teleconsulta'].map(m => btn('mode', m, m === 'Teleconsulta' ? '💻 Teleconsulta' : '🏥 Presencial', st.mode === m, m === 'Teleconsulta' && st.svc && !['s1', 's4', 's8'].includes(st.svc) && st.svc !== 's7')).join('');
-  $('pro-opts').innerHTML = TEAM.map(t => btn('pro', t.id, `${t.n} <span class="opacity-70">· ${t.r}</span>`, st.pro === t.id, st.svc && !t.s.includes(st.svc))).join('');
-  $('day-opts').innerHTML = DAYS.map(d => btn('day', dkey(d), dlabel(d), st.day === dkey(d))).join('');
-  $('hour-opts').innerHTML = HOURS.map((h, i) => btn('hour', h, h, st.hour === h, st.pro && st.day && busy(st.pro, st.day, i))).join('');
-  const s = SERVICES.find(x => x.id === st.svc), p = TEAM.find(x => x.id === st.pro);
-  $('summary').innerHTML = (s && p && st.day && st.hour) ? `<strong>${s.n}</strong> (${st.mode}) con ${p.n} el <strong>${dlabel(new Date(st.day + 'T00:00'))}</strong> a las <strong>${st.hour}</strong> · ${s.min} min · desde ${s.pr} €` : 'Selecciona servicio, modalidad, profesional, día y hora.';
-}
-$('appt').addEventListener('click', e => {
-  const b = e.target.closest('button[data-g]'); if (!b || b.disabled) return;
-  st[b.dataset.g] = b.dataset.v;
-  if (st.svc && st.pro && !TEAM.find(t => t.id === st.pro).s.includes(st.svc)) st.pro = null;
-  if (st.mode === 'Teleconsulta' && st.svc && !['s1', 's4', 's8', 's7'].includes(st.svc)) st.mode = 'Presencial';
-  if (st.pro && st.day && st.hour && busy(st.pro, st.day, HOURS.indexOf(st.hour))) st.hour = null;
-  render();
-});
-document.addEventListener('click', e => { const a = e.target.closest('[data-pick]'); if (a) { st.svc = a.dataset.pick; render(); } const p = e.target.closest('[data-pro]'); if (p) { st.pro = p.dataset.pro; render(); } });
-let APPTS = store('cb-appts', []);
-$('appt').addEventListener('submit', e => {
-  e.preventDefault();
-  if (!(st.svc && st.pro && st.day && st.hour)) return Demo.toast('Completa los 5 pasos de la cita');
-  const txt = $('summary').textContent;
-  APPTS.push({ txt, name: $('pname').value }); save('cb-appts', APPTS);
-  $('done-text').textContent = `${$('pname').value}, ${txt} Te enviaremos un recordatorio.`;
-  $('appt').classList.add('hidden'); $('done').classList.remove('hidden');
-});
-$('again').addEventListener('click', () => { Object.assign(st, { svc: null, mode: 'Presencial', pro: null, day: null, hour: null }); $('appt').reset(); render(); $('done').classList.add('hidden'); $('appt').classList.remove('hidden'); });
-render();
-
-// Área de paciente
-function renderPat(logged) {
-  $('pat-d').innerHTML = `<div class="p-6"><button id="px" class="float-right text-2xl leading-none" aria-label="Cerrar">×</button><h2 class="text-2xl font-bold">Área de paciente</h2>` + (logged ? `
-    <p class="text-sm mt-1 text-teal-700">Sesión iniciada (demo)</p><h3 class="font-semibold mt-4">Mis citas</h3>
-    <ul class="mt-2 space-y-2 text-sm">${APPTS.length ? APPTS.map((a, i) => `<li class="card p-3 flex justify-between gap-3"><span>${a.txt}</span><button data-cx="${i}" class="text-rose-600 underline shrink-0">Cancelar</button></li>`).join('') : '<li class="opacity-70">No tienes citas. Reserva la primera desde el formulario.</li>'}</ul>
-    <h3 class="font-semibold mt-5">Documentos</h3><ul class="mt-2 text-sm space-y-1"><li>📄 Consentimiento informado.pdf <span class="opacity-60">(ejemplo)</span></li><li>📄 Recomendaciones post-tratamiento.pdf <span class="opacity-60">(ejemplo)</span></li></ul>
-    <button id="logout" class="opt text-sm mt-5">Cerrar sesión</button>` : `
-    <form id="login" class="mt-4 space-y-3"><div><label for="l-e" class="text-sm">Email</label><input id="l-e" type="email" required></div><div><label for="l-p" class="text-sm">Contraseña</label><input id="l-p" type="password" required></div><p class="text-xs opacity-70">Demo: cualquier dato sirve. En producción, autenticación con JWT.</p><button class="btn-teal rounded-lg py-3 w-full">Entrar</button></form>`) + '</div>';
-  $('px').onclick = () => $('pat-d').close();
-  if ($('login')) $('login').onsubmit = e => { e.preventDefault(); renderPat(true); };
-  if ($('logout')) $('logout').onclick = () => renderPat(false);
-  $('pat-d').querySelectorAll('[data-cx]').forEach(b => b.onclick = () => { APPTS.splice(+b.dataset.cx, 1); save('cb-appts', APPTS); renderPat(true); Demo.toast('Cita cancelada'); });
-}
-$('open-pat').onclick = () => { renderPat(false); $('pat-d').showModal(); };
-</script>
+<script src="../js/demo.js"></script>
+<script src="../js/demo-clinica.js"></script>
 </body>
 </html>

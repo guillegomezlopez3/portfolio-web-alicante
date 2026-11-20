@@ -1,67 +1,92 @@
 'use strict';
 (function () {
   const PHONE = '34620477443';
+  const $ = id => document.getElementById(id);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Menú móvil
-  const btn = document.getElementById('menu-btn');
-  const menu = document.getElementById('mobile-menu');
-  if (btn && menu) {
-    btn.addEventListener('click', () => {
-      const open = menu.classList.toggle('hidden') === false;
-      btn.setAttribute('aria-expanded', String(open));
+  /* Reloj de Alicante */
+  const clock = $('clock');
+  if (clock) {
+    const fmt = new Intl.DateTimeFormat('es-ES', { timeZone: 'Europe/Madrid', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+    const tick = () => { clock.textContent = fmt.format(new Date()); };
+    tick(); setInterval(tick, 1000);
+  }
+
+  /* Menú móvil a pantalla completa */
+  const mb = $('menu-btn'), sheet = $('sheet');
+  if (mb && sheet) {
+    const set = open => {
+      sheet.classList.toggle('open', open); mb.setAttribute('aria-expanded', open);
+      sheet.setAttribute('aria-hidden', !open); mb.textContent = open ? 'Cerrar' : 'Menú';
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+    mb.addEventListener('click', () => set(!sheet.classList.contains('open')));
+    sheet.querySelectorAll('a').forEach(a => a.addEventListener('click', () => set(false)));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') set(false); });
+  }
+
+  /* Índice de servicios: un solo elemento abierto a la vez */
+  const idx = $('idx');
+  if (idx) {
+    idx.addEventListener('click', e => {
+      const b = e.target.closest('.row-b'); if (!b) return;
+      const li = b.parentElement, was = li.classList.contains('open');
+      [...idx.children].forEach(x => { x.classList.remove('open'); x.querySelector('.row-b').setAttribute('aria-expanded', 'false'); });
+      if (!was) { li.classList.add('open'); b.setAttribute('aria-expanded', 'true'); }
     });
-    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.add('hidden')));
   }
 
-  // Animaciones al hacer scroll
-  const els = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    els.forEach(el => io.observe(el));
-  } else {
-    els.forEach(el => el.classList.add('visible'));
+  /* Imagen que sigue al cursor sobre la lista de demos */
+  const work = $('work'), peek = $('peek');
+  if (work && peek && matchMedia('(hover: hover)').matches && !reduce) {
+    const img = peek.querySelector('img');
+    let x = 0, y = 0, tx = 0, ty = 0, raf = 0;
+    const loop = () => {
+      x += (tx - x) * .16; y += (ty - y) * .16;
+      peek.style.setProperty('--x', x.toFixed(1)); peek.style.setProperty('--y', y.toFixed(1));
+      raf = (Math.abs(tx - x) + Math.abs(ty - y) > .3) ? requestAnimationFrame(loop) : 0;
+    };
+    const move = e => { tx = e.clientX; ty = e.clientY; if (!raf) raf = requestAnimationFrame(loop); };
+    work.addEventListener('mousemove', move);
+    work.querySelectorAll('a').forEach(a => {
+      a.addEventListener('mouseenter', e => {
+        img.src = `https://images.unsplash.com/photo-${a.dataset.img}?auto=format&fit=crop&w=600&h=750&q=60`;
+        x = tx = e.clientX; y = ty = e.clientY; peek.classList.add('on');
+      });
+      a.addEventListener('mouseleave', () => peek.classList.remove('on'));
+    });
   }
 
-  // Formulario de contacto -> WhatsApp
-  const form = document.getElementById('contact-form');
+  /* Entrada de elementos al hacer scroll */
+  const rv = document.querySelectorAll('.rv');
+  if ('IntersectionObserver' in window && !reduce) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .1, rootMargin: '0px 0px -5% 0px' });
+    rv.forEach(el => io.observe(el));
+  } else rv.forEach(el => el.classList.add('in'));
+
+  /* Ficha de proyecto en vivo -> WhatsApp */
+  const form = $('brief');
   if (form) {
-    form.addEventListener('submit', ev => {
-      ev.preventDefault();
-      const d = new FormData(form);
-      const text = `Hola Guillermo, soy ${d.get('nombre')} (${d.get('email')}). Tipo de proyecto: ${d.get('tipo')}.\n${d.get('mensaje')}`;
+    const v = n => (form.querySelector(`[name="${n}"]:checked`) || {}).value || '';
+    const extras = () => [...form.querySelectorAll('[name="extra"]:checked')].map(i => i.value);
+    const put = (id, t) => { $(id).textContent = t; };
+    const update = () => {
+      put('t-tipo', v('tipo') || '—'); put('t-plazo', v('plazo') || '—');
+      put('t-extras', extras().join(', ') || 'Ninguno');
+      put('t-nombre', form.nombre.value.trim() || '—'); put('t-contacto', form.contacto.value.trim() || '—');
+    };
+    put('t-fecha', new Date().toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' }));
+    form.addEventListener('input', update); form.addEventListener('change', update); update();
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      if (!form.nombre.value.trim() || !form.contacto.value.trim()) {
+        (form.nombre.value.trim() ? form.contacto : form.nombre).focus(); return;
+      }
+      const ex = extras();
+      const text = `Hola Guillermo, soy ${form.nombre.value.trim()} (${form.contacto.value.trim()}).\nQuiero: ${v('tipo')}.\nExtras: ${ex.length ? ex.join(', ') : 'ninguno'}.\nPlazo: ${v('plazo')}.` + (form.mensaje.value.trim() ? `\n${form.mensaje.value.trim()}` : '');
       window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
     });
   }
 
-  const year = document.getElementById('year');
-  if (year) year.textContent = new Date().getFullYear();
+  const year = $('year'); if (year) year.textContent = new Date().getFullYear();
 })();
-
-// Utilidades compartidas por las demos
-window.Demo = {
-  toast(msg) {
-    let t = document.getElementById('toast');
-    if (!t) {
-      t = document.createElement('div');
-      t.id = 'toast';
-      t.className = 'toast card px-4 py-3 text-sm';
-      t.setAttribute('role', 'status');
-      document.body.appendChild(t);
-    }
-    t.textContent = msg;
-    t.classList.add('show');
-    clearTimeout(this._t);
-    this._t = setTimeout(() => t.classList.remove('show'), 3000);
-  },
-  faq(id, items) {
-    document.getElementById(id).innerHTML = items.map(([q, a]) => `<details class="card p-4"><summary class="flex justify-between font-semibold">${q} <span class="chev">⌄</span></summary><p class="mt-2 text-sm opacity-80">${a}</p></details>`).join('');
-  },
-  newsletter(id, msg) {
-    const f = document.getElementById(id);
-    f.addEventListener('submit', e => { e.preventDefault(); f.reset(); Demo.toast(msg || '✅ ¡Suscripción simulada completada!'); });
-  },
-  stars(n) { return '★'.repeat(n) + '☆'.repeat(5 - n); },
-  eur(n) { return n.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }); }
-};

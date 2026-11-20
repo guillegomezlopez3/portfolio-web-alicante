@@ -7,274 +7,95 @@
   <meta name="description" content="Demo de tienda online: catálogo, búsqueda, favoritos, carrito, cupones, checkout, seguimiento de pedido y más. Comercio local en Alicante.">
   <meta name="robots" content="index, follow">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="../css/styles.css">
-  <style>
-    body { background: #f8fafc; color: #0f172a; }
-    .card { background: #fff; border-color: #e2e8f0; }
-    .card:hover { border-color: #0f172a; }
-    .chip { border: 1px solid #cbd5e1; border-radius: 999px; padding: .4rem 1rem; transition: all .2s; background: #fff; font-size: .9rem; }
-    .chip.active, .chip:hover { background: #0f172a; color: #fff; border-color: #0f172a; }
-    .btn-dark { background: #0f172a; color: #fff; font-weight: 600; transition: background .2s; }
-    .btn-dark:hover { background: #1e293b; }
-    .btn-dark:disabled { opacity: .5; cursor: not-allowed; }
-    #drawer { transform: translateX(100%); transition: transform .3s; }
-    #drawer.open { transform: none; }
-    dialog { border-radius: 1rem; padding: 0; max-width: 56rem; width: calc(100% - 2rem); color: #0f172a; }
-    dialog::backdrop { background: rgba(15, 23, 42, .6); }
-    input, select, textarea { background: #fff; border-color: #cbd5e1; color: #0f172a; }
-    .heart.on { color: #e11d48; }
-    .step { width: 2rem; height: 2rem; }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..800&family=DM+Mono:wght@500&family=Space+Mono:wght@400;700&family=Unbounded:wght@400..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/demo-base.css">
+  <link rel="stylesheet" href="../css/demo-tienda.css">
 </head>
 <body>
-<div class="demo-banner px-4 py-2 flex justify-between items-center">
-  <span class="text-slate-400">Demo de ejemplo · Diseño por Guillermo Gómez</span>
-  <a href="../index.html#demos" class="text-cyan-400 hover:underline">← Volver al portfolio</a>
-</div>
-<div class="bg-sky-600 text-white text-center text-sm py-2 px-4">🚚 Envío gratis desde 50 € · Código <strong>URBAN10</strong>: −10% · Oferta flash termina en <span id="flash" class="mono font-bold"></span></div>
+<div class="demo-bar"><span>Demo de ejemplo · Diseño por Guillermo Gómez</span><a href="../index.html#demos">← Volver al portfolio</a></div>
+<div class="ticker" aria-hidden="true"><div>
+  <span>Envío gratis desde 50 €</span><span>Código URBAN10 = −10 %</span><span>Recogida gratis en tienda · Alicante</span><span>Oferta flash termina en <b id="flash">--:--:--</b></span>
+  <span>Envío gratis desde 50 €</span><span>Código URBAN10 = −10 %</span><span>Recogida gratis en tienda · Alicante</span><span>Oferta flash termina en <b id="flash2">--:--:--</b></span>
+</div></div>
 
-<header class="bg-white border-b border-slate-200 sticky top-0 z-40">
-  <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
-    <a href="#" class="font-extrabold text-lg tracking-tight whitespace-nowrap">ALICANTE <span class="text-sky-600">URBAN</span> STORE</a>
-    <input id="search" type="search" placeholder="Buscar productos…" aria-label="Buscar productos" class="hidden sm:block max-w-xs">
-    <nav class="hidden lg:flex gap-5 text-sm"><a href="#catalogo" class="hover:text-sky-600">Catálogo</a><a href="#envios" class="hover:text-sky-600">Envíos</a><a href="#seguimiento" class="hover:text-sky-600">Seguimiento</a><a href="#faq" class="hover:text-sky-600">Ayuda</a></nav>
-    <div class="flex gap-2">
-      <button id="open-fav" class="chip" aria-label="Ver favoritos">♥ <span id="fav-count">0</span></button>
-      <button id="open-cart" class="btn-dark rounded-lg px-4 py-2 text-sm" aria-label="Abrir carrito">🛒 <span id="count">0</span></button>
-    </div>
-  </div>
+<header class="hd">
+  <a href="#" class="logo"><b>AUS<sup>®</sup></b><span>Alicante Urban Store</span></a>
+  <nav aria-label="Principal"><a href="#catalogo">Catálogo</a><a href="#envios">Envíos</a><a href="#seguimiento">Seguimiento</a><a href="#faq">Ayuda</a></nav>
+  <div class="hd-b"><button id="open-fav">Guardados (<span id="fav-count">0</span>)</button><button class="cart" id="open-cart">Carrito (<span id="count">0</span>)</button></div>
 </header>
 
-<section class="relative">
-  <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=70" alt="Interior de la tienda" class="w-full h-72 sm:h-96 object-cover" width="1600" height="700" fetchpriority="high">
-  <div class="absolute inset-0 bg-slate-900/60 flex items-center"><div class="max-w-6xl mx-auto px-4 text-white">
-    <h1 class="text-4xl sm:text-5xl font-extrabold">Moda y accesorios con<br>sabor mediterráneo</h1>
-    <p class="mt-3 text-slate-200">Nueva colección otoño · Recogida gratis en tienda en Alicante.</p>
-    <a href="#catalogo" class="mt-5 inline-block bg-white text-slate-900 font-semibold rounded-lg px-6 py-3">Ver catálogo</a></div></div>
+<section class="hero">
+  <div class="hero-l">
+    <h1><span>Ropa</span><span class="o">para</span><span class="a">caminar</span><span>Alicante</span></h1>
+    <div><p>Moda, calzado y accesorios con sabor mediterráneo. Nueva colección de otoño.</p><br><a class="btn" href="#catalogo">Ver catálogo ↓</a></div>
+  </div>
+  <div class="hero-r">
+    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1000&h=1200&q=70" alt="Interior de la tienda" width="1000" height="1200" fetchpriority="high">
+    <div class="sticker"><span>Nueva<br>colección<small>Otoño · 24/25</small></span></div>
+  </div>
 </section>
 
-<section class="max-w-6xl mx-auto px-4 pt-10 grid grid-cols-2 md:grid-cols-4 gap-3 text-center text-sm">
-  <div class="card p-4">🚚 Envío 24-48 h</div><div class="card p-4">↩️ 30 días de devolución</div><div class="card p-4">🔒 Pago seguro (Stripe)</div><div class="card p-4">🏬 Recogida en tienda</div>
+<section class="facts" aria-label="Ventajas">
+  <div><b>01</b><span class="mono">Envío en 24–48 h</span></div>
+  <div><b>02</b><span class="mono">30 días de devolución</span></div>
+  <div><b>03</b><span class="mono">Pago seguro con Stripe</span></div>
+  <div><b>04</b><span class="mono">Recogida en tienda</span></div>
 </section>
 
-<main id="catalogo" class="max-w-6xl mx-auto px-4 py-10">
-  <input id="search2" type="search" placeholder="Buscar productos…" aria-label="Buscar" class="sm:hidden mb-4">
-  <div class="grid lg:grid-cols-[14rem_1fr] gap-8">
-    <aside class="space-y-6 text-sm" aria-label="Filtros">
-      <div><h2 class="font-bold mb-2">Categorías</h2><div id="chips" class="flex flex-wrap lg:flex-col gap-2 lg:items-start"></div></div>
-      <div><h2 class="font-bold mb-2">Precio máximo: <span id="pmax-l">150 €</span></h2><input id="pmax" type="range" min="10" max="150" step="5" value="150" class="!p-0" aria-label="Precio máximo"></div>
-      <div><label class="flex gap-2 items-center"><input id="only-offer" type="checkbox" class="!w-auto"> Solo ofertas</label></div>
-      <div><h2 class="font-bold mb-2">Ordenar</h2><select id="sort"><option value="">Destacados</option><option value="asc">Precio ↑</option><option value="desc">Precio ↓</option><option value="rate">Mejor valorados</option></select></div>
-    </aside>
-    <div>
-      <p id="res" class="text-sm text-slate-500" aria-live="polite"></p>
-      <div id="grid" class="mt-4 grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"></div>
-      <p id="empty" class="hidden text-center text-slate-500 py-16">No hay productos con esos filtros.</p>
+<section id="catalogo">
+  <div class="cat-h"><h2>Catálogo<sup id="total-n">(9)</sup></h2><p class="mono" id="res" aria-live="polite"></p></div>
+  <div class="bar">
+    <div class="tabs" id="chips" role="tablist" aria-label="Categorías"></div>
+    <div class="tool">
+      <label><span class="sr">Buscar</span><input id="search" type="search" placeholder="Buscar…"></label>
+      <label>Máx. <input id="pmax" type="range" min="10" max="150" step="5" value="150" aria-label="Precio máximo"><b id="pmax-l">150 €</b></label>
+      <label><input id="only-offer" type="checkbox"> Solo ofertas</label>
+      <label>Orden <select id="sort"><option value="">Destacados</option><option value="asc">Precio ↑</option><option value="desc">Precio ↓</option><option value="rate">Valoración</option></select></label>
     </div>
   </div>
-  <section id="recent-wrap" class="hidden mt-14"><h2 class="text-2xl font-bold">Vistos recientemente</h2><div id="recent" class="mt-4 grid grid-cols-3 sm:grid-cols-6 gap-3"></div></section>
-</main>
-
-<section id="envios" class="bg-white border-y border-slate-200 py-14"><div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8">
-  <div><h2 class="text-2xl font-bold">Calculadora de envío</h2><p class="text-sm text-slate-500 mt-1">Introduce tu código postal para ver plazo y coste.</p>
-    <form id="ship-form" class="mt-4 flex gap-2"><input id="cp" inputmode="numeric" maxlength="5" placeholder="03001" aria-label="Código postal" required><button class="btn-dark rounded-lg px-5">Calcular</button></form>
-    <p id="ship-res" class="mt-3 text-sm" aria-live="polite"></p></div>
-  <div><h2 class="text-2xl font-bold">Newsletter</h2><p class="text-sm text-slate-500 mt-1">Suscríbete y recibe un 10% en tu primera compra.</p>
-    <form id="news" class="mt-4 flex gap-2"><input type="email" required placeholder="tu@email.com" aria-label="Email"><button class="btn-dark rounded-lg px-5">Suscribirme</button></form></div>
-</div></section>
-
-<section id="seguimiento" class="max-w-3xl mx-auto px-4 py-14">
-  <h2 class="text-2xl font-bold">Seguimiento de pedido</h2><p class="text-sm text-slate-500 mt-1">Haz una compra en la demo y usa tu número de pedido aquí (o prueba con <code>AUS-1001</code>).</p>
-  <form id="track-form" class="mt-4 flex gap-2"><input id="track-n" placeholder="AUS-1001" aria-label="Número de pedido" required><button class="btn-dark rounded-lg px-5">Buscar</button></form>
-  <div id="track-res" class="mt-5" aria-live="polite"></div>
+  <div class="grid" id="grid"></div>
+  <p class="empty" id="empty" hidden>Nada con esos filtros.</p>
+  <section class="recent" id="recent-wrap" hidden><h2>Vistos recientemente</h2><div id="recent"></div></section>
 </section>
 
-<section id="faq" class="max-w-3xl mx-auto px-4 pb-16"><h2 class="text-2xl font-bold">Preguntas frecuentes</h2><div id="faqs" class="mt-4 space-y-3"></div></section>
+<section class="band" id="envios">
+  <div><h2>¿Cuándo llega?</h2><p>Escribe tu código postal y te decimos plazo y coste.</p>
+    <form class="inl" id="ship-form"><label class="sr" for="cp">Código postal</label><input id="cp" inputmode="numeric" maxlength="5" placeholder="03001" required><button>Calcular</button></form>
+    <p class="shipres" id="ship-res" aria-live="polite"></p></div>
+  <div class="acid"><h2>−10 % en tu primera compra</h2><p>Suscríbete y te damos el código. Sin spam, solo lanzamientos.</p>
+    <form class="inl" id="news"><label class="sr" for="n-mail">Email</label><input id="n-mail" type="email" required placeholder="tu@email.com"><button>Quiero el código</button></form></div>
+</section>
 
-<footer class="border-t border-slate-200 py-8 text-center text-sm text-slate-500">Alicante Urban Store · Demo ficticia creada por <a class="text-sky-600" href="../index.html">Guillermo Gómez</a></footer>
+<section class="track" id="seguimiento">
+  <h2>Seguimiento</h2><p>Haz una compra en la demo y usa tu número de pedido, o prueba con <b>AUS-1001</b>.</p>
+  <form class="inl" id="track-form" style="margin-top:1.4rem"><label class="sr" for="track-n">Número de pedido</label><input id="track-n" placeholder="AUS-1001" required><button>Buscar</button></form>
+  <div id="track-res" aria-live="polite"></div>
+</section>
 
-<dialog id="quick" aria-label="Vista rápida"></dialog>
-<dialog id="checkout" aria-label="Finalizar compra" style="max-width:40rem"></dialog>
+<section class="fq" id="faq"><h2>Ayuda</h2><div id="faqs"></div></section>
 
-<aside id="drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 flex flex-col" aria-label="Panel lateral">
-  <div class="p-5 border-b flex justify-between items-center"><h2 id="drawer-title" class="text-xl font-bold">Tu carrito</h2><button id="close-cart" class="text-2xl leading-none" aria-label="Cerrar">×</button></div>
-  <div id="items" class="flex-1 overflow-y-auto p-5 space-y-4"></div>
-  <div id="cart-foot" class="p-5 border-t space-y-3">
-    <div class="flex gap-2"><input id="coupon" placeholder="Cupón (URBAN10)" aria-label="Cupón"><button id="apply" class="chip">Aplicar</button></div>
-    <div class="flex justify-between text-sm"><span>Subtotal</span><span id="sub">0,00 €</span></div>
-    <div class="flex justify-between text-sm text-emerald-600"><span>Descuento</span><span id="discl">—</span></div>
-    <div class="flex justify-between text-sm text-slate-500"><span>Envío</span><span id="ship">—</span></div>
-    <div id="bar" class="text-xs text-slate-500"></div>
-    <div class="flex justify-between text-lg font-bold"><span>Total</span><span id="total">0,00 €</span></div>
-    <button id="to-checkout" class="btn-dark rounded-lg w-full py-3">Finalizar compra</button>
-    <button id="clear" class="text-sm text-slate-500 underline w-full">Vaciar carrito</button>
+<footer class="foot"><p class="foot-big" aria-hidden="true">AUS®</p><div class="foot-r"><span>Alicante Urban Store · demo ficticia</span><span>Creada por <a href="../index.html">Guillermo Gómez</a></span></div></footer>
+
+<dialog class="box" id="quick" aria-label="Vista rápida"></dialog>
+<dialog class="box" id="checkout" aria-label="Finalizar compra" style="width:min(94vw,40rem)"></dialog>
+<div class="shade" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="Panel lateral">
+  <div class="dh"><h2 id="drawer-title">Carrito</h2><button id="close-cart" aria-label="Cerrar">×</button></div>
+  <div class="d-items" id="items"></div>
+  <div class="dfoot" id="cart-foot">
+    <div class="cp"><label class="sr" for="coupon">Cupón</label><input id="coupon" placeholder="Cupón (URBAN10)"><button id="apply">Aplicar</button></div>
+    <div class="row"><span>Subtotal</span><span id="sub">0,00 €</span></div>
+    <div class="row"><span>Descuento</span><span id="discl">—</span></div>
+    <div class="row"><span>Envío</span><span id="ship">—</span></div>
+    <div id="bar"></div>
+    <div class="row big"><span>Total</span><span id="total">0,00 €</span></div>
+    <button class="go" id="to-checkout">Finalizar compra →</button>
+    <button class="lnk" id="clear">Vaciar carrito</button>
   </div>
 </aside>
-<div id="overlay" class="hidden fixed inset-0 bg-slate-900/50 z-40"></div>
 
-<script src="../js/main.js"></script>
-<script>
-const $ = id => document.getElementById(id);
-const P = [
-  { id: 1, n: 'Zapatillas Urban Runner', c: 'Calzado', p: 89.9, old: 109.9, r: 4.7, nr: 128, i: '1542291026-7eec264c27ff', d: 'Amortiguación ligera y suela de alto agarre para el día a día.', sz: ['38', '39', '40', '41', '42', '43'] },
-  { id: 2, n: 'Sneakers Mediterráneo', c: 'Calzado', p: 74.5, r: 4.5, nr: 96, i: '1491553895911-0055eca6402d', d: 'Estilo casual en piel vegana, cómodas desde el primer uso.', sz: ['38', '39', '40', '41', '42'] },
-  { id: 3, n: 'Camiseta Básica Algodón', c: 'Ropa', p: 19.9, r: 4.4, nr: 210, i: '1521572163474-6864f9cf17ab', d: '100% algodón orgánico, corte regular.', sz: ['S', 'M', 'L', 'XL'] },
-  { id: 4, n: 'Chaqueta Casual Costa', c: 'Ropa', p: 69, old: 89, r: 4.6, nr: 64, i: '1523381210434-271e8be1f52b', d: 'Ligera y transpirable, ideal para las noches de verano.', sz: ['S', 'M', 'L', 'XL'] },
-  { id: 5, n: 'Mochila Urban 20L', c: 'Accesorios', p: 49.9, r: 4.8, nr: 143, i: '1553062407-98eeb64c6a62', d: 'Compartimento para portátil de 15" y tejido resistente al agua.', sz: [] },
-  { id: 6, n: 'Bolso Tote Lino', c: 'Accesorios', p: 34, r: 4.3, nr: 51, i: '1548036328-c9fa89d128fa', d: 'Hecho con lino natural, interior forrado con bolsillo.', sz: [] },
-  { id: 7, n: 'Gafas de sol Playa', c: 'Accesorios', p: 39.9, old: 54.9, r: 4.5, nr: 88, i: '1572635196237-14b3f281503f', d: 'Protección UV400 y montura ligera.', sz: [] },
-  { id: 8, n: 'Auriculares Sound Pro', c: 'Tecnología', p: 99, r: 4.6, nr: 175, i: '1505740420928-5e560c06d30e', d: 'Cancelación de ruido y 30 h de batería.', sz: [] },
-  { id: 9, n: 'Reloj Minimal Steel', c: 'Tecnología', p: 129, r: 4.9, nr: 37, i: '1523275335684-37898b6baf30', d: 'Acero inoxidable, resistente al agua 5 ATM.', sz: [] }
-];
-const REVS = [['Ana', 5, 'Justo lo que buscaba, llegó en 24 h.'], ['Pedro', 4, 'Buena calidad por el precio.'], ['Lucía', 5, 'Repetiré seguro. Muy cómodo.']];
-const img = (p, w) => `https://images.unsplash.com/photo-${p.i}?auto=format&fit=crop&w=${w}&h=${w}&q=70`;
-const store = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch (e) { return d; } };
-const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
-let cat = 'Todos', cart = store('aus-cart', []), fav = store('aus-fav', []), recent = store('aus-recent', []), orders = store('aus-orders', {}), coupon = 0, q = '';
-orders['AUS-1001'] = orders['AUS-1001'] || { t: Date.now() - 86400000 * 1.5, total: 94.9 };
-
-// Oferta flash
-const end = Date.now() + 3 * 3600 * 1000;
-setInterval(() => { const s = Math.max(0, Math.floor((end - Date.now()) / 1000)); $('flash').textContent = [Math.floor(s / 3600), Math.floor(s / 60) % 60, s % 60].map(x => String(x).padStart(2, '0')).join(':'); }, 1000);
-
-// Catálogo
-const CATS = ['Todos', ...new Set(P.map(p => p.c))];
-$('chips').innerHTML = CATS.map(c => `<button class="chip ${c === cat ? 'active' : ''}" data-c="${c}">${c}</button>`).join('');
-function renderGrid() {
-  const max = +$('pmax').value; $('pmax-l').textContent = max + ' €';
-  let l = P.filter(p => (cat === 'Todos' || p.c === cat) && p.p <= max && (!$('only-offer').checked || p.old) && (!q || (p.n + ' ' + p.c).toLowerCase().includes(q)));
-  const s = $('sort').value; if (s) l = [...l].sort((a, b) => s === 'asc' ? a.p - b.p : s === 'desc' ? b.p - a.p : b.r - a.r);
-  $('res').textContent = `${l.length} producto${l.length === 1 ? '' : 's'}`; $('empty').classList.toggle('hidden', l.length > 0);
-  $('grid').innerHTML = l.map(p => `
-    <article class="card overflow-hidden flex flex-col relative">
-      ${p.old ? `<span class="absolute top-2 left-2 bg-rose-600 text-white text-xs font-bold rounded px-2 py-1">−${Math.round((1 - p.p / p.old) * 100)}%</span>` : ''}
-      <button data-fav="${p.id}" class="heart absolute top-2 right-2 bg-white/90 rounded-full w-8 h-8 ${fav.includes(p.id) ? 'on' : ''}" aria-label="Favorito" aria-pressed="${fav.includes(p.id)}">♥</button>
-      <button data-quick="${p.id}" class="block text-left" aria-label="Vista rápida de ${p.n}"><img src="${img(p, 500)}" alt="${p.n}" width="500" height="500" loading="lazy" class="aspect-square object-cover w-full"></button>
-      <div class="p-4 flex flex-col flex-1"><p class="text-xs text-slate-500">${p.c} · <span class="text-amber-500">★</span> ${p.r} (${p.nr})</p><h3 class="font-semibold">${p.n}</h3>
-        <p class="font-bold mt-1">${Demo.eur(p.p)} ${p.old ? `<span class="text-sm text-slate-400 line-through font-normal">${Demo.eur(p.old)}</span>` : ''}</p>
-        <div class="mt-auto pt-3 flex gap-2"><button data-add="${p.id}" class="btn-dark rounded-lg flex-1 py-2 text-sm">Añadir</button><button data-quick="${p.id}" class="chip !rounded-lg text-sm">Ver</button></div></div>
-    </article>`).join('');
-}
-$('chips').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; cat = b.dataset.c; document.querySelectorAll('#chips .chip').forEach(x => x.classList.toggle('active', x === b)); renderGrid(); });
-['sort', 'pmax', 'only-offer'].forEach(i => $(i).addEventListener('input', renderGrid));
-[$('search'), $('search2')].forEach(el => el.addEventListener('input', e => { q = e.target.value.trim().toLowerCase(); $('search').value = $('search2').value = e.target.value; renderGrid(); }));
-
-// Favoritos
-function toggleFav(id) { fav = fav.includes(id) ? fav.filter(x => x !== id) : [...fav, id]; save('aus-fav', fav); $('fav-count').textContent = fav.length; renderGrid(); if (drawerMode === 'fav') renderFav(); }
-
-// Carrito
-let drawerMode = 'cart';
-const price = id => P.find(p => p.id === id).p;
-function add(id, size) { const it = cart.find(x => x.id === id && x.s === size); it ? it.q++ : cart.push({ id, q: 1, s: size }); save('aus-cart', cart); renderCart(); Demo.toast(P.find(p => p.id === id).n + ' añadido al carrito'); }
-function totals() { const sub = cart.reduce((a, x) => a + x.q * price(x.id), 0), d = sub * coupon, base = sub - d, ship = !sub ? 0 : base >= 50 ? 0 : 4.95; return { sub, d, ship, total: base + ship }; }
-function renderCart() {
-  $('count').textContent = cart.reduce((a, x) => a + x.q, 0);
-  $('items').innerHTML = cart.length ? cart.map((x, i) => { const p = P.find(y => y.id === x.id); return `<div class="flex gap-3 items-center"><img src="${img(p, 120)}" alt="" width="64" height="64" class="w-16 h-16 rounded-lg object-cover"><div class="flex-1"><p class="font-medium text-sm">${p.n}${x.s ? ` <span class="text-slate-500">· ${x.s}</span>` : ''}</p><p class="text-sm text-slate-500">${Demo.eur(p.p)}</p><div class="mt-1 flex items-center gap-2"><button data-dec="${i}" class="chip !px-2 !py-0" aria-label="Quitar uno">−</button><span>${x.q}</span><button data-inc="${i}" class="chip !px-2 !py-0" aria-label="Añadir uno">+</button></div></div><button data-rm="${i}" class="text-slate-400 hover:text-red-500" aria-label="Eliminar">🗑</button></div>`; }).join('') : '<p class="text-slate-500 text-center mt-10">Tu carrito está vacío.</p>';
-  const t = totals();
-  $('sub').textContent = Demo.eur(t.sub); $('discl').textContent = t.d ? '−' + Demo.eur(t.d) : '—';
-  $('ship').textContent = !t.sub ? '—' : t.ship ? Demo.eur(t.ship) : 'Gratis'; $('total').textContent = Demo.eur(t.total);
-  const left = 50 - (t.sub - t.d); $('bar').innerHTML = t.sub && left > 0 ? `Te faltan <strong>${Demo.eur(left)}</strong> para envío gratis<div class="h-1.5 bg-slate-200 rounded mt-1"><div class="h-1.5 bg-sky-500 rounded" style="width:${Math.min(100, (1 - left / 50) * 100)}%"></div></div>` : t.sub ? '🎉 ¡Envío gratis!' : '';
-  $('to-checkout').disabled = !cart.length;
-}
-$('items').addEventListener('click', e => {
-  const b = e.target.closest('button'); if (!b) return;
-  if (drawerMode === 'fav') { if (b.dataset.fadd) add(+b.dataset.fadd); if (b.dataset.frm) toggleFav(+b.dataset.frm); return; }
-  const i = +(b.dataset.inc ?? b.dataset.dec ?? b.dataset.rm);
-  if (b.dataset.inc) cart[i].q++; if (b.dataset.dec) cart[i].q--; if (b.dataset.rm || cart[i].q <= 0) cart.splice(i, 1);
-  save('aus-cart', cart); renderCart();
-});
-function renderFav() {
-  $('items').innerHTML = fav.length ? fav.map(id => { const p = P.find(y => y.id === id); return `<div class="flex gap-3 items-center"><img src="${img(p, 120)}" alt="" class="w-16 h-16 rounded-lg object-cover"><div class="flex-1"><p class="font-medium text-sm">${p.n}</p><p class="text-sm text-slate-500">${Demo.eur(p.p)}</p></div><button data-fadd="${id}" class="chip text-xs">Añadir</button><button data-frm="${id}" aria-label="Quitar" class="text-slate-400">×</button></div>`; }).join('') : '<p class="text-slate-500 text-center mt-10">Aún no tienes favoritos.</p>';
-}
-function openDrawer(mode) {
-  drawerMode = mode; $('drawer-title').textContent = mode === 'cart' ? 'Tu carrito' : 'Mis favoritos'; $('cart-foot').classList.toggle('hidden', mode !== 'cart');
-  mode === 'cart' ? renderCart() : renderFav(); $('drawer').classList.add('open'); $('overlay').classList.remove('hidden');
-}
-const closeDrawer = () => { $('drawer').classList.remove('open'); $('overlay').classList.add('hidden'); };
-$('open-cart').onclick = () => openDrawer('cart'); $('open-fav').onclick = () => openDrawer('fav');
-$('close-cart').onclick = $('overlay').onclick = closeDrawer;
-$('clear').onclick = () => { cart = []; save('aus-cart', cart); renderCart(); };
-$('apply').onclick = () => { coupon = $('coupon').value.trim().toUpperCase() === 'URBAN10' ? 0.1 : 0; Demo.toast(coupon ? '🎉 Cupón aplicado: −10%' : 'Cupón no válido'); renderCart(); };
-
-// Grid actions
-$('grid').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; if (b.dataset.add) add(+b.dataset.add, P.find(p => p.id === +b.dataset.add).sz[0]); if (b.dataset.fav) toggleFav(+b.dataset.fav); if (b.dataset.quick) openQuick(+b.dataset.quick); });
-function openQuick(id) {
-  const p = P.find(x => x.id === id); let size = p.sz[0];
-  recent = [id, ...recent.filter(x => x !== id)].slice(0, 6); save('aus-recent', recent); renderRecent();
-  const rel = P.filter(x => x.c === p.c && x.id !== id).slice(0, 3);
-  $('quick').innerHTML = `<div class="grid sm:grid-cols-2"><img src="${img(p, 700)}" alt="${p.n}" class="w-full h-full object-cover aspect-square">
-    <div class="p-6 flex flex-col max-h-[85vh] overflow-y-auto"><button id="qclose" class="self-end text-2xl leading-none" aria-label="Cerrar">×</button>
-    <p class="text-sm text-slate-500">${p.c}</p><h2 class="text-2xl font-bold">${p.n}</h2><p class="text-amber-500 text-sm">${Demo.stars(Math.round(p.r))} <span class="text-slate-500">${p.r} (${p.nr} opiniones)</span></p>
-    <p class="text-2xl font-bold mt-2">${Demo.eur(p.p)} ${p.old ? `<span class="text-base text-slate-400 line-through font-normal">${Demo.eur(p.old)}</span>` : ''}</p>
-    <p class="mt-3 text-slate-600">${p.d}</p>
-    ${p.sz.length ? `<p class="mt-4 text-sm font-semibold">Talla</p><div id="szs" class="mt-1 flex flex-wrap gap-2">${p.sz.map(s => `<button class="chip ${s === size ? 'active' : ''}" data-s="${s}">${s}</button>`).join('')}</div>` : ''}
-    <p class="mt-3 text-sm text-emerald-600">✓ En stock · Envío en 24-48 h</p>
-    <button id="qadd" class="btn-dark rounded-lg py-3 mt-4">Añadir al carrito</button>
-    <h3 class="font-semibold mt-5">Opiniones</h3>${REVS.map(r => `<p class="text-sm mt-2"><span class="text-amber-500">${Demo.stars(r[1])}</span> <strong>${r[0]}</strong> — ${r[2]}</p>`).join('')}
-    ${rel.length ? `<h3 class="font-semibold mt-5">También te puede gustar</h3><div class="mt-2 grid grid-cols-3 gap-2">${rel.map(r => `<button data-rel="${r.id}"><img src="${img(r, 200)}" alt="${r.n}" class="rounded-lg aspect-square object-cover"></button>`).join('')}</div>` : ''}
-    </div></div>`;
-  if (!$('quick').open) $('quick').showModal();
-  $('qclose').onclick = () => $('quick').close();
-  $('qadd').onclick = () => { add(p.id, size); $('quick').close(); };
-  if ($('szs')) $('szs').onclick = e => { const b = e.target.closest('button'); if (!b) return; size = b.dataset.s; $('szs').querySelectorAll('.chip').forEach(x => x.classList.toggle('active', x === b)); };
-  $('quick').querySelectorAll('[data-rel]').forEach(b => b.onclick = () => openQuick(+b.dataset.rel));
-}
-$('quick').addEventListener('click', e => { if (e.target === $('quick')) $('quick').close(); });
-function renderRecent() {
-  $('recent-wrap').classList.toggle('hidden', !recent.length);
-  $('recent').innerHTML = recent.map(id => { const p = P.find(x => x.id === id); return `<button data-quick="${id}"><img src="${img(p, 200)}" alt="${p.n}" class="rounded-lg aspect-square object-cover"></button>`; }).join('');
-}
-$('recent').addEventListener('click', e => { const b = e.target.closest('[data-quick]'); if (b) openQuick(+b.dataset.quick); });
-
-// Checkout en 3 pasos
-let step = 1, data = {};
-$('to-checkout').onclick = () => { closeDrawer(); step = 1; data = {}; renderCheckout(); $('checkout').showModal(); };
-function renderCheckout() {
-  const t = totals();
-  const head = `<div class="p-6"><div class="flex justify-between items-center"><h2 class="text-2xl font-bold">Finalizar compra</h2><button id="cx" class="text-2xl leading-none" aria-label="Cerrar">×</button></div>
-    <ol class="flex gap-3 mt-4 text-sm">${['Datos', 'Envío', 'Pago'].map((s, i) => `<li class="flex items-center gap-2"><span class="step rounded-full flex items-center justify-center ${i + 1 <= step ? 'bg-slate-900 text-white' : 'bg-slate-200'}">${i + 1}</span>${s}</li>`).join('')}</ol>`;
-  let body = '';
-  if (step === 1) body = `<form id="cf" class="mt-5 grid sm:grid-cols-2 gap-3"><div><label class="text-sm" for="c-n">Nombre</label><input id="c-n" required value="${data.n || ''}"></div><div><label class="text-sm" for="c-e">Email</label><input id="c-e" type="email" required value="${data.e || ''}"></div><div class="sm:col-span-2"><label class="text-sm" for="c-a">Dirección</label><input id="c-a" required value="${data.a || ''}"></div><div><label class="text-sm" for="c-c">Ciudad</label><input id="c-c" required value="${data.c || 'Alicante'}"></div><div><label class="text-sm" for="c-p">Código postal</label><input id="c-p" required pattern="[0-9]{5}" value="${data.p || ''}"></div><button class="btn-dark rounded-lg py-3 sm:col-span-2">Continuar</button></form>`;
-  if (step === 2) body = `<form id="cf" class="mt-5 space-y-3">${[['std', 'Estándar 24-48 h', t.ship ? 4.95 : 0], ['exp', 'Exprés 24 h', 7.9], ['pick', 'Recogida en tienda (gratis)', 0]].map(([v, l, p]) => `<label class="card p-4 flex gap-3 items-center cursor-pointer"><input type="radio" name="sh" value="${v}" class="!w-auto" ${(data.sh || 'std') === v ? 'checked' : ''}> <span class="flex-1">${l}</span><strong>${p ? Demo.eur(p) : 'Gratis'}</strong></label>`).join('')}<div class="flex gap-2"><button type="button" id="back" class="chip flex-1 !rounded-lg">Atrás</button><button class="btn-dark rounded-lg py-3 flex-[2]">Continuar</button></div></form>`;
-  if (step === 3) { const sc = { std: t.ship, exp: 7.9, pick: 0 }[data.sh || 'std']; data.total = t.total - t.ship + sc;
-    body = `<form id="cf" class="mt-5 space-y-3"><p class="text-sm text-slate-500">Pago simulado: no se procesa ninguna tarjeta real.</p><input id="k-n" placeholder="Número de tarjeta (4242 4242 4242 4242)" required pattern="[0-9 ]{16,19}" aria-label="Tarjeta"><div class="grid grid-cols-2 gap-3"><input placeholder="MM/AA" required pattern="[0-9]{2}/[0-9]{2}" aria-label="Caducidad"><input placeholder="CVC" required pattern="[0-9]{3}" aria-label="CVC"></div>
-    <div class="card p-4 text-sm space-y-1"><div class="flex justify-between"><span>Subtotal</span><span>${Demo.eur(t.sub)}</span></div>${t.d ? `<div class="flex justify-between text-emerald-600"><span>Descuento</span><span>−${Demo.eur(t.d)}</span></div>` : ''}<div class="flex justify-between"><span>Envío</span><span>${sc ? Demo.eur(sc) : 'Gratis'}</span></div><div class="flex justify-between font-bold text-base"><span>Total</span><span>${Demo.eur(data.total)}</span></div></div>
-    <div class="flex gap-2"><button type="button" id="back" class="chip flex-1 !rounded-lg">Atrás</button><button class="btn-dark rounded-lg py-3 flex-[2]">Pagar ${Demo.eur(data.total)}</button></div></form>`; }
-  if (step === 4) body = `<div class="text-center py-8"><div class="text-5xl">🎉</div><h3 class="text-2xl font-bold mt-3">¡Pedido confirmado!</h3><p class="mt-2 text-slate-600">Gracias, ${data.n}. Hemos enviado un resumen a ${data.e} (simulado).</p><p class="mono mt-3 text-sky-600 text-lg">${data.order}</p><button id="cx2" class="btn-dark rounded-lg px-6 py-3 mt-6">Seguir comprando</button></div>`;
-  $('checkout').innerHTML = head + body + '</div>';
-  $('cx').onclick = () => $('checkout').close(); if ($('cx2')) $('cx2').onclick = () => $('checkout').close();
-  if ($('back')) $('back').onclick = () => { step--; renderCheckout(); };
-  if ($('cf')) $('cf').onsubmit = e => {
-    e.preventDefault();
-    if (step === 1) data = { ...data, n: $('c-n').value, e: $('c-e').value, a: $('c-a').value, c: $('c-c').value, p: $('c-p').value };
-    if (step === 2) data.sh = new FormData(e.target).get('sh');
-    if (step === 3) { data.order = 'AUS-' + Math.floor(1002 + Math.random() * 8000); orders[data.order] = { t: Date.now(), total: data.total, sh: data.sh }; save('aus-orders', orders); cart = []; save('aus-cart', cart); renderCart(); }
-    step++; renderCheckout();
-  };
-}
-
-// Seguimiento
-$('track-form').addEventListener('submit', e => {
-  e.preventDefault(); const o = orders[$('track-n').value.trim().toUpperCase()];
-  if (!o) { $('track-res').innerHTML = '<p class="text-red-600 text-sm">No encontramos ese pedido.</p>'; return; }
-  const h = (Date.now() - o.t) / 3600000, k = h < 1 ? 0 : h < 12 ? 1 : h < 36 ? 2 : 3;
-  const S = ['Pedido recibido', 'Preparando', 'En reparto', 'Entregado'];
-  $('track-res').innerHTML = `<div class="card p-5"><p class="text-sm text-slate-500">Total: ${Demo.eur(o.total)}</p><ol class="mt-3 space-y-3">${S.map((s, i) => `<li class="flex items-center gap-3 ${i <= k ? 'font-semibold' : 'text-slate-400'}"><span class="step rounded-full flex items-center justify-center ${i <= k ? 'bg-emerald-500 text-white' : 'bg-slate-200'}">${i <= k ? '✓' : i + 1}</span>${s}</li>`).join('')}</ol></div>`;
-});
-
-// Envío
-$('ship-form').addEventListener('submit', e => {
-  e.preventDefault(); const cp = $('cp').value;
-  $('ship-res').textContent = !/^\d{5}$/.test(cp) ? 'Introduce un código postal válido de 5 cifras.' : cp.startsWith('03') ? '📍 Provincia de Alicante: entrega en 24 h. Gratis desde 50 €, si no 4,95 €.' : '🚚 Península: entrega en 48-72 h. Gratis desde 50 €, si no 6,95 €.';
-});
-
-Demo.faq('faqs', [['¿Cuánto tarda mi pedido?', 'En la provincia de Alicante 24 h; en el resto de la península 48-72 h.'], ['¿Puedo devolver un producto?', 'Sí, tienes 30 días. La devolución es gratuita en tienda.'], ['¿Qué métodos de pago aceptáis?', 'Tarjeta, Bizum y PayPal a través de pasarela segura (Stripe).'], ['¿Puedo recoger en tienda?', 'Sí, sin coste. Te avisamos por email cuando esté listo.']]);
-Demo.newsletter('news', '✅ ¡Suscrito! Tu código URBAN10 ya está activo (simulado).');
-$('fav-count').textContent = fav.length;
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
-renderGrid(); renderCart(); renderRecent();
-</script>
+<script src="../js/demo.js"></script>
+<script src="../js/demo-tienda.js"></script>
 </body>
 </html>
