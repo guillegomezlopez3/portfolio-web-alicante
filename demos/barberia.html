@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Barbería Casco Antiguo – Demo | Guillermo Gómez</title>
+  <meta name="description" content="Demo de web para barbería o peluquería con reserva por servicio y profesional, y bonos.">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    body { background: #111; }
+    .card { background: #1b1b1b; border-color: #333; }
+    .card:hover { border-color: #d4a24c; }
+    .gold { color: #d4a24c; }
+    .opt { border: 1px solid #333; border-radius: .6rem; padding: .55rem .9rem; transition: all .2s; }
+    .opt:hover:not(:disabled), .opt.sel { background: #d4a24c; color: #111; border-color: #d4a24c; }
+    .opt:disabled { opacity: .3; text-decoration: line-through; cursor: not-allowed; }
+    .btn-gold { background: #d4a24c; color: #111; font-weight: 700; }
+    input { background: #111; border-color: #333; }
+  </style>
+</head>
+<body>
+<div class="demo-banner px-4 py-2 flex justify-between"><span class="text-slate-400">Demo de ejemplo · Diseño por Guillermo Gómez</span><a href="../index.html#demos" class="text-cyan-400 hover:underline">← Volver al portfolio</a></div>
+<header class="relative">
+  <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1600&q=70" alt="Barbero trabajando" class="w-full h-[60vh] object-cover" width="1600" height="900" fetchpriority="high">
+  <div class="absolute inset-0 bg-gradient-to-t from-[#111] to-black/40 flex flex-col justify-end max-w-5xl mx-auto px-4 pb-12">
+    <p class="gold text-sm tracking-widest uppercase">Barbería · Alicante</p>
+    <h1 class="text-5xl font-extrabold mt-2">Barbería Casco Antiguo</h1>
+    <a href="#reserva" class="btn-gold rounded-lg px-6 py-3 mt-6 self-start">Reservar cita</a>
+  </div>
+</header>
+<main class="max-w-5xl mx-auto px-4 py-14 space-y-16">
+  <section><h2 class="text-3xl font-bold">Servicios y precios</h2>
+    <div id="svc" class="mt-6 grid sm:grid-cols-2 gap-4"></div></section>
+  <section><h2 class="text-3xl font-bold">Bonos</h2>
+    <div class="mt-6 grid sm:grid-cols-3 gap-4">
+      <div class="card p-6"><h3 class="font-bold">Bono 5 cortes</h3><p class="gold text-2xl font-bold mt-2">80 €</p><p class="text-sm text-slate-400 mt-1">Ahorra 10 €</p></div>
+      <div class="card p-6"><h3 class="font-bold">Bono 10 cortes</h3><p class="gold text-2xl font-bold mt-2">150 €</p><p class="text-sm text-slate-400 mt-1">Ahorra 30 €</p></div>
+      <div class="card p-6"><h3 class="font-bold">Tarjeta regalo</h3><p class="gold text-2xl font-bold mt-2">Desde 20 €</p><p class="text-sm text-slate-400 mt-1">Importe a elegir</p></div>
+    </div></section>
+  <section id="reserva"><div class="card p-6 sm:p-8 max-w-2xl mx-auto">
+    <h2 class="text-3xl font-bold">Reserva tu cita</h2><p class="text-sm text-slate-400 mt-1">Simulador · no se envía ningún dato real.</p>
+    <form id="f" class="mt-6 space-y-5">
+      <fieldset><legend class="font-semibold mb-2">Servicio</legend><div id="o-s" class="flex flex-wrap gap-2"></div></fieldset>
+      <fieldset><legend class="font-semibold mb-2">Barbero</legend><div id="o-b" class="flex flex-wrap gap-2"></div></fieldset>
+      <fieldset><legend class="font-semibold mb-2">Hora (mañana)</legend><div id="o-h" class="flex flex-wrap gap-2"></div></fieldset>
+      <div><label for="nm" class="text-sm">Nombre</label><input id="nm" required></div>
+      <p id="sum" class="text-sm gold" aria-live="polite"></p>
+      <button class="btn-gold rounded-lg px-6 py-3 w-full">Confirmar cita</button>
+    </form>
+    <div id="ok" class="hidden text-center py-6" role="status"><div class="text-5xl">✂️</div><h3 class="text-2xl font-bold mt-2">¡Cita reservada!</h3><p id="ok-t" class="mt-2 text-slate-300"></p><button id="re" class="mt-5 opt">Otra cita</button></div>
+  </div></section>
+</main>
+<footer class="border-t border-[#333] py-8 text-center text-sm text-slate-500">Barbería Casco Antiguo · Demo ficticia por <a class="text-cyan-400" href="../index.html">Guillermo Gómez</a></footer>
+<script src="../js/main.js"></script>
+<script>
+const S = [{ id: 1, n: 'Corte de pelo', p: 15, m: 30 }, { id: 2, n: 'Arreglo de barba', p: 10, m: 20 }, { id: 3, n: 'Corte + barba', p: 22, m: 45 }, { id: 4, n: 'Afeitado clásico', p: 14, m: 30 }];
+const B = ['Dani', 'Javi', 'Sergio'];
+const H = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30'];
+const $ = id => document.getElementById(id), st = { s: null, b: null, h: null };
+$('svc').innerHTML = S.map(s => `<div class="card p-5 flex justify-between"><div><h3 class="font-semibold">${s.n}</h3><p class="text-sm text-slate-400">${s.m} min</p></div><span class="gold font-bold">${Demo.eur(s.p)}</span></div>`).join('');
+const busy = (b, i) => (b.charCodeAt(0) + i * 3) % 4 === 0;
+const o = (g, v, l, sel, d) => `<button type="button" class="opt ${sel ? 'sel' : ''}" data-g="${g}" data-v="${v}" ${d ? 'disabled' : ''}>${l}</button>`;
+function render() {
+  $('o-s').innerHTML = S.map(s => o('s', s.id, s.n, st.s === s.id)).join('');
+  $('o-b').innerHTML = B.map(b => o('b', b, b, st.b === b)).join('');
+  $('o-h').innerHTML = H.map((h, i) => o('h', h, h, st.h === h, st.b && busy(st.b, i))).join('');
+  const s = S.find(x => x.id === st.s);
+  $('sum').textContent = s && st.b && st.h ? `${s.n} con ${st.b} a las ${st.h} · ${Demo.eur(s.p)}` : '';
+}
+$('f').addEventListener('click', e => {
+  const b = e.target.closest('[data-g]'); if (!b || b.disabled) return;
+  st[b.dataset.g] = b.dataset.g === 's' ? +b.dataset.v : b.dataset.v;
+  if (st.b && st.h && busy(st.b, H.indexOf(st.h))) st.h = null;
+  render();
+});
+$('f').addEventListener('submit', e => {
+  e.preventDefault();
+  if (!(st.s && st.b && st.h)) return Demo.toast('Elige servicio, barbero y hora');
+  $('ok-t').textContent = `${$('nm').value}, te esperamos mañana: ${$('sum').textContent}.`;
+  $('f').classList.add('hidden'); $('ok').classList.remove('hidden');
+});
+$('re').onclick = () => { Object.assign(st, { s: null, b: null, h: null }); $('f').reset(); render(); $('ok').classList.add('hidden'); $('f').classList.remove('hidden'); };
+render();
+</script>
+</body>
+</html>

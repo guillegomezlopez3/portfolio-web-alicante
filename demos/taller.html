@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Taller Mediterráneo – Demo | Guillermo Gómez</title>
+  <meta name="description" content="Demo de web para taller mecánico con presupuesto online orientativo y cita previa.">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    body { background: #0f172a; }
+    .card { background: #1e293b; border-color: #334155; }
+    .card:hover { border-color: #f97316; }
+    .btn-or { background: #f97316; color: #fff; font-weight: 700; }
+    .or { color: #fb923c; }
+    input, select { background: #0f172a; border-color: #334155; }
+  </style>
+</head>
+<body>
+<div class="demo-banner px-4 py-2 flex justify-between"><span class="text-slate-400">Demo de ejemplo · Diseño por Guillermo Gómez</span><a href="../index.html#demos" class="text-cyan-400 hover:underline">← Volver al portfolio</a></div>
+<header class="relative">
+  <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1600&q=70" alt="Mecánico revisando un coche" class="w-full h-[55vh] object-cover" width="1600" height="900" fetchpriority="high">
+  <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] to-black/40 flex flex-col justify-end max-w-5xl mx-auto px-4 pb-12">
+    <p class="or text-sm uppercase tracking-widest">Taller mecánico · Alicante</p>
+    <h1 class="text-5xl font-extrabold mt-2">Taller Mediterráneo</h1>
+    <p class="mt-3 text-slate-300 max-w-lg">Mantenimiento, ITV previa, frenos y neumáticos con presupuesto claro antes de empezar.</p>
+    <a href="#presupuesto" class="btn-or rounded-lg px-6 py-3 mt-6 self-start">Pedir presupuesto</a>
+  </div>
+</header>
+<main class="max-w-4xl mx-auto px-4 py-14 space-y-16">
+  <section id="presupuesto" class="card p-6 sm:p-8">
+    <h2 class="text-3xl font-bold">Presupuesto online orientativo</h2>
+    <p class="text-sm text-slate-400 mt-1">Cálculo ficticio de ejemplo. El precio final se confirma tras revisar el vehículo.</p>
+    <div class="mt-6 grid sm:grid-cols-2 gap-5">
+      <div><label for="vt" class="text-sm">Tipo de vehículo</label><select id="vt"><option value="1">Utilitario</option><option value="1.2">Berlina / SUV</option><option value="1.4">Furgoneta</option></select></div>
+      <fieldset><legend class="text-sm">Servicios</legend><div id="sv" class="mt-1 space-y-2"></div></fieldset>
+    </div>
+    <div class="mt-6 flex justify-between items-center border-t border-slate-600 pt-4"><span>Total orientativo (IVA incl.)</span><span id="tot" class="or text-3xl font-extrabold" aria-live="polite">0,00 €</span></div>
+  </section>
+  <section id="cita" class="card p-6 sm:p-8">
+    <h2 class="text-3xl font-bold">Cita previa</h2>
+    <form id="f" class="mt-5 grid sm:grid-cols-2 gap-4">
+      <div><label for="nm" class="text-sm">Nombre</label><input id="nm" required></div>
+      <div><label for="mat" class="text-sm">Matrícula</label><input id="mat" required placeholder="0000 ABC" maxlength="8"></div>
+      <div><label for="d" class="text-sm">Día</label><input id="d" type="date" required></div>
+      <div><label for="h" class="text-sm">Franja</label><select id="h"><option>Mañana (8:30–12:30)</option><option>Tarde (15:00–18:30)</option></select></div>
+      <button class="btn-or rounded-lg px-6 py-3 sm:col-span-2">Reservar cita</button>
+    </form>
+    <div id="ok" class="hidden text-center py-6" role="status"><div class="text-5xl">🔧</div><h3 class="text-2xl font-bold mt-2">¡Cita registrada!</h3><p id="ok-t" class="mt-2 text-slate-300"></p></div>
+  </section>
+</main>
+<footer class="border-t border-slate-700 py-8 text-center text-sm text-slate-500">Taller Mediterráneo · Demo ficticia por <a class="text-cyan-400" href="../index.html">Guillermo Gómez</a></footer>
+<script src="../js/main.js"></script>
+<script>
+const SV = [{ n: 'Cambio de aceite y filtros', p: 69 }, { n: 'Pastillas de freno (eje)', p: 95 }, { n: 'Revisión pre-ITV', p: 45 }, { n: 'Neumáticos (montaje y equilibrado ×4)', p: 60 }, { n: 'Aire acondicionado (recarga)', p: 79 }];
+const $ = id => document.getElementById(id);
+$('sv').innerHTML = SV.map((s, i) => `<label class="flex gap-2 text-sm"><input type="checkbox" class="!w-auto" data-i="${i}"> ${s.n} <span class="or ml-auto">${Demo.eur(s.p)}</span></label>`).join('');
+function calc() {
+  const sum = [...document.querySelectorAll('#sv input:checked')].reduce((a, c) => a + SV[+c.dataset.i].p, 0);
+  $('tot').textContent = Demo.eur(sum * parseFloat($('vt').value));
+}
+$('sv').addEventListener('change', calc); $('vt').addEventListener('change', calc);
+$('d').min = new Date().toISOString().slice(0, 10);
+$('f').addEventListener('submit', e => {
+  e.preventDefault();
+  $('ok-t').textContent = `${$('nm').value}, hemos anotado ${$('mat').value.toUpperCase()} el ${new Date($('d').value + 'T00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })} (${$('h').value}).`;
+  $('f').classList.add('hidden'); $('ok').classList.remove('hidden');
+});
+</script>
+</body>
+</html>
