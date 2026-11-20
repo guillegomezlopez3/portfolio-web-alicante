@@ -17,10 +17,23 @@
   <script type="application/ld+json">[{"@context":"https://schema.org","@type":"ProfessionalService","name":"Guillermo Gómez López – Desarrollo web en San Vicente del Raspeig","url":"https://guillegomezlopez3.github.io/portfolio-web-alicante/san-vicente-del-raspeig.html","telephone":"+34620477443","areaServed":{"@type":"City","name":"San Vicente del Raspeig"},"address":{"@type":"PostalAddress","addressRegion":"Alicante","addressCountry":"ES"},"parentOrganization":{"@type":"ProfessionalService","url":"https://guillegomezlopez3.github.io/portfolio-web-alicante/"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Merece la pena una web si mi negocio es de barrio?","acceptedAnswer":{"@type":"Answer","text":"Sí: muchas búsquedas incluyen el nombre del municipio, y con una web bien optimizada compites con pocos resultados locales."}},{"@type":"Question","name":"¿Haces webs para academias y centros de formación?","acceptedAnswer":{"@type":"Answer","text":"Sí, con horarios, cursos, tarifas e inscripción online."}},{"@type":"Question","name":"¿Puedo reunirme contigo en San Vicente?","acceptedAnswer":{"@type":"Answer","text":"Sí, está a pocos minutos de Alicante y me desplazo sin problema."}}]}]</script>
 </head>
 <body>
-<header class="border-b border-slate-800"><nav class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between" aria-label="Principal">
-  <a href="index.html" class="mono font-semibold"><span class="text-cyan-400">&lt;</span>Guillermo<span class="text-cyan-400">/&gt;</span></a>
-  <a href="index.html#demos" class="text-sm text-cyan-400">Ver demos</a></nav></header>
-<main class="max-w-4xl mx-auto px-4 py-14 hero-glow">
+<header class="fixed top-0 inset-x-0 z-50 backdrop-blur bg-[#0b0f17]/80 border-b border-slate-800">
+  <nav class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between" aria-label="Principal">
+    <a href="index.html#inicio" class="mono font-semibold text-lg"><span class="text-cyan-400">&lt;</span>Guillermo<span class="text-cyan-400">/&gt;</span></a>
+    <ul class="hidden md:flex gap-7 text-sm text-slate-300">
+      <li><a class="hover:text-cyan-400" href="index.html#servicios">Servicios</a></li>
+      <li><a class="hover:text-cyan-400" href="index.html#demos">Demos</a></li>
+      <li><a class="hover:text-cyan-400" href="index.html#sobre-mi">Sobre mí</a></li>
+      <li><a class="hover:text-cyan-400" href="index.html#faq">FAQ</a></li>
+      <li><a class="hover:text-cyan-400" href="index.html#contacto">Contacto</a></li>
+    </ul>
+    <a href="index.html#contacto" class="hidden md:inline-block btn-primary rounded-lg px-4 py-2 text-sm">Pedir presupuesto</a>
+    <button id="menu-btn" class="md:hidden p-2" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </nav>
+  <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-[#0b0f17]"><ul class="px-4 py-3 space-y-3 text-slate-300">
+    <li><a href="index.html#servicios">Servicios</a></li><li><a href="index.html#demos">Demos</a></li><li><a href="index.html#sobre-mi">Sobre mí</a></li><li><a href="index.html#faq">FAQ</a></li><li><a href="index.html#contacto">Contacto</a></li></ul></div>
+</header>
+<main class="max-w-4xl mx-auto px-4 pt-28 pb-14 hero-glow">
   <p class="mono text-cyan-400 text-sm">Desarrollo web en San Vicente del Raspeig</p>
   <h1 class="text-3xl sm:text-5xl font-extrabold mt-2">Diseño web en <span class="gradient-text">San Vicente del Raspeig</span></h1>
   <p class="mt-6 text-lg text-slate-300">San Vicente del Raspeig es una ciudad joven y dinámica, pegada a Alicante y sede del campus de la Universidad de Alicante. Eso significa muchos estudiantes y familias que buscan servicios cercanos desde el móvil.</p>
@@ -42,5 +55,6 @@
 <footer class="border-t border-slate-800 py-8 px-4 text-sm text-slate-400"><div class="max-w-4xl mx-auto space-y-2">
   <p>También en: <a class="hover:text-cyan-400" href="alicante.html">Alicante</a> · <a class="hover:text-cyan-400" href="elche.html">Elche</a> · <a class="hover:text-cyan-400" href="playa-de-san-juan.html">Playa de San Juan</a> · <a class="hover:text-cyan-400" href="benidorm.html">Benidorm</a></p>
   <p><a href="index.html" class="hover:text-cyan-400">Inicio</a> · <a href="legal.html" class="hover:text-cyan-400">Aviso legal, privacidad y cookies</a></p></div></footer>
+<script src="js/main.js"></script>
 </body>
 </html>

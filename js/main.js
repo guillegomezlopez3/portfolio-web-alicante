@@ -55,5 +55,13 @@ window.Demo = {
     clearTimeout(this._t);
     this._t = setTimeout(() => t.classList.remove('show'), 3000);
   },
+  faq(id, items) {
+    document.getElementById(id).innerHTML = items.map(([q, a]) => `<details class="card p-4"><summary class="flex justify-between font-semibold">${q} <span class="chev">⌄</span></summary><p class="mt-2 text-sm opacity-80">${a}</p></details>`).join('');
+  },
+  newsletter(id, msg) {
+    const f = document.getElementById(id);
+    f.addEventListener('submit', e => { e.preventDefault(); f.reset(); Demo.toast(msg || '✅ ¡Suscripción simulada completada!'); });
+  },
+  stars(n) { return '★'.repeat(n) + '☆'.repeat(5 - n); },
   eur(n) { return n.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }); }
 };

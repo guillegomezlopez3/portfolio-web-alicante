@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Taller Mediterráneo – Demo | Guillermo Gómez</title>
-  <meta name="description" content="Demo de web para taller mecánico con presupuesto online orientativo y cita previa.">
+  <meta name="description" content="Demo de web para taller mecánico: presupuesto online, cita previa, seguimiento de reparación, packs de mantenimiento, calculadora ITV y más.">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="../css/styles.css">
   <style>
@@ -15,59 +15,146 @@
     .card:hover { border-color: #f97316; }
     .btn-or { background: #f97316; color: #fff; font-weight: 700; }
     .or { color: #fb923c; }
-    input, select { background: #0f172a; border-color: #334155; }
+    input, select, textarea { background: #0f172a; border-color: #334155; }
+    .opt { border: 1px solid #334155; border-radius: .6rem; padding: .5rem .9rem; transition: all .2s; }
+    .opt:hover, .opt.sel { background: #f97316; border-color: #f97316; color: #fff; }
+    .step { width: 2rem; height: 2rem; }
   </style>
 </head>
 <body>
 <div class="demo-banner px-4 py-2 flex justify-between"><span class="text-slate-400">Demo de ejemplo · Diseño por Guillermo Gómez</span><a href="../index.html#demos" class="text-cyan-400 hover:underline">← Volver al portfolio</a></div>
-<header class="relative">
-  <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1600&q=70" alt="Mecánico revisando un coche" class="w-full h-[55vh] object-cover" width="1600" height="900" fetchpriority="high">
-  <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] to-black/40 flex flex-col justify-end max-w-5xl mx-auto px-4 pb-12">
-    <p class="or text-sm uppercase tracking-widest">Taller mecánico · Alicante</p>
-    <h1 class="text-5xl font-extrabold mt-2">Taller Mediterráneo</h1>
-    <p class="mt-3 text-slate-300 max-w-lg">Mantenimiento, ITV previa, frenos y neumáticos con presupuesto claro antes de empezar.</p>
-    <a href="#presupuesto" class="btn-or rounded-lg px-6 py-3 mt-6 self-start">Pedir presupuesto</a>
+<header class="sticky top-0 z-40 backdrop-blur bg-[#0f172a]/90 border-b border-slate-700">
+  <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+    <a href="#" class="font-extrabold text-lg">🔧 Taller <span class="or">Mediterráneo</span></a>
+    <nav class="hidden md:flex gap-5 text-sm text-slate-300" aria-label="Principal"><a href="#packs" class="hover:text-orange-400">Packs</a><a href="#presupuesto" class="hover:text-orange-400">Presupuesto</a><a href="#itv" class="hover:text-orange-400">ITV</a><a href="#estado" class="hover:text-orange-400">Estado</a><a href="#cita" class="hover:text-orange-400">Cita</a><a href="#faq" class="hover:text-orange-400">FAQ</a></nav>
+    <a href="#cita" class="btn-or rounded-lg px-4 py-2 text-sm">Pedir cita</a>
   </div>
 </header>
-<main class="max-w-4xl mx-auto px-4 py-14 space-y-16">
+<header class="relative">
+  <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1600&q=70" alt="Mecánico revisando un coche" class="w-full h-[55vh] object-cover" width="1600" height="900" fetchpriority="high">
+  <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] to-black/40 flex flex-col justify-end max-w-6xl mx-auto px-4 pb-12">
+    <p class="or text-sm uppercase tracking-widest">Taller mecánico · Alicante · ⭐ 4,8</p>
+    <h1 class="text-5xl font-extrabold mt-2">Taller Mediterráneo</h1>
+    <p class="mt-3 text-slate-300 max-w-lg">Mantenimiento, ITV previa, frenos y neumáticos con presupuesto claro antes de empezar.</p>
+    <div class="mt-6 flex gap-3 flex-wrap"><a href="#presupuesto" class="btn-or rounded-lg px-6 py-3">Presupuesto online</a><a href="#estado" class="opt px-6 py-3">Estado de mi coche</a></div>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-4 py-14 space-y-20">
+  <section class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+    <div class="card p-5"><p class="text-3xl font-extrabold or" data-count="20">0</p><p class="text-sm text-slate-400">años de experiencia</p></div>
+    <div class="card p-5"><p class="text-3xl font-extrabold or" data-count="15000">0</p><p class="text-sm text-slate-400">reparaciones</p></div>
+    <div class="card p-5"><p class="text-3xl font-extrabold or" data-count="24">0</p><p class="text-sm text-slate-400">marcas atendidas</p></div>
+    <div class="card p-5"><p class="text-3xl font-extrabold or" data-count="2">0</p><p class="text-sm text-slate-400">años de garantía</p></div>
+  </section>
+
+  <section id="packs"><h2 class="text-3xl font-bold">Packs de mantenimiento</h2><p class="text-slate-400 mt-1 text-sm">Precio cerrado con mano de obra incluida (IVA incl.).</p>
+    <div id="packs-g" class="mt-6 grid md:grid-cols-3 gap-5"></div></section>
+
   <section id="presupuesto" class="card p-6 sm:p-8">
     <h2 class="text-3xl font-bold">Presupuesto online orientativo</h2>
     <p class="text-sm text-slate-400 mt-1">Cálculo ficticio de ejemplo. El precio final se confirma tras revisar el vehículo.</p>
-    <div class="mt-6 grid sm:grid-cols-2 gap-5">
-      <div><label for="vt" class="text-sm">Tipo de vehículo</label><select id="vt"><option value="1">Utilitario</option><option value="1.2">Berlina / SUV</option><option value="1.4">Furgoneta</option></select></div>
-      <fieldset><legend class="text-sm">Servicios</legend><div id="sv" class="mt-1 space-y-2"></div></fieldset>
+    <div class="mt-6 grid md:grid-cols-3 gap-5">
+      <div><label for="vt" class="text-sm">Tipo de vehículo</label><select id="vt"><option value="1">Utilitario</option><option value="1.2">Berlina / SUV</option><option value="1.4">Furgoneta</option><option value="1.3">Eléctrico / híbrido</option></select>
+        <label for="fuel" class="text-sm block mt-3">Combustible</label><select id="fuel"><option>Gasolina</option><option>Diésel</option><option>Híbrido</option><option>Eléctrico</option></select></div>
+      <fieldset class="md:col-span-2"><legend class="text-sm">Servicios</legend><div id="sv" class="mt-1 grid sm:grid-cols-2 gap-2"></div></fieldset>
     </div>
-    <div class="mt-6 flex justify-between items-center border-t border-slate-600 pt-4"><span>Total orientativo (IVA incl.)</span><span id="tot" class="or text-3xl font-extrabold" aria-live="polite">0,00 €</span></div>
+    <div class="mt-6 flex flex-wrap justify-between items-center border-t border-slate-600 pt-4 gap-3"><div><p class="text-sm text-slate-400">Total orientativo (IVA incl.)</p><p id="tot" class="or text-3xl font-extrabold" aria-live="polite">0,00 €</p><p id="tot-d" class="text-xs text-slate-400"></p></div>
+      <button id="quote-save" class="btn-or rounded-lg px-5 py-3">Pedir presupuesto formal</button></div>
   </section>
+
+  <section id="itv" class="grid md:grid-cols-2 gap-6">
+    <div class="card p-6"><h2 class="text-2xl font-bold">¿Cuándo toca la ITV?</h2><p class="text-sm text-slate-400 mt-1">Calculadora para turismos particulares.</p>
+      <label for="reg" class="text-sm block mt-4">Fecha de primera matriculación</label><input id="reg" type="date" max="">
+      <p id="itv-r" class="mt-4" aria-live="polite"></p></div>
+    <div class="card p-6"><h2 class="text-2xl font-bold">Próximo mantenimiento</h2><p class="text-sm text-slate-400 mt-1">Según kilómetros desde la última revisión.</p>
+      <label for="km" class="text-sm block mt-4">Kilómetros: <strong id="km-l" class="or">8.000</strong></label><input id="km" type="range" min="0" max="30000" step="500" value="8000" class="!p-0">
+      <ul id="km-r" class="mt-3 text-sm space-y-1" aria-live="polite"></ul></div>
+  </section>
+
+  <section id="estado" class="card p-6 sm:p-8"><h2 class="text-3xl font-bold">Estado de mi reparación</h2><p class="text-sm text-slate-400 mt-1">Introduce tu matrícula (prueba con <code class="or">1234ABC</code> o <code class="or">5678DEF</code>).</p>
+    <form id="trk" class="mt-4 flex gap-2"><input id="trk-m" placeholder="0000ABC" maxlength="8" required aria-label="Matrícula"><button class="btn-or rounded-lg px-5">Consultar</button></form>
+    <div id="trk-r" class="mt-5" aria-live="polite"></div></section>
+
   <section id="cita" class="card p-6 sm:p-8">
     <h2 class="text-3xl font-bold">Cita previa</h2>
     <form id="f" class="mt-5 grid sm:grid-cols-2 gap-4">
       <div><label for="nm" class="text-sm">Nombre</label><input id="nm" required></div>
+      <div><label for="tl" class="text-sm">Teléfono</label><input id="tl" type="tel" required></div>
       <div><label for="mat" class="text-sm">Matrícula</label><input id="mat" required placeholder="0000 ABC" maxlength="8"></div>
+      <div><label for="mod" class="text-sm">Marca y modelo</label><select id="mod"><option>Seat Ibiza</option><option>Renault Clio</option><option>Volkswagen Golf</option><option>Toyota Corolla</option><option>Otro</option></select></div>
       <div><label for="d" class="text-sm">Día</label><input id="d" type="date" required></div>
       <div><label for="h" class="text-sm">Franja</label><select id="h"><option>Mañana (8:30–12:30)</option><option>Tarde (15:00–18:30)</option></select></div>
+      <label class="sm:col-span-2 flex gap-2 text-sm items-center"><input type="checkbox" id="rec" class="!w-auto"> Quiero coche de cortesía</label>
+      <div class="sm:col-span-2"><label for="ds" class="text-sm">¿Qué le pasa al coche?</label><textarea id="ds" rows="2" placeholder="Ruido al frenar, luz del motor encendida…"></textarea></div>
       <button class="btn-or rounded-lg px-6 py-3 sm:col-span-2">Reservar cita</button>
     </form>
     <div id="ok" class="hidden text-center py-6" role="status"><div class="text-5xl">🔧</div><h3 class="text-2xl font-bold mt-2">¡Cita registrada!</h3><p id="ok-t" class="mt-2 text-slate-300"></p></div>
   </section>
+
+  <section class="grid md:grid-cols-2 gap-8">
+    <div><h2 class="text-3xl font-bold">Opiniones</h2><div id="reviews" class="mt-5 space-y-4"></div></div>
+    <div id="faq-w"><h2 id="faq" class="text-3xl font-bold">Preguntas frecuentes</h2><div id="faqs" class="mt-5 space-y-3"></div>
+      <div class="card p-5 mt-6"><h3 class="font-bold">Horario y contacto</h3><p class="text-sm text-slate-300 mt-1">Lun–Vie 8:30–13:00 · 15:00–19:00 · Sábado cerrado</p><p class="text-sm text-slate-400 mt-2">📍 Pol. Ind. Las Atalayas, nave 14 · Alicante · 📞 965 00 00 00</p>
+      <iframe title="Mapa" loading="lazy" class="mt-3 w-full h-36 rounded-lg border-0" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.5200%2C38.3000%2C-0.4400%2C38.3500&layer=mapnik"></iframe></div></div>
+  </section>
 </main>
 <footer class="border-t border-slate-700 py-8 text-center text-sm text-slate-500">Taller Mediterráneo · Demo ficticia por <a class="text-cyan-400" href="../index.html">Guillermo Gómez</a></footer>
+
 <script src="../js/main.js"></script>
 <script>
-const SV = [{ n: 'Cambio de aceite y filtros', p: 69 }, { n: 'Pastillas de freno (eje)', p: 95 }, { n: 'Revisión pre-ITV', p: 45 }, { n: 'Neumáticos (montaje y equilibrado ×4)', p: 60 }, { n: 'Aire acondicionado (recarga)', p: 79 }];
 const $ = id => document.getElementById(id);
-$('sv').innerHTML = SV.map((s, i) => `<label class="flex gap-2 text-sm"><input type="checkbox" class="!w-auto" data-i="${i}"> ${s.n} <span class="or ml-auto">${Demo.eur(s.p)}</span></label>`).join('');
+const SV = [{ n: 'Cambio de aceite y filtros', p: 69 }, { n: 'Pastillas de freno (eje)', p: 95 }, { n: 'Discos de freno (eje)', p: 160 }, { n: 'Revisión pre-ITV', p: 45 }, { n: 'Neumáticos (montaje y equilibrado ×4)', p: 60 }, { n: 'Aire acondicionado (recarga)', p: 79 }, { n: 'Batería (suministro y montaje)', p: 120 }, { n: 'Alineación de dirección', p: 49 }, { n: 'Diagnosis electrónica', p: 35 }, { n: 'Kit de distribución', p: 340 }];
+const PACKS = [{ n: 'Básico', p: 89, f: ['Aceite y filtro de aceite', 'Revisión de 25 puntos', 'Nivel de líquidos'] }, { n: 'Completo', p: 189, pop: 1, f: ['Aceite y 3 filtros', 'Revisión de frenos', 'Alineación', 'Diagnosis electrónica', 'Lavado exterior'] }, { n: 'Pre-ITV', p: 59, f: ['Revisión de luces y frenos', 'Emisiones y neumáticos', 'Informe de defectos'] }];
+const REV = [['Pablo R.', 5, 'Me dieron presupuesto cerrado y no se pasaron ni un euro. Trato de 10.'], ['Isabel M.', 5, 'Me avisaron por WhatsApp cada paso de la reparación. Súper transparentes.'], ['Marcos T.', 4, 'Rápidos con la ITV previa. Volveré para el cambio de correa.']];
+const STATE = { '1234ABC': { car: 'Seat Ibiza', step: 2, eta: 'Hoy a las 18:00', note: 'Sustitución de pastillas y discos delanteros en curso.' }, '5678DEF': { car: 'Toyota Corolla', step: 3, eta: 'Listo para recoger', note: 'Revisión completada. Total: 189,00 €.' } };
+const STEPS = ['Recibido', 'Diagnóstico', 'En reparación', 'Listo para recoger'];
+
+document.querySelectorAll('[data-count]').forEach(el => { const end = +el.dataset.count; let n = 0; const io = new IntersectionObserver(([e]) => { if (!e.isIntersecting) return; io.disconnect(); const t = setInterval(() => { n += Math.ceil(end / 40); if (n >= end) { n = end; clearInterval(t); } el.textContent = n.toLocaleString('es-ES'); }, 30); }); io.observe(el); });
+
+$('packs-g').innerHTML = PACKS.map(p => `<article class="card p-6 ${p.pop ? 'border-orange-500' : ''}">${p.pop ? '<span class="or text-xs font-bold uppercase">Más elegido</span>' : ''}<h3 class="text-xl font-bold">Pack ${p.n}</h3><p class="or text-3xl font-extrabold mt-1">${p.p} €</p><ul class="mt-3 text-sm space-y-1 text-slate-300">${p.f.map(x => `<li>✓ ${x}</li>`).join('')}</ul><a href="#cita" data-pack="${p.n}" class="btn-or rounded-lg px-4 py-2 mt-4 inline-block text-sm">Reservar pack</a></article>`).join('');
+document.addEventListener('click', e => { const a = e.target.closest('[data-pack]'); if (a) $('ds').value = 'Pack ' + a.dataset.pack; });
+
+// Presupuesto
+$('sv').innerHTML = SV.map((s, i) => `<label class="flex gap-2 text-sm card px-3 py-2 items-center cursor-pointer"><input type="checkbox" class="!w-auto" data-i="${i}"> ${s.n} <span class="or ml-auto whitespace-nowrap">${Demo.eur(s.p)}</span></label>`).join('');
 function calc() {
-  const sum = [...document.querySelectorAll('#sv input:checked')].reduce((a, c) => a + SV[+c.dataset.i].p, 0);
-  $('tot').textContent = Demo.eur(sum * parseFloat($('vt').value));
+  const sel = [...document.querySelectorAll('#sv input:checked')], k = parseFloat($('vt').value);
+  let sum = sel.reduce((a, c) => a + SV[+c.dataset.i].p, 0) * k, disc = sel.length >= 3 ? 0.08 : 0;
+  $('tot').textContent = Demo.eur(sum * (1 - disc));
+  $('tot-d').textContent = disc ? `Incluye 8% de descuento por 3 o más servicios (−${Demo.eur(sum * disc)})` : sel.length ? `Añade ${3 - sel.length} servicio(s) más y obtén un 8% de descuento` : 'Selecciona los servicios que necesitas';
 }
-$('sv').addEventListener('change', calc); $('vt').addEventListener('change', calc);
-$('d').min = new Date().toISOString().slice(0, 10);
+$('sv').addEventListener('change', calc); $('vt').addEventListener('change', calc); calc();
+$('quote-save').onclick = () => { if (!document.querySelector('#sv input:checked')) return Demo.toast('Selecciona al menos un servicio'); $('ds').value = 'Presupuesto: ' + [...document.querySelectorAll('#sv input:checked')].map(c => SV[+c.dataset.i].n).join(', '); location.hash = '#cita'; Demo.toast('Servicios copiados a la cita previa'); };
+
+// ITV
+$('reg').max = new Date().toISOString().slice(0, 10);
+$('reg').addEventListener('input', () => {
+  if (!$('reg').value) return; const r = new Date($('reg').value), now = new Date(); let next = new Date(r); next.setFullYear(r.getFullYear() + 4);
+  for (let y = 4; next <= now; y += (y >= 10 ? 1 : 2)) { next = new Date(r); next.setFullYear(r.getFullYear() + y + (y >= 10 ? 0 : 0)); }
+  const days = Math.round((next - now) / 86400000);
+  $('itv-r').innerHTML = `Próxima ITV orientativa: <strong class="or">${next.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</strong><br><span class="text-sm text-slate-400">${days > 0 ? `Faltan ${days} días.` : 'Debería haberse pasado ya.'} Periodicidad real: 4 años el primero, luego cada 2 y anual desde los 10 años (consulta tu ficha técnica).</span>`;
+});
+function km() { const v = +$('km').value; $('km-l').textContent = v.toLocaleString('es-ES') + ' km'; const t = []; if (v >= 10000) t.push('🛢 Cambio de aceite y filtros'); if (v >= 15000) t.push('🛞 Rotación y revisión de neumáticos'); if (v >= 20000) t.push('🛑 Revisión de frenos'); if (v >= 30000) t.push('⚙️ Filtro de aire y habitáculo'); $('km-r').innerHTML = t.length ? t.map(x => `<li>${x}</li>`).join('') : '<li class="text-emerald-400">✓ Todo al día por ahora.</li>'; }
+$('km').oninput = km; km();
+
+// Estado reparación
+$('trk').addEventListener('submit', e => {
+  e.preventDefault(); const m = $('trk-m').value.replace(/\s/g, '').toUpperCase(), s = STATE[m];
+  if (!s) { $('trk-r').innerHTML = '<p class="text-red-400 text-sm">No hay ningún vehículo en el taller con esa matrícula.</p>'; return; }
+  $('trk-r').innerHTML = `<div class="card p-5"><p class="font-semibold">${s.car} · ${m}</p><ol class="mt-4 grid sm:grid-cols-4 gap-3">${STEPS.map((x, i) => `<li class="flex sm:flex-col items-center gap-2 text-sm ${i <= s.step ? '' : 'text-slate-500'}"><span class="step rounded-full flex items-center justify-center ${i <= s.step ? 'bg-orange-500 text-white' : 'bg-slate-700'}">${i <= s.step ? '✓' : i + 1}</span>${x}</li>`).join('')}</ol><p class="mt-4 text-sm"><strong class="or">${s.eta}</strong> — ${s.note}</p></div>`;
+});
+
+// Cita
+const iso = new Date().toISOString().slice(0, 10); $('d').min = iso;
 $('f').addEventListener('submit', e => {
-  e.preventDefault();
-  $('ok-t').textContent = `${$('nm').value}, hemos anotado ${$('mat').value.toUpperCase()} el ${new Date($('d').value + 'T00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })} (${$('h').value}).`;
+  e.preventDefault(); const day = new Date($('d').value + 'T00:00');
+  if (day.getDay() === 0 || day.getDay() === 6) return Demo.toast('Abrimos de lunes a viernes');
+  $('ok-t').textContent = `${$('nm').value}, hemos anotado tu ${$('mod').value} (${$('mat').value.toUpperCase()}) el ${day.toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })} (${$('h').value}).${$('rec').checked ? ' Tendrás coche de cortesía.' : ''}`;
   $('f').classList.add('hidden'); $('ok').classList.remove('hidden');
 });
+
+$('reviews').innerHTML = REV.map(([n, s, t]) => `<blockquote class="card p-4"><p class="or">${Demo.stars(s)}</p><p class="text-sm mt-1">"${t}"</p><footer class="text-xs text-slate-400 mt-2">— ${n}</footer></blockquote>`).join('');
+Demo.faq('faqs', [['¿Dais presupuesto antes de reparar?', 'Siempre. No se empieza ningún trabajo sin tu aprobación.'], ['¿Qué garantía tienen las reparaciones?', '2 años en mano de obra y recambios de calidad equivalente al original.'], ['¿Trabajáis con eléctricos e híbridos?', 'Sí, mantenimiento y diagnosis. Reparaciones de alta tensión con personal certificado.'], ['¿Puedo traer mis propias piezas?', 'Sí, aplicamos solo mano de obra, sin garantía sobre la pieza.']]);
 </script>
 </body>
 </html>
