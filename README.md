@@ -33,11 +33,7 @@ Abre `index.html` en el navegador. No hace falta servidor.
 ## Activar GitHub Pages
 1. En el repositorio: **Settings → Pages**.
 2. *Source*: **Deploy from a branch** → rama `main`, carpeta `/ (root)`.
-3. Guarda. Con dominio propio (`CNAME` en la raíz del repo), el DNS debe apuntar a GitHub:
-   - Registros **A** del dominio raíz: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`.
-   - Registro **CNAME** de `www` → `guillegomezlopez3.github.io`.
-   - No toques los registros MX (correo) ni TXT.
-   - Cuando el certificado esté listo, marca **Enforce HTTPS** en Settings → Pages.
+3. Guarda. En ~1 minuto estará en `https://guillegomezlopez3.github.io/portfolio-web-alicante/`.
 
 Si usas otra URL o dominio propio, actualiza `canonical`, Open Graph y JSON-LD en `index.html` y en las landings, además de `robots.txt` y `sitemap.xml`.
 
