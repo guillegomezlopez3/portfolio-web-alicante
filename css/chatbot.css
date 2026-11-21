@@ -1,0 +1,37 @@
+/* Asistente automático: mismo lenguaje que la web (papel, tinta, un acento y mono) */
+.cb-launch { position: fixed; right: var(--pad); bottom: 1.1rem; z-index: 55; display: inline-flex; align-items: center; gap: .6rem; padding: .8rem 1.2rem; background: var(--ink); color: var(--paper); border-radius: 99px; font: 500 .74rem/1 var(--f-m); letter-spacing: .06em; text-transform: uppercase; box-shadow: 4px 4px 0 var(--acc); transition: transform .25s var(--ease), box-shadow .25s var(--ease); }
+.cb-launch:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--acc); }
+.cb-launch i, .cb-head i { width: .55rem; height: .55rem; border-radius: 50%; background: #3ddc84; display: inline-block; animation: ping 2s infinite; }
+.cb-launch.on { opacity: 0; pointer-events: none; }
+
+.cb-panel { position: fixed; right: var(--pad); bottom: 1.1rem; z-index: 80; width: min(25rem, calc(100vw - 1.2rem)); height: min(36rem, 76svh); display: flex; flex-direction: column; background: var(--paper); color: var(--ink); border: 1.5px solid var(--ink); box-shadow: 8px 8px 0 var(--acc); transform-origin: 100% 100%; transform: scale(.92) translateY(14px); opacity: 0; visibility: hidden; transition: transform .35s var(--ease), opacity .25s, visibility 0s .35s; }
+.cb-panel.open { transform: none; opacity: 1; visibility: visible; transition: transform .35s var(--ease), opacity .25s, visibility 0s; }
+.cb-head { display: flex; justify-content: space-between; align-items: center; padding: .8rem 1rem; background: var(--ink); color: var(--paper); font: 500 .74rem var(--f-m); letter-spacing: .08em; text-transform: uppercase; }
+.cb-head span { display: flex; align-items: center; gap: .6rem; }
+.cb-x { font-size: 1.6rem; line-height: 1; color: inherit; width: 2rem; height: 2rem; }
+.cb-x:hover { color: var(--acc); }
+.cb-log { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: .8rem; overscroll-behavior: contain; }
+.cb-m { max-width: 88%; font-size: .95rem; line-height: 1.45; animation: cbin .3s var(--ease); }
+@keyframes cbin { from { opacity: 0; transform: translateY(8px); } }
+.cb-m p + p { margin-top: .5rem; }
+.cb-m.b { padding-left: .8rem; border-left: 3px solid var(--acc); }
+.cb-m.u { align-self: flex-end; background: var(--ink); color: var(--paper); padding: .55rem .8rem; }
+.cb-links { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .7rem; }
+.cb-link { display: inline-block; padding: .4rem .75rem; background: var(--acc); color: #fff; text-decoration: none; font: 500 .7rem var(--f-m); letter-spacing: .05em; text-transform: uppercase; transition: background .2s; }
+.cb-link::after { content: ' ↗'; }
+.cb-link:hover { background: var(--ink); }
+.cb-chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+.cb-chips button { padding: .4rem .75rem; border: 1.5px solid var(--ink); font: 500 .7rem var(--f-m); letter-spacing: .05em; text-transform: uppercase; transition: background .15s, color .15s; }
+.cb-chips button:hover { background: var(--ink); color: var(--paper); }
+.cb-typing { display: flex; gap: .25rem; align-items: center; height: 1.4rem; }
+.cb-typing i { width: .45rem; height: .45rem; background: var(--ink); animation: cbdot 1s infinite; }
+.cb-typing i:nth-child(2) { animation-delay: .15s; } .cb-typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes cbdot { 0%, 60%, 100% { opacity: .2; } 30% { opacity: 1; } }
+.cb-form { display: flex; border-top: 1.5px solid var(--ink); }
+.cb-form input { flex: 1; min-width: 0; padding: .9rem 1rem; background: transparent; border: 0; outline: none; font-size: 1rem; }
+.cb-form input:focus { background: #ffffff55; }
+.cb-form button { width: 3.2rem; background: var(--ink); color: var(--paper); font-size: 1.2rem; transition: background .2s; }
+.cb-form button:hover { background: var(--acc); }
+.cb-note { padding: .4rem 1rem; font: 500 .62rem var(--f-m); letter-spacing: .06em; text-transform: uppercase; color: var(--mute); border-top: 1px solid var(--line); }
+@media (max-width: 520px) { .cb-launch span { display: none; } .cb-launch { padding: .9rem; } .cb-panel { right: .6rem; bottom: .6rem; } }
+@media (prefers-reduced-motion: reduce) { .cb-m, .cb-launch i, .cb-head i, .cb-typing i { animation: none; } }

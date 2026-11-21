@@ -21,6 +21,7 @@ css/styles.css                Estilos de la web principal y las landings
 css/demo-base.css             Base común de las demos
 css/demo-*.css                Estilos propios de cada demo
 js/main.js                    Lógica de la web principal (menú, índice, ficha de proyecto → WhatsApp)
+js/chatbot.js, css/chatbot.css Asistente automático con respuestas preprogramadas (sin IA ni servidor; se edita en el array KB)
 js/demo.js                    Utilidades compartidas de las demos
 js/demo-*.js                  Lógica de cada demo
 favicon.svg, robots.txt, sitemap.xml
