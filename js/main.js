@@ -83,7 +83,7 @@
         (form.nombre.value.trim() ? form.contacto : form.nombre).focus(); return;
       }
       const ex = extras();
-      const text = `Hola Guillermo, soy ${form.nombre.value.trim()} (${form.contacto.value.trim()}).\nQuiero: ${v('tipo')}.\nExtras: ${ex.length ? ex.join(', ') : 'ninguno'}.\nPlazo: ${v('plazo')}.` + (form.mensaje.value.trim() ? `\n${form.mensaje.value.trim()}` : '');
+      const text = `Hola, soy ${form.nombre.value.trim()} (${form.contacto.value.trim()}).\nQuiero: ${v('tipo')}.\nExtras: ${ex.length ? ex.join(', ') : 'ninguno'}.\nPlazo: ${v('plazo')}.` + (form.mensaje.value.trim() ? `\n${form.mensaje.value.trim()}` : '');
       window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
     });
   }

@@ -1,4 +1,4 @@
-# Portfolio web – Guillermo Gómez López (Alicante)
+# DigitalSolutionsCMV – programas de gestión, webs y tiendas online (Alicante)
 
 Web de marca personal y captación de clientes locales, con 5 demos interactivas y landings de SEO local. HTML5, CSS3 y JavaScript vanilla: sin frameworks, sin build y sin dependencias (solo Google Fonts e imágenes de Unsplash).
 

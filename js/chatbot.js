@@ -14,52 +14,59 @@
 (function () {
   const PHONE = '34620477443';
   const WA = t => `https://wa.me/${PHONE}?text=${encodeURIComponent(t)}`;
-  const LINK_WA = ['Hablar por WhatsApp', WA('Hola Guillermo, vengo de tu web y quería hacerte una consulta.')];
+  const LINK_WA = ['Hablar por WhatsApp', WA('Hola, vengo de la web de DigitalSolutionsCMV y quería hacerte una consulta.')];
 
   const KB = [
     { id: 'hola', label: 'Hola', k: ['hola', 'buenas', 'buenos dias', 'buenas tardes', 'buenas noches', 'saludos', 'hey'],
-      a: ['¡Hola! Soy el asistente automático de Guillermo. Puedo orientarte sobre servicios, plazos, mantenimiento y zonas de trabajo.', '¿Qué te gustaría saber?'], next: ['servicios', 'plazos', 'precio'] },
-    { id: 'servicios', label: 'Servicios', k: ['servicio', 'ofreces', 'haces', 'tipos de web', 'nivel', 'que vendes', 'que puedes hacer', 'que hacen', 'que haceis'],
-      a: ['Trabajo en tres niveles:', '**1. Web profesional / landing**: tu escaparate en Google, rápida y pensada para el móvil.', '**2. Web con base de datos y panel**: reservas o citas online y gestión de clientes.', '**3. Tienda online**: catálogo, carrito y pago con tarjeta con Stripe.'],
-      l: [['Ver los servicios', 'index.html#servicios']], next: ['plazos', 'precio', 'demos'] },
-    { id: 'precio', label: 'Precio', k: ['precio', 'cuesta', 'coste', 'presupuesto', 'tarifa', 'cobras', 'caro', 'barato', 'cuanto vale', 'cuanto cobras', 'cuanto me costaria', 'euros'],
-      a: ['El precio depende del alcance: secciones, idiomas, reservas, pagos… Prefiero darte un **presupuesto cerrado y sin compromiso** después de que me cuentes tu proyecto, así no hay sorpresas.'],
-      l: [['Montar mi ficha de proyecto', 'index.html#contacto'], LINK_WA], next: ['plazos', 'mantenimiento', 'servicios'] },
-    { id: 'plazos', label: 'Plazos', k: ['plazo', 'tarda', 'tiempo', 'semanas', 'rapido', 'entrega', 'urgente', 'duracion', 'cuanto tardas', 'cuando estaria'],
-      a: ['Orientativamente: **1–2 semanas** una web profesional o landing, **4–8 semanas** con base de datos y panel, y **4–10 semanas** una tienda online.', 'Depende de lo que necesites y de cuándo tengamos los textos y las fotos.'], next: ['precio', 'servicios', 'contacto'] },
-    { id: 'seo', label: 'Salir en Google', k: ['google', 'seo', 'posicion', 'posicionar', 'posicionamiento', 'buscador', 'aparecer', 'visible', 'visibilidad', 'trafico', 'maps'],
-      a: ['Cada web lleva SEO técnico y local: títulos, datos estructurados, velocidad, sitemap y textos pensados para búsquedas como «tu servicio + tu ciudad».', 'Nadie puede prometer el puesto número 1, pero sí dejarte con una base sólida para competir.'],
-      l: [['Ejemplo de página local', 'alicante.html']], next: ['mantenimiento', 'zonas', 'precio'] },
-    { id: 'mantenimiento', label: 'Mantenimiento', k: ['mantenimiento', 'mantener', 'actualizaciones', 'soporte', 'copias', 'seguridad', 'backup', 'despues de entregar', 'plan mensual'],
-      a: ['Sí, ofrezco un **plan mensual** con actualizaciones, copias de seguridad, cambios de contenido y soporte.', 'Si prefieres encargarte tú, también te enseño a gestionarlo.'], next: ['editar', 'precio', 'contacto'] },
-    { id: 'editar', label: 'Editarla yo mismo', k: ['editar', 'modificar', 'cambiar textos', 'yo mismo', 'por mi cuenta', 'gestionar yo', 'cambiar precios', 'cambiar fotos', 'sin programar'],
-      a: ['En las webs con panel de gestión puedes cambiar cartas, productos, horarios o reservas tú mismo, **sin tocar código**.'], next: ['reservas', 'mantenimiento', 'demos'] },
-    { id: 'reservas', label: 'Reservas online', k: ['reserva', 'reservas', 'reservar', 'cita', 'citas', 'agenda', 'turnos', 'calendario', 'mesa'],
-      a: ['Sí: monto sistemas de **reservas o citas online** con aviso por email y un panel privado para gestionarlas.', 'Puedes probarlo en las demos del restaurante, la clínica, la barbería o el taller.'], l: [['Ver las demos', 'index.html#demos']], next: ['editar', 'precio', 'demos'] },
-    { id: 'tienda', label: 'Tienda online', k: ['tienda', 'ecommerce', 'e-commerce', 'vender online', 'carrito', 'stripe', 'pago', 'pagos', 'tarjeta', 'cobrar', 'comprar'],
-      a: ['Monto tiendas online con catálogo, carrito y **pago seguro con Stripe**, además de un panel para pedidos y stock.', 'Tienes una demo funcionando: Alicante Urban Store.'], l: [['Probar la demo de tienda', 'demos/tienda.html']], next: ['plazos', 'precio', 'mantenimiento'] },
+      a: ['¡Hola! Soy el asistente automático de DigitalSolutionsCMV. Te cuento en lenguaje normal qué podemos hacer por tu negocio: programas para llevarlo todo ordenado, citas online, tienda o web.', '¿Qué te gustaría saber?'], next: ['servicios', 'nosenada', 'precio'] },
+    { id: 'servicios', label: '¿Qué hacéis?', k: ['servicio', 'servicios', 'ofreces', 'ofreceis', 'haces', 'haceis', 'que vendes', 'que puedes hacer', 'que hacen', 'a que te dedicas', 'en que consiste'],
+      a: ['Cinco cosas, explicadas fácil:', '**1. Un programa para llevar tu negocio**: clientes, facturas, stock y pedidos en un solo sitio.', '**2. Citas y reservas online**: tus clientes reservan solos.', '**3. Tienda online**: vendes por Internet con pago con tarjeta.', '**4. Pasar tus Excel o papeles a un programa** y automatizar tareas.', '**5. Web y Google**: que te encuentren cuando te busquen.'],
+      l: [['Ver los servicios', 'index.html#servicios']], next: ['gestion', 'plazos', 'precio'] },
+    { id: 'gestion', label: 'Programa de gestión', k: ['erp', 'gestion', 'programa de gestion', 'software', 'programa a medida', 'a medida', 'facturas', 'factura', 'facturacion', 'stock', 'inventario', 'almacen', 'clientes', 'informes', 'crm', 'llevar mi negocio'],
+      a: ['Un **programa de gestión** (los grandes lo llaman ERP) es una sola herramienta donde tienes tus clientes, citas, facturas, presupuestos y lo que te queda en el almacén. Lo hago **a tu medida**: solo lleva lo que tú necesitas, con tus palabras y tu forma de trabajar.', 'Se usa desde el ordenador, la tablet o el móvil, y cada empleado ve solo lo suyo.'],
+      l: [['Más información', 'index.html#servicios'], ['Contarle mi caso', 'index.html#contacto']], next: ['excel', 'plazos', 'precio'] },
+    { id: 'excel', label: 'Tengo todo en Excel', k: ['excel', 'papel', 'libreta', 'hojas de calculo', 'pasar datos', 'importar', 'programa antiguo', 'programa viejo', 'automatizar', 'automatico', 'repetitivo', 'conectar'],
+      a: ['No empiezas de cero: **paso tus Excel, listados o datos antiguos** al programa nuevo y lo reviso contigo para que esté todo.', 'También puedo **automatizar tareas repetitivas** (facturas, avisos a clientes, informes) y conectar programas que hoy no se hablan entre sí.'], next: ['gestion', 'precio', 'contacto'] },
+    { id: 'nosenada', label: 'No sé de informática', k: ['no se de informatica', 'no entiendo', 'no se nada', 'soy novato', 'tecnico', 'complicado', 'dificil', 'no se usar', 'es dificil', 'mayor', 'sin conocimientos', 'informatica'],
+      a: ['Tranquilo/a, es lo normal. **No necesitas saber nada**: me cuentas cómo trabajas hoy con tus palabras y yo me encargo de la parte técnica.', 'Te enseño cómo va quedando, te explico cómo usarlo sin jerga y, si te atascas, me llamas a mí.'], next: ['soporte', 'precio', 'contacto'] },
+    { id: 'precio', label: 'Precio', k: ['precio', 'precios', 'cuesta', 'coste', 'presupuesto', 'tarifa', 'cobras', 'caro', 'barato', 'cuanto vale', 'cuanto cobras', 'cuanto me costaria', 'euros', 'pagar', 'cuota'],
+      a: ['Depende de lo que necesites. Prefiero darte un **presupuesto cerrado, por escrito y sin compromiso** después de una primera charla gratuita, así sabes lo que pagas antes de empezar y no hay sorpresas.', 'Ojo: un programa a medida no lleva cuota mensual por usuario como los genéricos; solo pagas si quieres el plan de soporte.'],
+      l: [['Montar mi ficha', 'index.html#contacto'], LINK_WA], next: ['plazos', 'soporte', 'servicios'] },
+    { id: 'plazos', label: 'Plazos', k: ['plazo', 'plazos', 'tarda', 'tardais', 'cuanto tiempo', 'semanas', 'rapido', 'entrega', 'urgente', 'duracion', 'cuanto tardas', 'cuando estaria'],
+      a: ['Orientativamente: **1–2 semanas** una web, **3–6** citas y reservas, **4–10** una tienda online y **desde 4 semanas** un programa de gestión, según su tamaño.', 'En programas grandes empezamos por lo más urgente y vamos ampliando, para que lo uses cuanto antes.'], next: ['precio', 'servicios', 'contacto'] },
+    { id: 'seo', label: 'Salir en Google', k: ['google', 'seo', 'posicion', 'posicionar', 'posicionamiento', 'buscador', 'aparecer', 'visible', 'visibilidad', 'trafico', 'maps', 'que me encuentren'],
+      a: ['Si haces una web conmigo la dejo preparada para que te encuentren cuando busquen «tu servicio + tu ciudad», y te ayudo con tu ficha de Google.', 'Nadie puede prometer el puesto número 1, pero sí dejarte con una buena base para competir.'],
+      l: [['Ejemplo de página local', 'alicante.html']], next: ['soporte', 'zonas', 'precio'] },
+    { id: 'soporte', label: 'Soporte y mantenimiento', k: ['mantenimiento', 'mantener', 'actualizaciones', 'soporte', 'copias', 'seguridad', 'backup', 'despues de entregar', 'plan mensual', 'si falla', 'se rompe', 'ayuda despues', 'cambios'],
+      a: ['Si algo falla o necesitas un cambio, **me llamas a mí**. Tengo un **plan mensual** con soporte, copias de seguridad y mejoras, o me pides los cambios puntuales cuando los necesites.'], next: ['datos', 'precio', 'contacto'] },
+    { id: 'datos', label: 'Seguridad de mis datos', k: ['seguridad de mis datos', 'datos seguros', 'seguro', 'privacidad', 'datos', 'rgpd', 'cookies', 'legal', 'proteccion de datos', 'guardas', 'confidencial', 'contrasena'],
+      a: ['Cada persona entra con su **usuario y contraseña** y ve solo lo que le corresponde. Se hacen **copias de seguridad** y se cumple la normativa de protección de datos (RGPD).', 'Y este asistente funciona en tu navegador **sin enviar tus mensajes a ningún sitio**.'], l: [['Aviso legal y privacidad', 'legal.html']], next: ['soporte', 'contacto'] },
+    { id: 'reservas', label: 'Citas y reservas online', k: ['reserva', 'reservas', 'reservar', 'reserven', 'reservan', 'online', 'cita', 'citas', 'agenda', 'turnos', 'calendario', 'mesa'],
+      a: ['Tus clientes **reservan solos desde el móvil**, a cualquier hora. Tú ves la agenda del día y el programa les avisa para que no se olviden. Se acabó el teléfono sonando mientras trabajas.', 'Puedes probarlo en las demos del restaurante, la clínica, la barbería o el taller.'], l: [['Ver los ejemplos', 'index.html#demos']], next: ['tienda', 'precio', 'demos'] },
+    { id: 'tienda', label: 'Tienda online', k: ['tienda', 'ecommerce', 'e-commerce', 'vender online', 'vender por internet', 'vendeis', 'vender', 'por internet', 'carrito', 'stripe', 'pago', 'pagos', 'tarjeta', 'cobrar', 'comprar'],
+      a: ['Monto tiendas online con catálogo, carrito y **pago seguro con tarjeta**. Los pedidos y el stock se actualizan solos y los ves en tu panel.', 'Tienes un ejemplo funcionando: Alicante Urban Store.'], l: [['Probar la tienda de ejemplo', 'demos/tienda.html']], next: ['plazos', 'precio', 'gestion'] },
+    { id: 'web', label: 'Solo quiero una web', k: ['web', 'pagina web', 'pagina', 'landing', 'sitio web', 'escaparate'],
+      a: ['Claro: una **web propia**, no plantilla, que carga rápido, se ve bien en el móvil y deja claro qué haces y cómo contactarte. Dominio y publicación incluidos. Suele estar lista en 1–2 semanas.'], l: [['Ver el servicio', 'index.html#servicios']], next: ['seo', 'precio', 'plazos'] },
     { id: 'zonas', label: 'Zonas de trabajo', k: ['donde', 'zona', 'zonas', 'alicante', 'elche', 'benidorm', 'san vicente', 'playa de san juan', 'provincia', 'ciudad', 'presencial', 'reunion', 'remoto', 'toda espana'],
-      a: ['Mi zona es **Alicante, San Vicente del Raspeig, Elche, Playa de San Juan, Benidorm** y toda la provincia, con reuniones presenciales.', 'También trabajo en remoto con toda España.'], next: ['seo', 'contacto', 'servicios'] },
-    { id: 'tecnologia', label: 'Tecnología', k: ['tecnologia', 'stack', 'java', 'spring', 'mysql', 'lenguaje', 'plantilla', 'framework', 'programado', 'como lo haces', 'jwt'],
-      a: ['Programo a mano, con diseño propio y sin plantillas: **Java 21 y Spring Boot** para el servidor, **MySQL** para los datos, **JavaScript, HTML5 y CSS3** para la web, **JWT** para el acceso seguro y **Stripe** para los pagos.'], l: [['Ver el stack', 'index.html#sobre-mi']], next: ['sobre', 'demos', 'servicios'] },
-    { id: 'demos', label: 'Ver demos', k: ['demo', 'demos', 'ejemplo', 'ejemplos', 'probar', 'muestra', 'portfolio', 'portafolio', 'referencias'],
-      a: ['Tengo cinco demos funcionando, con reservas, carrito y más:'], l: [['Restaurante', 'demos/restaurante.html'], ['Tienda online', 'demos/tienda.html'], ['Clínica', 'demos/clinica.html'], ['Barbería', 'demos/barberia.html'], ['Taller', 'demos/taller.html']], next: ['reservas', 'tienda', 'precio'] },
-    { id: 'contacto', label: 'Hablar con Guillermo', k: ['contacto', 'contactar', 'hablar', 'llamar', 'telefono', 'whatsapp', 'email', 'correo', 'escribir', 'persona', 'humano', 'guillermo', 'llamarte'],
-      a: ['Puedes escribirme por **WhatsApp** al +34 620 477 443, por email o rellenar la ficha de proyecto y me llega ya con lo esencial.'], l: [LINK_WA, ['Ficha de proyecto', 'index.html#contacto'], ['Email', 'mailto:gomezlopezguille@gmail.com']], next: ['precio', 'plazos'] },
-    { id: 'sobre', label: 'Quién eres', k: ['quien eres', 'quien es', 'formacion', 'experiencia', 'irlanda', 'titulo', 'estudios', 'sobre ti', 'levelup', 'curriculum'],
-      a: ['Soy **Guillermo Gómez**, desarrollador Full-Stack en Alicante. Técnico Superior en Desarrollo de Aplicaciones Multiplataforma, con experiencia desarrollando software en Irlanda.'], l: [['Sobre mí', 'index.html#sobre-mi'], ['LinkedIn', 'https://www.linkedin.com/in/guillermo-g%C3%B3mez-l%C3%B3pez-84770b179/']], next: ['tecnologia', 'demos'] },
+      a: ['Trabajo en **Alicante, San Vicente del Raspeig, Elche, Playa de San Juan, Benidorm** y toda la provincia, con reuniones en tu local.', 'También en remoto con toda España.'], next: ['seo', 'contacto', 'servicios'] },
+    { id: 'tecnologia', label: 'Con qué lo haces', k: ['tecnologia', 'stack', 'java', 'spring', 'mysql', 'lenguaje', 'plantilla', 'framework', 'programado', 'como lo haces', 'jwt'],
+      a: ['Para curiosos: lo programo a mano con **Java, Spring Boot y MySQL**, tecnologías muy fiables que usan las grandes empresas. Para ti, lo importante es que va rápido, es seguro y es **tuyo**.'], next: ['sobre', 'demos', 'servicios'] },
+    { id: 'demos', label: 'Ver ejemplos', k: ['demo', 'demos', 'ejemplo', 'ejemplos', 'probar', 'muestra', 'portfolio', 'portafolio', 'referencias'],
+      a: ['Tengo cinco ejemplos que puedes tocar y probar, con reservas, carrito y más:'], l: [['Restaurante', 'demos/restaurante.html'], ['Tienda online', 'demos/tienda.html'], ['Clínica', 'demos/clinica.html'], ['Barbería', 'demos/barberia.html'], ['Taller', 'demos/taller.html']], next: ['reservas', 'tienda', 'precio'] },
+    { id: 'contacto', label: 'Hablar con una persona', k: ['contacto', 'contactar', 'hablar', 'llamar', 'telefono', 'whatsapp', 'email', 'correo', 'escribir', 'persona', 'humano', 'guillermo', 'llamarte'],
+      a: ['Puedes escribirme por **WhatsApp** al +34 620 477 443, por email, o rellenar la ficha de la web y me llega ya con lo esencial. Te llamo cuando te venga bien.'], l: [LINK_WA, ['Ficha de proyecto', 'index.html#contacto'], ['Email', 'mailto:gomezlopezguille@gmail.com']], next: ['precio', 'plazos'] },
+    { id: 'sobre', label: '¿Quién hay detrás?', k: ['quien eres', 'quien es', 'quien sois', 'quienes sois', 'quienes son', 'formacion', 'experiencia', 'irlanda', 'titulo', 'estudios', 'sobre ti', 'levelup', 'curriculum', 'digitalsolutionscmv', 'empresa'],
+      a: ['**DigitalSolutionsCMV** es el estudio de **Guillermo Gómez**, programador en Alicante. Técnico Superior en Desarrollo de Aplicaciones Multiplataforma, con experiencia desarrollando software en Irlanda.', 'No es una gran empresa con letra pequeña: hablas directamente con la persona que hace el trabajo.'], l: [['Quién está detrás', 'index.html#sobre-mi'], ['LinkedIn', 'https://www.linkedin.com/in/guillermo-g%C3%B3mez-l%C3%B3pez-84770b179/']], next: ['tecnologia', 'demos'] },
     { id: 'dominio', label: 'Dominio y hosting', k: ['dominio', 'hosting', 'alojamiento', 'servidor', 'publicar', 'publicacion', 'subir la web', 'nube'],
-      a: ['Me encargo de configurar el dominio y la publicación de tu web. En las webs con base de datos también preparo el servidor en la nube.'], next: ['mantenimiento', 'precio'] },
+      a: ['Me encargo del dominio (la dirección de tu web), del alojamiento y de la publicación. En los programas de gestión también dejo preparado el servidor en la nube.'], next: ['soporte', 'precio'] },
     { id: 'idiomas', label: 'Varios idiomas', k: ['idioma', 'idiomas', 'ingles', 'multilingue', 'traduccion', 'traducir', 'frances', 'aleman'],
-      a: ['Sí, puedo hacer la web en varios idiomas (por ejemplo español e inglés), algo muy útil en zonas turísticas como Benidorm o Playa de San Juan. Lo marcas como extra en la ficha de proyecto.'], l: [['Ficha de proyecto', 'index.html#contacto']], next: ['precio', 'seo'] },
-    { id: 'privacidad', label: 'Privacidad', k: ['privacidad', 'datos', 'rgpd', 'cookies', 'legal', 'proteccion de datos', 'guardas'],
-      a: ['Este sitio no usa cookies propias ni analítica, y este asistente funciona en tu navegador **sin enviar tus mensajes a ningún servidor**.', 'Más detalle en el aviso legal.'], l: [['Aviso legal y privacidad', 'legal.html']], next: ['contacto'] },
+      a: ['Sí, puedo hacerlo en varios idiomas (por ejemplo español e inglés), muy útil en zonas turísticas como Benidorm o Playa de San Juan.'], l: [['Ficha de proyecto', 'index.html#contacto']], next: ['precio', 'seo'] },
     { id: 'bot', label: '¿Eres una IA?', k: ['eres un bot', 'eres una ia', 'eres ia', 'inteligencia artificial', 'chatgpt', 'claude', 'robot', 'eres humano', 'eres una persona', 'bot'],
       a: ['Soy un asistente automático con respuestas preprogramadas: **no uso inteligencia artificial ni guardo tus mensajes**.', 'Para algo más concreto, lo mejor es hablar directamente con Guillermo.'], l: [LINK_WA], next: ['servicios', 'precio'] },
     { id: 'gracias', label: 'Gracias', k: ['gracias', 'genial', 'perfecto', 'adios', 'hasta luego', 'muchas gracias'],
-      a: ['¡A ti! Si te surge otra duda, aquí estaré. Y si quieres seguir hablando de tu proyecto, escríbeme por WhatsApp.'], l: [LINK_WA], next: [] }
+      a: ['¡A ti! Si te surge otra duda, aquí estaré. Y si quieres hablar de tu negocio, escríbeme por WhatsApp.'], l: [LINK_WA], next: [] }
   ];
-  const SUGGEST = ['servicios', 'plazos', 'precio', 'mantenimiento', 'zonas', 'contacto'];
+  const SUGGEST = ['servicios', 'gestion', 'precio', 'plazos', 'soporte', 'contacto'];
 
   /* ---------- Motor de coincidencias ---------- */
   const norm = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9\s-]/g, ' ').replace(/\s+/g, ' ').trim();
@@ -85,7 +92,7 @@
 
   const launch = el('button', 'cb-launch'); launch.type = 'button'; launch.setAttribute('aria-expanded', 'false'); launch.setAttribute('aria-controls', 'cb-panel');
   launch.innerHTML = '<i></i><span>¿Dudas? Pregúntame</span>';
-  const panel = el('section', 'cb-panel'); panel.id = 'cb-panel'; panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', 'Asistente automático de Guillermo'); panel.setAttribute('aria-hidden', 'true');
+  const panel = el('section', 'cb-panel'); panel.id = 'cb-panel'; panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', 'Asistente automático de DigitalSolutionsCMV'); panel.setAttribute('aria-hidden', 'true');
   const head = el('header', 'cb-head'); head.innerHTML = '<span><i></i>Asistente automático</span>';
   const close = el('button', 'cb-x', '×'); close.type = 'button'; close.setAttribute('aria-label', 'Cerrar asistente'); head.appendChild(close);
   const log = el('div', 'cb-log'); log.setAttribute('role', 'log'); log.setAttribute('aria-live', 'polite');
@@ -129,7 +136,7 @@
       t.remove();
       if (entry) { addMsg('b', entry.a, entry.l); chips(entry.next && entry.next.length ? entry.next : SUGGEST); }
       else {
-        addMsg('b', ['No tengo una respuesta preparada para eso. Puedo ayudarte con estos temas, o puedes preguntarle directamente a Guillermo:'], [['Enviar mi duda por WhatsApp', WA('Hola Guillermo, vengo de tu web y tengo esta duda: ' + raw)]]);
+        addMsg('b', ['No tengo una respuesta preparada para eso. Puedo ayudarte con estos temas, o puedes preguntarle directamente a Guillermo, que te responde en persona:'], [['Enviar mi duda por WhatsApp', WA('Hola, vengo de la web de DigitalSolutionsCMV y tengo esta duda: ' + raw)]]);
         chips(SUGGEST);
       }
       busy = false; input.focus({ preventScroll: true });
