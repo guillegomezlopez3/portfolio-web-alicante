@@ -25,6 +25,7 @@ js/chatbot.js, css/chatbot.css Asistente automático con respuestas preprogramad
 js/demo.js                    Utilidades compartidas de las demos
 js/demo-*.js                  Lógica de cada demo
 favicon.svg, robots.txt, sitemap.xml
+tools/gen-landings.js        Genera las landings de ciudad, legal.html y sitemap.xml (node tools/gen-landings.js)
 ```
 
 ## Probar en local

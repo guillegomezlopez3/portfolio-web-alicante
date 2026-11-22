@@ -6,6 +6,4 @@ Thumbs.db
 *.log
 .env
 .claude/
-tfg-mejorado/
 clientes/
-prompts/
