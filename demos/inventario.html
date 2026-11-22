@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Control de inventario y almacén – Demo | DigitalSolutionsCMV</title>
+  <meta name="description" content="Demo de un programa de control de inventario: existencias en tiempo real, entradas y salidas, avisos de stock mínimo, pedidos a proveedores, etiquetas con código de barras y plano del almacén.">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@700;900&family=Schibsted+Grotesk:wght@400..800&family=Martian+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/demo-base.css">
+  <link rel="stylesheet" href="../css/demo-inventario.css">
+</head>
+<body>
+<div class="demo-bar"><span>Demo de ejemplo · Hecho por DigitalSolutionsCMV</span><a href="../index.html#demos">← Volver a la web</a></div>
+<div class="tape" aria-hidden="true"><div><span>Almacén Costa Blanca ✕ manipular con cuidado ✕ este lado arriba ✕ </span><span>Almacén Costa Blanca ✕ manipular con cuidado ✕ este lado arriba ✕ </span><span>Almacén Costa Blanca ✕ manipular con cuidado ✕ este lado arriba ✕ </span><span>Almacén Costa Blanca ✕ manipular con cuidado ✕ este lado arriba ✕ </span></div></div>
+
+<header class="mast">
+  <div class="mast-t">
+    <p class="mono">Control de inventario · demo con datos ficticios</p>
+    <h1>Almacén<em>Costa Blanca</em></h1>
+    <p class="sub">Así se vería el programa de un distribuidor de suministros para hostelería: qué hay, dónde está, qué se acaba y a quién hay que pedírselo. Todo lo que muevas se guarda solo en tu navegador.</p>
+  </div>
+  <form class="gun" id="gun" autocomplete="off" novalidate>
+    <label for="gun-in">Pistola lectora <small>(escribe un código o pulsa uno de ejemplo)</small></label>
+    <div class="gun-r"><input id="gun-in" placeholder="BEB-003" maxlength="30" spellcheck="false"><button class="btn solid" type="submit">Escanear</button></div>
+    <p class="gun-s" id="gun-s">Prueba: <button type="button" data-scan="BEB-003">BEB-003</button> <button type="button" data-scan="CAF-002">CAF-002</button> <button type="button" data-scan="BEB-006">BEB-006</button> <button type="button" data-scan="aceite">«aceite»</button></p>
+    <p class="gun-e" id="gun-e" role="status" hidden></p>
+  </form>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Secciones del programa" id="tabs">
+  <button role="tab" id="t-panel" aria-controls="v-panel" aria-selected="true"><i>01</i>Panel</button>
+  <button role="tab" id="t-stock" aria-controls="v-stock" aria-selected="false" tabindex="-1"><i>02</i>Existencias</button>
+  <button role="tab" id="t-mov" aria-controls="v-mov" aria-selected="false" tabindex="-1"><i>03</i>Movimientos</button>
+  <button role="tab" id="t-rep" aria-controls="v-rep" aria-selected="false" tabindex="-1"><i>04</i>Reposición <b class="badge" id="rep-n" hidden></b></button>
+  <button role="tab" id="t-mapa" aria-controls="v-mapa" aria-selected="false" tabindex="-1"><i>05</i>Plano</button>
+</nav>
+
+<main>
+  <!-- PANEL -->
+  <section id="v-panel" role="tabpanel" aria-labelledby="t-panel">
+    <div class="kpis" id="kpis"></div>
+    <div class="two">
+      <div>
+        <h2>Hay que reponer</h2>
+        <ul class="list" id="p-rep"></ul>
+        <h2 class="gap">Valor por familia</h2>
+        <ol class="bars" id="p-fam"></ol>
+      </div>
+      <div>
+        <h2>Últimos movimientos</h2>
+        <ul class="list" id="p-mov"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXISTENCIAS -->
+  <section id="v-stock" role="tabpanel" aria-labelledby="t-stock" hidden>
+    <div class="bar">
+      <div class="f grow"><label for="s-q">Buscar</label><input id="s-q" type="search" placeholder="Código o nombre"></div>
+      <div class="f"><label for="s-c">Familia</label><select id="s-c"><option value="">Todas</option></select></div>
+      <div class="f"><label for="s-e">Estado</label><select id="s-e"><option value="">Todos</option><option value="ok">Correcto</option><option value="bajo">Bajo mínimo</option><option value="agotado">Agotado</option></select></div>
+    </div>
+    <div class="scroll"><table class="tbl" id="s-tbl"><thead><tr><th><button class="th" data-sort="sku">Código</button></th><th><button class="th" data-sort="nom">Producto</button></th><th class="hide-s">Sitio</th><th class="r"><button class="th" data-sort="stock">Stock</button></th><th class="r hide-s">Mín.</th><th>Estado</th><th class="r hide-s"><button class="th" data-sort="valor">Valor</button></th></tr></thead><tbody id="s-body"></tbody></table></div>
+    <p class="empty" id="s-empty" hidden>Ningún producto coincide con el filtro.</p>
+  </section>
+
+  <!-- MOVIMIENTOS -->
+  <section id="v-mov" role="tabpanel" aria-labelledby="t-mov" hidden>
+    <form class="mv" id="mv" novalidate>
+      <fieldset class="seg"><legend>Qué ha pasado</legend>
+        <label><input type="radio" name="tipo" value="entrada" checked><span>Entra mercancía</span></label>
+        <label><input type="radio" name="tipo" value="salida"><span>Sale mercancía</span></label>
+        <label><input type="radio" name="tipo" value="ajuste"><span>Recuento (fijar stock)</span></label>
+      </fieldset>
+      <div class="f grow2"><label for="mv-p">Producto</label><select id="mv-p" required></select></div>
+      <div class="f"><label for="mv-q" id="mv-ql">Unidades</label><input id="mv-q" type="number" min="0" step="1" inputmode="numeric" required></div>
+      <div class="f grow2"><label for="mv-n">Nota (opcional)</label><input id="mv-n" maxlength="60" placeholder="Albarán, cliente, motivo…"></div>
+      <button class="btn solid" type="submit">Registrar</button>
+    </form>
+    <p class="aviso" id="mv-e" role="alert" hidden></p>
+    <p class="hint" id="mv-h"></p>
+    <div class="row-h"><h2>Historial</h2><button class="lnk" type="button" id="undo">Deshacer el último movimiento</button></div>
+    <div class="scroll"><table class="tbl"><thead><tr><th>Cuándo</th><th>Producto</th><th>Tipo</th><th class="r">Unid.</th><th class="hide-s">Nota</th></tr></thead><tbody id="mv-body"></tbody></table></div>
+  </section>
+
+  <!-- REPOSICIÓN -->
+  <section id="v-rep" role="tabpanel" aria-labelledby="t-rep" hidden>
+    <p class="lede">El programa vigila los mínimos y te prepara los pedidos, agrupados por proveedor. Revisa las cantidades y crea el pedido; al recibir la mercancía, el stock se actualiza solo.</p>
+    <div id="rep-g"></div>
+    <div class="row-h"><h2>Pedidos a proveedores</h2></div>
+    <ul class="list" id="ped"></ul>
+  </section>
+
+  <!-- PLANO -->
+  <section id="v-mapa" role="tabpanel" aria-labelledby="t-mapa" hidden>
+    <p class="lede">Cada hueco del almacén, con su producto y su nivel. Pulsa uno para ver qué hay, o escanea un código y se ilumina dónde está.</p>
+    <div class="mapa-w">
+      <div class="plano" id="plano" role="grid" aria-label="Plano del almacén"></div>
+      <aside class="side" id="side" aria-live="polite"><p class="empty">Elige un hueco del plano.</p></aside>
+    </div>
+    <p class="leg"><i class="ok"></i>Correcto <i class="bajo"></i>Bajo mínimo <i class="agotado"></i>Agotado</p>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>Almacén Costa Blanca es un negocio ficticio. Un programa real se adapta a tus productos, tu almacén y tus proveedores, y se conecta con tu facturación o tu tienda online.</p>
+  <button class="lnk" id="reset" type="button">Restablecer datos de ejemplo</button>
+  <a class="btn solid" href="https://wa.me/34620477443?text=Hola%2C%20he%20visto%20la%20demo%20de%20control%20de%20inventario%20y%20quiero%20algo%20as%C3%AD%20para%20mi%20negocio" target="_blank" rel="noopener">Quiero algo así para mi negocio ↗</a>
+</footer>
+
+<!-- Etiqueta de palé -->
+<dialog id="dl-et" aria-label="Etiqueta del producto"><div class="sheet"><button class="x noprint" type="button" data-close aria-label="Cerrar">×</button><div id="et-in"></div></div></dialog>
+<!-- Pedido -->
+<dialog id="dl-ped" aria-label="Pedido a proveedor"><div class="sheet"><button class="x noprint" type="button" data-close aria-label="Cerrar">×</button><div id="ped-in"></div></div></dialog>
+
+<script src="../js/demo.js"></script>
+<script src="../js/demo-inventario.js"></script>
+</body>
+</html>

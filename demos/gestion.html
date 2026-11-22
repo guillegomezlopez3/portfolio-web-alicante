@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Programa de gestión para tu negocio – Demo | DigitalSolutionsCMV</title>
+  <meta name="description" content="Demo de un programa de gestión a medida para una pyme: clientes, presupuestos, facturas con sello de cobrado, agenda de trabajos e informes. Pruébalo con datos de ejemplo.">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..800;1,400..800&family=Alegreya+Sans:wght@400;500;700&family=Special+Elite&family=Reenie+Beanie&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/demo-base.css">
+  <link rel="stylesheet" href="../css/demo-gestion.css">
+</head>
+<body>
+<div class="demo-bar"><span>Demo de ejemplo · Hecho por DigitalSolutionsCMV</span><a href="../index.html#demos">← Volver a la web</a></div>
+
+<div class="wrap">
+  <nav class="tabs" role="tablist" aria-label="Secciones del programa" id="tabs">
+    <button role="tab" id="t-resumen" aria-controls="v-resumen" aria-selected="true">Resumen</button>
+    <button role="tab" id="t-clientes" aria-controls="v-clientes" aria-selected="false" tabindex="-1">Clientes</button>
+    <button role="tab" id="t-docs" aria-controls="v-docs" aria-selected="false" tabindex="-1">Facturas</button>
+    <button role="tab" id="t-agenda" aria-controls="v-agenda" aria-selected="false" tabindex="-1">Agenda</button>
+    <button role="tab" id="t-informes" aria-controls="v-informes" aria-selected="false" tabindex="-1">Informes</button>
+  </nav>
+
+  <div class="book">
+    <header class="mast">
+      <p class="mono">Libro de gestión · ejercicio <span id="yr"></span></p>
+      <h1>Reformas<em>Levante</em></h1>
+      <p class="sub">Así podría ser el programa de tu negocio: clientes, presupuestos, facturas, agenda e informes en un solo sitio, en lugar de libretas y hojas de Excel. Es un negocio inventado y los datos son de ejemplo; lo que toques se guarda solo en tu navegador.</p>
+      <p class="hand" aria-hidden="true">¡Prueba a cobrar una factura!</p>
+      <button class="lnk" id="reset" type="button">Restablecer datos de ejemplo</button>
+    </header>
+
+    <!-- RESUMEN -->
+    <section id="v-resumen" role="tabpanel" aria-labelledby="t-resumen">
+      <div class="kpis" id="kpis"></div>
+      <div class="two">
+        <div>
+          <h2>Facturación de los últimos 6 meses</h2>
+          <div class="chart" id="chart" role="img" aria-label="Gráfico de barras de facturación mensual"></div>
+          <p class="leg"><i class="k1"></i>Cobrado <i class="k2"></i>Pendiente de cobro</p>
+          <h2 class="gap">Presupuestos en juego</h2>
+          <ul class="ledger" id="pres"></ul>
+        </div>
+        <div>
+          <h2>Pendiente de cobro</h2>
+          <ul class="ledger" id="pend"></ul>
+          <h2 class="gap">Próximos trabajos</h2>
+          <ul class="ledger" id="prox"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLIENTES -->
+    <section id="v-clientes" role="tabpanel" aria-labelledby="t-clientes" hidden>
+      <div class="bar">
+        <div class="f"><label for="cl-q">Buscar cliente</label><input id="cl-q" type="search" placeholder="Nombre, ciudad o teléfono"></div>
+        <div class="f"><label for="cl-t">Tipo</label><select id="cl-t"><option value="">Todos</option><option>Particular</option><option>Comunidad</option><option>Empresa</option></select></div>
+        <button class="btn" type="button" data-act="cli-new">+ Nuevo cliente</button>
+      </div>
+      <table class="tbl" id="cl-tbl"><thead><tr><th>Cliente</th><th class="hide-s">Tipo</th><th class="hide-s">Ciudad</th><th class="r">Facturado</th><th class="r">Pendiente</th></tr></thead><tbody id="cl-body"></tbody></table>
+      <p class="empty" id="cl-empty" hidden>Ningún cliente coincide con la búsqueda.</p>
+    </section>
+
+    <!-- FACTURAS -->
+    <section id="v-docs" role="tabpanel" aria-labelledby="t-docs" hidden>
+      <div class="bar">
+        <div class="f"><label for="d-q">Buscar</label><input id="d-q" type="search" placeholder="Nº o cliente"></div>
+        <div class="f"><label for="d-f">Mostrar</label><select id="d-f"><option value="">Todo</option><option value="P">Presupuestos</option><option value="F">Facturas</option><option value="cobrar">Pendientes de cobro</option></select></div>
+        <button class="btn" type="button" data-act="doc-new" data-tipo="P">+ Presupuesto</button>
+        <button class="btn solid" type="button" data-act="doc-new" data-tipo="F">+ Factura</button>
+      </div>
+      <table class="tbl" id="d-tbl"><thead><tr><th>Nº</th><th class="hide-s">Fecha</th><th>Cliente</th><th>Estado</th><th class="r">Total</th></tr></thead><tbody id="d-body"></tbody></table>
+      <p class="empty" id="d-empty" hidden>No hay documentos con ese filtro.</p>
+    </section>
+
+    <!-- AGENDA -->
+    <section id="v-agenda" role="tabpanel" aria-labelledby="t-agenda" hidden>
+      <form class="bar ag-form" id="ag-form" novalidate>
+        <div class="f"><label for="ag-f">Día</label><input id="ag-f" type="date" required></div>
+        <div class="f"><label for="ag-h">Hora</label><input id="ag-h" type="time" value="09:00" required></div>
+        <div class="f grow"><label for="ag-c">Cliente</label><select id="ag-c" required></select></div>
+        <div class="f grow"><label for="ag-d">Trabajo</label><input id="ag-d" placeholder="Qué hay que hacer" required maxlength="80"></div>
+        <div class="f"><label for="ag-o">Quién</label><select id="ag-o"><option>Paco</option><option>Nuria</option><option>Iván</option></select></div>
+        <button class="btn solid" type="submit">Apuntar</button>
+      </form>
+      <p class="aviso" id="ag-msg" role="status" hidden></p>
+      <div id="agenda"></div>
+    </section>
+
+    <!-- INFORMES -->
+    <section id="v-informes" role="tabpanel" aria-labelledby="t-informes" hidden>
+      <div class="bar">
+        <div class="f"><label for="inf-p">Periodo</label><select id="inf-p"><option value="mes">Este mes</option><option value="trim" selected>Este trimestre</option><option value="anio">Este año</option></select></div>
+        <button class="btn" type="button" id="csv">Descargar libro de facturas (CSV)</button>
+      </div>
+      <div class="two">
+        <div>
+          <h2>Cuentas del periodo</h2>
+          <dl class="cuentas" id="cuentas"></dl>
+          <p class="nota">El IVA repercutido es el que habría que declarar en el trimestre. Cifras de ejemplo, no son asesoramiento fiscal.</p>
+        </div>
+        <div>
+          <h2>Quién más te compra</h2>
+          <ol class="top" id="top"></ol>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <p>Reformas Levante S.L. es un negocio ficticio. Los programas reales se hacen a medida de cada negocio: tus clientes, tus conceptos, tus facturas y tus informes.</p>
+      <a class="btn solid" href="https://wa.me/34620477443?text=Hola%2C%20he%20visto%20la%20demo%20del%20programa%20de%20gesti%C3%B3n%20y%20quiero%20algo%20as%C3%AD%20para%20mi%20negocio" target="_blank" rel="noopener">Quiero algo así para mi negocio ↗</a>
+    </footer>
+  </div>
+</div>
+
+<!-- Ficha de cliente -->
+<dialog id="dl-cli" aria-labelledby="dl-cli-t"><div class="paper dlg"><button class="x" type="button" data-close aria-label="Cerrar">×</button><div id="cli-in"></div></div></dialog>
+
+<!-- Nuevo cliente -->
+<dialog id="dl-new" aria-labelledby="dl-new-t"><form class="paper dlg" id="f-new" novalidate>
+  <button class="x" type="button" data-close aria-label="Cerrar">×</button>
+  <h2 id="dl-new-t">Nuevo cliente</h2>
+  <div class="grid2">
+    <div class="f full"><label for="n-nom">Nombre o razón social</label><input id="n-nom" required maxlength="60"></div>
+    <div class="f"><label for="n-tip">Tipo</label><select id="n-tip"><option>Particular</option><option>Comunidad</option><option>Empresa</option></select></div>
+    <div class="f"><label for="n-ciu">Ciudad</label><input id="n-ciu" value="Alicante" maxlength="40"></div>
+    <div class="f"><label for="n-tel">Teléfono</label><input id="n-tel" inputmode="tel" maxlength="20"></div>
+    <div class="f"><label for="n-ema">Email</label><input id="n-ema" type="email" maxlength="60"></div>
+  </div>
+  <p class="aviso" id="n-err" role="alert" hidden></p>
+  <div class="acts"><button class="btn" type="button" data-close>Cancelar</button><button class="btn solid" type="submit">Guardar cliente</button></div>
+</form></dialog>
+
+<!-- Editor de presupuesto / factura -->
+<dialog id="dl-ed" aria-labelledby="ed-t"><form class="paper dlg wide" id="f-ed" novalidate>
+  <button class="x" type="button" data-close aria-label="Cerrar">×</button>
+  <h2 id="ed-t">Nuevo documento</h2>
+  <div class="grid3">
+    <div class="f"><label for="e-cli">Cliente</label><select id="e-cli" required></select></div>
+    <div class="f"><label for="e-fec">Fecha</label><input id="e-fec" type="date" required></div>
+    <div class="f"><label for="e-iva">IVA</label><select id="e-iva"><option value="21">21 % (general)</option><option value="10">10 % (reforma de vivienda)</option><option value="0">0 % (exento)</option></select></div>
+  </div>
+  <p class="chips-t">Conceptos frecuentes — pulsa para añadir una línea</p>
+  <div class="chips" id="chips"></div>
+  <table class="tbl lines"><thead><tr><th>Concepto</th><th class="r">Cant.</th><th class="r">Precio</th><th class="r">Importe</th><th><span class="sr">Quitar</span></th></tr></thead><tbody id="e-lines"></tbody></table>
+  <button class="lnk" type="button" id="e-add">+ Añadir línea en blanco</button>
+  <dl class="sum" id="e-sum"></dl>
+  <p class="aviso" id="e-err" role="alert" hidden></p>
+  <div class="acts"><button class="btn" type="button" data-close>Cancelar</button><button class="btn solid" type="submit">Guardar</button></div>
+</form></dialog>
+
+<!-- Vista del documento -->
+<dialog id="dl-vw" aria-label="Documento"><div class="paper dlg wide"><button class="x noprint" type="button" data-close aria-label="Cerrar">×</button><div id="vw-in"></div></div></dialog>
+
+<script src="../js/demo.js"></script>
+<script src="../js/demo-gestion.js"></script>
+</body>
+</html>

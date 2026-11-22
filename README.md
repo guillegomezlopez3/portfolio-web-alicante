@@ -1,6 +1,6 @@
 # DigitalSolutionsCMV – programas de gestión, webs y tiendas online (Alicante)
 
-Web de marca personal y captación de clientes locales, con 5 demos interactivas y landings de SEO local. HTML5, CSS3 y JavaScript vanilla: sin frameworks, sin build y sin dependencias (solo Google Fonts e imágenes de Unsplash).
+Web de marca personal y captación de clientes locales, con 7 demos interactivas (programa de gestión, inventario, restaurante, tienda, clínica, barbería y taller) y landings de SEO local. HTML5, CSS3 y JavaScript vanilla: sin frameworks, sin build y sin dependencias (solo Google Fonts e imágenes de Unsplash).
 
 Cada página tiene su propia dirección de arte: la web principal es una "ficha técnica" en papel y tinta; cada demo (restaurante, tienda, clínica, barbería, taller) tiene su propia identidad visual.
 

@@ -52,7 +52,7 @@ const footer = (current) => `<footer class="foot">
   <div class="foot-g">
     <div><h4 class="mono">Contacto</h4><ul><li><a href="tel:+34620477443">+34 620 477 443</a></li><li><a href="index.html#contacto">Formulario de proyecto</a></li><li>Alicante, España</li></ul></div>
     <div><h4 class="mono">Trabajo en</h4><ul>${cities.filter(c => c.slug !== current).map(c => `<li><a href="${c.slug}.html">${c.name}</a></li>`).join('')}<li><a href="index.html">Inicio</a></li></ul></div>
-    <div><h4 class="mono">Demos</h4><ul><li><a href="demos/restaurante.html">Restaurante</a></li><li><a href="demos/tienda.html">Tienda online</a></li><li><a href="demos/clinica.html">Clínica</a></li><li><a href="demos/barberia.html">Barbería</a></li><li><a href="demos/taller.html">Taller</a></li></ul></div>
+    <div><h4 class="mono">Demos</h4><ul><li><a href="demos/gestion.html">Programa de gestión</a></li><li><a href="demos/inventario.html">Inventario</a></li><li><a href="demos/restaurante.html">Restaurante</a></li><li><a href="demos/tienda.html">Tienda online</a></li><li><a href="demos/clinica.html">Clínica</a></li><li><a href="demos/barberia.html">Barbería</a></li><li><a href="demos/taller.html">Taller</a></li></ul></div>
   </div>
   <div class="foot-end mono"><span>© DigitalSolutionsCMV · Guillermo Gómez López</span><a href="legal.html">Aviso legal, privacidad y cookies</a></div>
 </footer>`;
@@ -104,7 +104,7 @@ for (const c of cities) {
   <div class="need">${c.local.map((p, i) => `<div class="rv"><b>0${i + 1}</b><p>${p}</p></div>`).join('')}</div>
 </section>
 <section class="sec" style="padding-top:0">
-  <div class="sec-h rv"><span class="no mono">(02)</span><h2>Servicios en ${c.name}</h2><p>Pruébalo tú mismo en los <a href="index.html#demos">ejemplos</a>: restaurante, tienda, clínica, barbería y taller.</p></div>
+  <div class="sec-h rv"><span class="no mono">(02)</span><h2>Servicios en ${c.name}</h2><p>Pruébalo tú mismo en los <a href="index.html#demos">ejemplos</a>: gestión de facturas, inventario, restaurante, tienda, clínica, barbería y taller.</p></div>
   <ul class="svc-l">${[`Programa de gestión a medida (clientes, facturas, stock)`, `Citas y reservas online`, `Tienda online`, `Pasar Excel y papeles a un programa`, `Web y posicionamiento en Google`].map((s, i) => `<li class="rv"><span>0${i + 1}</span>${s} en ${c.name}</li>`).join('')}</ul>
 </section>
 <section class="sec" style="padding-top:0">
@@ -126,7 +126,7 @@ const legal = `<main>
 <section class="sec prose" style="padding-top:1rem">
   <h2 id="aviso">Aviso legal</h2>
   <p>En cumplimiento de la Ley 34/2002 (LSSI-CE), se informa de que el titular de este sitio web, que opera bajo el nombre comercial DigitalSolutionsCMV, es Guillermo Gómez López, con domicilio en Alicante (España). NIF: <strong>[pendiente de completar por el titular]</strong>. Teléfono: +34 620 477 443.</p>
-  <p>Los contenidos de este sitio tienen carácter informativo. Las demos (restaurante, tienda, clínica, barbería y taller) son ejemplos ficticios: los negocios, direcciones, precios y reseñas que aparecen no son reales y las reservas, citas y compras son simulaciones que no envían ningún dato.</p>
+  <p>Los contenidos de este sitio tienen carácter informativo. Las demos (programa de gestión, inventario, restaurante, tienda, clínica, barbería y taller) son ejemplos ficticios: los negocios, direcciones, datos, precios y reseñas que aparecen no son reales y las facturas, movimientos, reservas, citas y compras son simulaciones que no envían ningún dato.</p>
   <h2 id="privacidad">Política de privacidad</h2>
   <p><strong>Responsable:</strong> Guillermo Gómez López. <strong>Finalidad:</strong> atender las consultas y solicitudes de presupuesto. <strong>Base jurídica:</strong> consentimiento del interesado (art. 6.1.a RGPD).</p>
   <p>El formulario de proyecto no almacena datos en ningún servidor: al enviarlo se abre WhatsApp con el mensaje preparado, y los datos pasan a regirse por la política de WhatsApp. Si me escribes por email o WhatsApp, conservaré tus datos mientras dure la relación o la consulta.</p>
@@ -139,5 +139,5 @@ const legal = `<main>
 ${footer('')}`;
 fs.writeFileSync(path.join(ROOT, 'legal.html'), shell({ title: 'Aviso legal, privacidad y cookies | DigitalSolutionsCMV', desc: 'Aviso legal, política de privacidad y política de cookies de la web de DigitalSolutionsCMV.', canonical: BASE + '/legal.html', body: legal }));
 
-const urls = ['', ...cities.map(c => c.slug + '.html'), 'demos/restaurante.html', 'demos/tienda.html', 'demos/clinica.html', 'demos/barberia.html', 'demos/taller.html', 'legal.html'];
+const urls = ['', ...cities.map(c => c.slug + '.html'), 'demos/gestion.html', 'demos/inventario.html', 'demos/restaurante.html', 'demos/tienda.html', 'demos/clinica.html', 'demos/barberia.html', 'demos/taller.html', 'legal.html'];
 fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url><loc>${BASE}/${u}</loc><lastmod>2026-11-20</lastmod><priority>${u === '' ? '1.0' : u === 'legal.html' ? '0.3' : '0.8'}</priority></url>`).join('\n')}\n</urlset>\n`);
