@@ -151,6 +151,8 @@ ${body}
 </html>
 `;
 
+/* Línea de contacto alternativo bajo el botón grande de WhatsApp */
+const OTRO_CONTACTO = `<p class="mono" style="margin-top:1.2rem;color:var(--mute)">¿Prefieres email? Escríbeme a <a href="mailto:guillermogomez@digitalsolutionscmv.es">guillermogomez@digitalsolutionscmv.es</a> o usa el <a href="index.html#contacto">formulario</a>.</p>`;
 const numbered = (arr, cls) => arr.map((t, i) => `<div class="rv"><b>0${i + 1}</b><p>${t}</p></div>`).join('');
 const related = (excl) => [...services.filter(s => s.slug !== excl).map(s => [s.slug + '.html', s.crumb]), ['demos/gestion.html', 'Probar la demo de gestión'], ['demos/inventario.html', 'Probar la demo de inventario']];
 
@@ -181,6 +183,7 @@ for (const c of cities) {
   <div class="sec-h rv"><span class="no mono">(04)</span><h2>Preguntas frecuentes en ${c.name}</h2></div>
   <div class="faq-l">${c.faq.map(([q, a], i) => `<details class="rv"${i === 0 ? ' open' : ''}><summary><span>0${i + 1}</span>${q}</summary><p>${a}</p></details>`).join('')}</div>
   <a class="cta-big" href="${WA('Hola, tengo un negocio en ' + c.name + ' y quiero hablar con DigitalSolutionsCMV')}" target="_blank" rel="noopener"><span class="mono">Presupuesto sin compromiso</span><span>Cuéntame tu negocio en ${c.name} ↗</span></a>
+  ${OTRO_CONTACTO}
 </section>
 </main>
 ${footer(c.slug)}`;
@@ -216,6 +219,7 @@ for (const s of services) {
   <div class="sec-h rv"><span class="no mono">(04)</span><h2>Sigue explorando</h2></div>
   <ul class="svc-l">${[...related(s.slug), ...cities.slice(0, 2).map(c => [c.slug + '.html', 'Programas y webs en ' + c.name])].map(([h, t], i) => `<li class="rv"><span>0${i + 1}</span><a href="${h}">${t}</a></li>`).join('')}</ul>
   <a class="cta-big" href="${WA('Hola, quiero información sobre: ' + strip(s.title))}" target="_blank" rel="noopener"><span class="mono">Presupuesto sin compromiso</span><span>Cuéntame tu proyecto ↗</span></a>
+  ${OTRO_CONTACTO}
 </section>
 </main>
 ${footer(s.slug)}`;
@@ -233,9 +237,12 @@ const legal = `<main>
   <p>En cumplimiento de la Ley 34/2002 (LSSI-CE), se informa de que el titular de este sitio web, que opera bajo el nombre comercial DigitalSolutionsCMV, es Guillermo Gómez López, con domicilio en Alicante (España). NIF: <strong>50381282N</strong>. Teléfono: +34 620 477 443. Email: guillermogomez@digitalsolutionscmv.es.</p>
   <p>Los contenidos de este sitio tienen carácter informativo. Las demos (programa de gestión, inventario, restaurante, tienda, clínica, barbería y taller) son ejemplos ficticios: los negocios, direcciones, datos, precios y reseñas que aparecen no son reales y las facturas, movimientos, reservas, citas y compras son simulaciones que no envían ningún dato.</p>
   <h2 id="privacidad">Política de privacidad</h2>
-  <p><strong>Responsable:</strong> Guillermo Gómez López. <strong>Finalidad:</strong> atender las consultas y solicitudes de presupuesto. <strong>Base jurídica:</strong> consentimiento del interesado (art. 6.1.a RGPD).</p>
-  <p>El formulario de proyecto no almacena datos en ningún servidor: al enviarlo se abre WhatsApp con el mensaje preparado, y los datos pasan a regirse por la política de WhatsApp. Si me escribes por email o WhatsApp, conservaré tus datos mientras dure la relación o la consulta.</p>
-  <p>No cedo datos a terceros salvo obligación legal. Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo por WhatsApp al +34 620 477 443, y reclamar ante la Agencia Española de Protección de Datos (aepd.es).</p>
+  <p><strong>Responsable:</strong> Guillermo Gómez López (NIF 50381282N), con el nombre comercial DigitalSolutionsCMV. <strong>Contacto:</strong> guillermogomez@digitalsolutionscmv.es · +34 620 477 443.</p>
+  <p><strong>Finalidad:</strong> atender las consultas y solicitudes de presupuesto que me envías por el formulario de la web, por email o por WhatsApp. <strong>Base jurídica:</strong> tu consentimiento (art. 6.1.a RGPD), que das al enviarme el formulario o escribirme; puedes retirarlo en cualquier momento.</p>
+  <p><strong>Datos que trato:</strong> tu nombre, tu email o teléfono, lo que marques en la ficha (tipo de proyecto, extras y plazo) y el mensaje que escribas. No te pido nada más.</p>
+  <p><strong>Cómo se guardan y quién los ve:</strong> los datos del formulario se guardan en un servidor propio, alojado en Alemania, al que solo accedo yo, y me llega un aviso a mi correo de empresa (proveedor de correo: OVHcloud). Si usas WhatsApp, esos mensajes pasan a regirse además por la política de WhatsApp. No cedo tus datos a terceros salvo obligación legal.</p>
+  <p><strong>Cuánto tiempo los conservo:</strong> el necesario para atender tu solicitud y, si no llega a haber relación comercial, no más de 12 meses. Si la hay, durante la relación y los plazos que exija la ley.</p>
+  <p><strong>Tus derechos:</strong> acceso, rectificación, supresión, oposición, limitación y portabilidad. Puedes ejercerlos escribiéndome al email o al teléfono de arriba. Si crees que no he tratado bien tus datos, puedes reclamar ante la Agencia Española de Protección de Datos (aepd.es).</p>
   <h2 id="cookies">Política de cookies</h2>
   <p>Este sitio no utiliza cookies propias, ni de analítica ni de publicidad. Las demos guardan datos de uso (por ejemplo el carrito o una reserva simulada) en el almacenamiento local de tu navegador (<code>localStorage</code>) y el asistente automático recuerda la conversación mientras dura la sesión (<code>sessionStorage</code>), únicamente para su funcionamiento: nada de esto se envía a ningún servidor.</p>
   <p>Para cargar recursos, el sitio se sirve desde un servidor propio (alojado en Alemania) y utiliza Google Fonts e imágenes de Unsplash, cuyos proveedores pueden registrar datos técnicos como tu dirección IP al servir estos archivos. Puedes configurar tu navegador para bloquear o eliminar cookies y almacenamiento local en cualquier momento.</p>
