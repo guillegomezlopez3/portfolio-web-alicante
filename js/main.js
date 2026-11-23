@@ -96,13 +96,16 @@
       window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(resumen())}`, '_blank', 'noopener');
     });
 
-    /* El botón de email de la ficha lleva a escribir los datos; el de abajo envía */
-    const ir = $('ir-datos');
-    if (ir) ir.addEventListener('click', e => {
-      e.preventDefault();
-      $('datos').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-      setTimeout(() => { if (!hayDatos()) pideDatos(); else $('send-email').focus({ preventScroll: true }); }, reduce ? 0 : 450);
-    });
+    /* Ventana de confirmación: se ve estés donde estés en la página */
+    const dlg = $('ok-dlg');
+    const confirma = () => {
+      if (dlg && typeof dlg.showModal === 'function') {
+        dlg.showModal();
+        const cierra = () => dlg.close();
+        $('ok-cerrar').onclick = cierra;
+        dlg.addEventListener('click', e => { if (e.target === dlg) cierra(); }, { once: true });
+      } else aviso('ok', '¡Solicitud enviada!', document.createTextNode('Nos pondremos en contacto contigo muy pronto.'));
+    };
     const mail = $('send-email');
     if (mail) mail.addEventListener('click', async () => {
       if (!hayDatos()) { aviso('err', 'Falta tu nombre y un email o teléfono.', document.createTextNode('Escríbelos arriba para poder responderte.')); pideDatos(); return; }
@@ -111,8 +114,8 @@
       if (window.cmvEnviarSolicitud) { try { ok = await window.cmvEnviarSolicitud('email'); } catch { ok = false; } }
       mail.disabled = false; mail.innerHTML = texto;
       if (ok) {
-        aviso('ok', '¡Solicitud enviada!', document.createTextNode('Te respondo lo antes posible por email o teléfono. Gracias por contarme tu proyecto.'));
-        form.reset(); update();
+        form.reset(); update(); sent.hidden = true;   // se borran los datos y se avisa con la ventana
+        confirma();
       } else {
         const a = document.createElement('a');
         a.href = `mailto:guillermogomez@digitalsolutionscmv.es?subject=${encodeURIComponent('Solicitud desde la web')}&body=${encodeURIComponent(resumen())}`;

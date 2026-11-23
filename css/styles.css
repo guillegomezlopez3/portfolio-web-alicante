@@ -181,8 +181,12 @@ em { font-family: var(--f-s); font-style: italic; font-weight: 400; letter-spaci
 .ticket dt::after { content: ''; }
 .ticket dd { margin-left: auto; text-align: right; font-weight: 500; }
 .ticket .go { width: 100%; justify-content: center; margin-top: 1rem; font-family: var(--f-d); }
-.ticket .go-datos { margin-top: .6rem; color: var(--ink); } .ticket .go-datos .up { display: none; }
 #datos { scroll-margin-top: 6rem; }
+.ok-dlg { margin: auto; max-width: min(92vw, 28rem); padding: 2rem 1.8rem; border: 0; background: var(--paper); color: var(--ink); text-align: center; box-shadow: 0 1.5rem 4rem #000a; }
+.ok-dlg::backdrop { background: #000b; }
+.ok-dlg h3 { font: 700 1.9rem/1.1 var(--f-d); color: #1f9d4a; margin-bottom: .6rem; }
+.ok-dlg p { font-size: 1.1rem; line-height: 1.5; margin-bottom: 1.4rem; }
+.ok-dlg .btn:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 .send { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
 .send .btn:not(.acc) { border-color: var(--paper); color: var(--paper); }
 .send .btn:not(.acc):hover { background: var(--paper); color: var(--ink); }
@@ -269,9 +273,7 @@ em { font-family: var(--f-s); font-style: italic; font-weight: 400; letter-spaci
   .stmt, .pt, .case h3, .case dl { grid-column: 1 / -1; }
   .case dl > div { grid-template-columns: 1fr; gap: .1rem; }
   .brief { grid-template-columns: 1fr; }
-  .ticket { position: relative; top: 0; }
-  .ticket .go-datos .dn { display: none; } .ticket .go-datos .up { display: inline; }   /* en móvil la ficha queda debajo de los datos */
-  .direct { grid-template-columns: 1fr; }
+  .ticket { position: relative; top: 0; }  .direct { grid-template-columns: 1fr; }
   .faq-l summary { grid-template-columns: 2.6rem 1fr 1.6rem; }
   .faq-l details p { padding: 0 0 1.4rem 3.6rem; }
   .foot-g > div { grid-column: 1 / -1 !important; }
