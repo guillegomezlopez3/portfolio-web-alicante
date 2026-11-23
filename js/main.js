@@ -104,7 +104,7 @@
         const cierra = () => dlg.close();
         $('ok-cerrar').onclick = cierra;
         dlg.addEventListener('click', e => { if (e.target === dlg) cierra(); }, { once: true });
-      } else aviso('ok', '¡Solicitud enviada!', document.createTextNode('Nos pondremos en contacto contigo muy pronto.'));
+      } else aviso('ok', '¡Solicitud enviada!', document.createTextNode('Gracias por confiar en mí. Me pondré en contacto contigo en menos de 24 horas.'));
     };
     const mail = $('send-email');
     if (mail) mail.addEventListener('click', async () => {
