@@ -77,14 +77,48 @@
     };
     put('t-fecha', new Date().toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' }));
     form.addEventListener('input', update); form.addEventListener('change', update); update();
+    const hayDatos = () => form.nombre.value.trim() && form.contacto.value.trim();
+    const pideDatos = () => { (form.nombre.value.trim() ? form.contacto : form.nombre).focus(); };
+    const resumen = () => {
+      const ex = extras();
+      return `Hola, soy ${form.nombre.value.trim()} (${form.contacto.value.trim()}).\nQuiero: ${v('tipo')}.\nExtras: ${ex.length ? ex.join(', ') : 'ninguno'}.\nPlazo: ${v('plazo')}.` + (form.mensaje.value.trim() ? `\n${form.mensaje.value.trim()}` : '');
+    };
+    const sent = $('sent');
+    const aviso = (tipo, titulo, ...resto) => {   // mensaje visible junto a los botones
+      const st = document.createElement('strong'); st.textContent = titulo;
+      sent.replaceChildren(st, ...resto); sent.className = 'sent ' + tipo; sent.hidden = false;
+      sent.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+    };
     form.addEventListener('submit', e => {
       e.preventDefault();
-      if (!form.nombre.value.trim() || !form.contacto.value.trim()) {
-        (form.nombre.value.trim() ? form.contacto : form.nombre).focus(); return;
+      if (!hayDatos()) { aviso('err', 'Falta tu nombre y un email o teléfono.', document.createTextNode('Escríbelos aquí y vuelve a pulsar el botón.')); pideDatos(); return; }
+      sent.hidden = true;
+      window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(resumen())}`, '_blank', 'noopener');
+    });
+
+    /* El botón de email de la ficha lleva a escribir los datos; el de abajo envía */
+    const ir = $('ir-datos');
+    if (ir) ir.addEventListener('click', e => {
+      e.preventDefault();
+      $('datos').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      setTimeout(() => { if (!hayDatos()) pideDatos(); else $('send-email').focus({ preventScroll: true }); }, reduce ? 0 : 450);
+    });
+    const mail = $('send-email');
+    if (mail) mail.addEventListener('click', async () => {
+      if (!hayDatos()) { aviso('err', 'Falta tu nombre y un email o teléfono.', document.createTextNode('Escríbelos arriba para poder responderte.')); pideDatos(); return; }
+      const texto = mail.innerHTML; mail.disabled = true; mail.textContent = 'Enviando…'; sent.hidden = true;
+      let ok = false;
+      if (window.cmvEnviarSolicitud) { try { ok = await window.cmvEnviarSolicitud('email'); } catch { ok = false; } }
+      mail.disabled = false; mail.innerHTML = texto;
+      if (ok) {
+        aviso('ok', '¡Solicitud enviada!', document.createTextNode('Te respondo lo antes posible por email o teléfono. Gracias por contarme tu proyecto.'));
+        form.reset(); update();
+      } else {
+        const a = document.createElement('a');
+        a.href = `mailto:guillermogomez@digitalsolutionscmv.es?subject=${encodeURIComponent('Solicitud desde la web')}&body=${encodeURIComponent(resumen())}`;
+        a.textContent = 'abrir mi correo con la ficha ya escrita';
+        aviso('err', 'No se ha podido enviar ahora mismo.', document.createTextNode('Tus datos siguen aquí. Puedes '), a, document.createTextNode(' o usar el botón de WhatsApp.'));
       }
-      const ex = extras();
-      const text = `Hola, soy ${form.nombre.value.trim()} (${form.contacto.value.trim()}).\nQuiero: ${v('tipo')}.\nExtras: ${ex.length ? ex.join(', ') : 'ninguno'}.\nPlazo: ${v('plazo')}.` + (form.mensaje.value.trim() ? `\n${form.mensaje.value.trim()}` : '');
-      window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
     });
   }
 

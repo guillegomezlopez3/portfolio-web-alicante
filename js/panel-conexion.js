@@ -5,7 +5,8 @@
    Hace tres cosas:
      1) Lee el contenido editable (preguntas frecuentes, disponibilidad, aviso) y lo pinta.
      2) Al enviar la ficha por WhatsApp, guarda además la solicitud en el panel (canal "whatsapp").
-     3) Añade el botón «Enviar por email»: guarda la solicitud en el panel (canal "email") y el panel te avisa por correo. */
+     3) Ofrece window.cmvEnviarSolicitud('email') al botón «Enviar por email» del formulario (js/main.js muestra la confirmación,
+      limpia el formulario y, si esto falla, ofrece abrir el correo con la ficha escrita). */
 (() => {
   const s = document.currentScript, API = ((s && s.dataset.api) || '').replace(/\/+$/, '');
   if (!API) return;
@@ -51,21 +52,6 @@
   // WhatsApp: la web ya abre WhatsApp; además se guarda la solicitud (si falla, no pasa nada)
   f.addEventListener('submit', () => { if (f.nombre.value.trim() && f.contacto.value.trim()) { try { enviar('whatsapp').catch(() => {}); } catch {} } });
 
-  // Email: botón nuevo junto al de WhatsApp
-  const go = f.querySelector('.ticket .go');
-  if (!go) return;
-  const mail = document.createElement('button'); mail.type = 'button'; mail.className = 'btn go-mail'; mail.textContent = 'Enviar por email ↗';
-  mail.style.marginTop = '.6rem';
-  const estado = document.createElement('small'); estado.setAttribute('role', 'status'); estado.setAttribute('aria-live', 'polite'); estado.style.display = 'block'; estado.style.marginTop = '.6rem';
-  go.after(mail); mail.after(estado);
-  mail.addEventListener('click', async () => {
-    const d = datos('email');
-    if (!d.nombre || !d.contacto) { estado.textContent = 'Escribe tu nombre y un email o un teléfono para poder responderte.'; (d.nombre ? f.contacto : f.nombre).focus(); return; }
-    mail.disabled = true; const texto = mail.textContent; mail.textContent = 'Enviando…'; estado.textContent = '';
-    try {
-      const r = await enviar('email'), j = await r.json().catch(() => ({}));
-      estado.textContent = r.ok ? 'Recibido. Te respondo lo antes posible por email o teléfono.' : (j.error || 'No se ha podido enviar. Prueba por WhatsApp.');
-    } catch { estado.textContent = 'No se ha podido enviar ahora mismo. Prueba por WhatsApp o escríbeme al correo de contacto.'; }
-    mail.disabled = false; mail.textContent = texto;
-  });
+  // Email: lo dispara el botón de abajo del formulario (js/main.js); aquí solo se guarda y se avisa de si salió bien
+  window.cmvEnviarSolicitud = async canal => { const r = await enviar(canal); return r.ok; };
 })();

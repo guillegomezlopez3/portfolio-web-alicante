@@ -283,12 +283,17 @@
           <label class="opt"><span>Sin prisa</span><input type="radio" name="plazo" value="Sin prisa"></label>
         </div>
       </fieldset>
-      <fieldset class="q"><legend><i>D</i>¿Cómo te llamo?</legend>
+      <fieldset class="q" id="datos"><legend><i>D</i>¿Cómo te llamo?</legend>
         <div class="fields">
           <div class="f"><label class="mono" for="f-nombre">Nombre</label><input id="f-nombre" name="nombre" autocomplete="name" required></div>
           <div class="f"><label class="mono" for="f-contacto">Email o teléfono</label><input id="f-contacto" name="contacto" autocomplete="email" required></div>
           <div class="f full"><label class="mono" for="f-msg">¿A qué te dedicas? Cuéntame un poco (opcional)</label><textarea id="f-msg" name="mensaje" rows="2"></textarea></div>
         </div>
+        <div class="send">
+          <button class="btn acc" type="button" id="send-email">Enviar por email <i>↗</i></button>
+          <button class="btn" type="submit">Enviar por WhatsApp <i>↗</i></button>
+        </div>
+        <p class="sent" id="sent" role="status" aria-live="polite" hidden></p>
       </fieldset>
     </div>
     <aside class="ticket" aria-live="polite" aria-label="Resumen de tu ficha de proyecto">
@@ -307,7 +312,8 @@
       </dl>
       <hr>
       <button class="btn acc go" type="submit">Enviar por WhatsApp <i>↗</i></button>
-      <small>Envíala por WhatsApp (se abre con tu ficha preparada) o por email. Al enviarla aceptas la <a href="legal.html#privacidad">política de privacidad</a>: guardo tus datos solo para responderte.</small>
+      <a class="btn go go-datos" id="ir-datos" href="#datos">Enviar por email <i class="dn">↓</i><i class="up">↑</i></a>
+      <small>Envíala por WhatsApp (se abre con tu ficha preparada) o por email: el botón de email te lleva a escribir tus datos. Al enviarla aceptas la <a href="legal.html#privacidad">política de privacidad</a>: guardo tus datos solo para responderte.</small>
     </aside>
   </form>
   <div class="direct">
