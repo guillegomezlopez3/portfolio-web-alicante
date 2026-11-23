@@ -4,7 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
-const BASE = 'https://guillegomezlopez3.github.io/portfolio-web-alicante';
+const BASE = 'https://digitalsolutionscmv.es';
 const cities = [
  { slug: 'alicante', name: 'Alicante', title: 'Programas de gestión y webs para negocios en Alicante',
   desc: 'Programas a medida para llevar tu negocio en Alicante (clientes, citas, facturas, stock), citas online, tiendas y webs. Explicado sin tecnicismos, con reunión en tu local.',
@@ -125,7 +125,7 @@ const legal = `<main>
 </section>
 <section class="sec prose" style="padding-top:1rem">
   <h2 id="aviso">Aviso legal</h2>
-  <p>En cumplimiento de la Ley 34/2002 (LSSI-CE), se informa de que el titular de este sitio web, que opera bajo el nombre comercial DigitalSolutionsCMV, es Guillermo Gómez López, con domicilio en Alicante (España). NIF: <strong>[pendiente de completar por el titular]</strong>. Teléfono: +34 620 477 443.</p>
+  <p>En cumplimiento de la Ley 34/2002 (LSSI-CE), se informa de que el titular de este sitio web, que opera bajo el nombre comercial DigitalSolutionsCMV, es Guillermo Gómez López, con domicilio en Alicante (España). NIF: <strong>50381282N</strong>. Teléfono: +34 620 477 443. Email: guillermogomez@digitalsolutionscmv.es.</p>
   <p>Los contenidos de este sitio tienen carácter informativo. Las demos (programa de gestión, inventario, restaurante, tienda, clínica, barbería y taller) son ejemplos ficticios: los negocios, direcciones, datos, precios y reseñas que aparecen no son reales y las facturas, movimientos, reservas, citas y compras son simulaciones que no envían ningún dato.</p>
   <h2 id="privacidad">Política de privacidad</h2>
   <p><strong>Responsable:</strong> Guillermo Gómez López. <strong>Finalidad:</strong> atender las consultas y solicitudes de presupuesto. <strong>Base jurídica:</strong> consentimiento del interesado (art. 6.1.a RGPD).</p>
@@ -140,4 +140,4 @@ ${footer('')}`;
 fs.writeFileSync(path.join(ROOT, 'legal.html'), shell({ title: 'Aviso legal, privacidad y cookies | DigitalSolutionsCMV', desc: 'Aviso legal, política de privacidad y política de cookies de la web de DigitalSolutionsCMV.', canonical: BASE + '/legal.html', body: legal }));
 
 const urls = ['', ...cities.map(c => c.slug + '.html'), 'demos/gestion.html', 'demos/inventario.html', 'demos/restaurante.html', 'demos/tienda.html', 'demos/clinica.html', 'demos/barberia.html', 'demos/taller.html', 'legal.html'];
-fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url><loc>${BASE}/${u}</loc><lastmod>2026-11-20</lastmod><priority>${u === '' ? '1.0' : u === 'legal.html' ? '0.3' : '0.8'}</priority></url>`).join('\n')}\n</urlset>\n`);
+fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url><loc>${BASE}/${u}</loc><lastmod>2026-11-23</lastmod><priority>${u === '' ? '1.0' : u === 'legal.html' ? '0.3' : '0.8'}</priority></url>`).join('\n')}\n</urlset>\n`);

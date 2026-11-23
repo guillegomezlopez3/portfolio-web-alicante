@@ -34,7 +34,7 @@ Abre `index.html` en el navegador. No hace falta servidor.
 ## Activar GitHub Pages
 1. En el repositorio: **Settings → Pages**.
 2. *Source*: **Deploy from a branch** → rama `main`, carpeta `/ (root)`.
-3. Guarda. En ~1 minuto estará en `https://guillegomezlopez3.github.io/portfolio-web-alicante/`.
+3. Guarda. En ~1 minuto estará en `https://digitalsolutionscmv.es/`.
 
 Si usas otra URL o dominio propio, actualiza `canonical`, Open Graph y JSON-LD en `index.html` y en las landings, además de `robots.txt` y `sitemap.xml`.
 
