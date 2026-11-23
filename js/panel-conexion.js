@@ -6,7 +6,7 @@
      1) Lee el contenido editable (preguntas frecuentes, disponibilidad, aviso) y lo pinta.
      2) Al enviar la ficha por WhatsApp, guarda además la solicitud en el panel (canal "whatsapp").
      3) Ofrece window.cmvEnviarSolicitud('email') al botón «Enviar por email» del formulario (js/main.js muestra la confirmación,
-      limpia el formulario y, si esto falla, ofrece abrir el correo con la ficha escrita). */
+      limpia el formulario y, si esto falla, muestra el motivo). */
 (() => {
   const s = document.currentScript, API = ((s && s.dataset.api) || '').replace(/\/+$/, '');
   if (!API) return;
@@ -53,5 +53,5 @@
   f.addEventListener('submit', () => { if (f.nombre.value.trim() && f.contacto.value.trim()) { try { enviar('whatsapp').catch(() => {}); } catch {} } });
 
   // Email: lo dispara el botón de abajo del formulario (js/main.js); aquí solo se guarda y se avisa de si salió bien
-  window.cmvEnviarSolicitud = async canal => { const r = await enviar(canal); return r.ok; };
+  window.cmvEnviarSolicitud = async canal => { const r = await enviar(canal); if (r.ok) return { ok: true }; const j = await r.json().catch(() => ({})); return { ok: false, error: j.error || '' }; };
 })();

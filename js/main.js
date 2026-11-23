@@ -110,17 +110,14 @@
     if (mail) mail.addEventListener('click', async () => {
       if (!hayDatos()) { aviso('err', 'Falta tu nombre y un email o teléfono.', document.createTextNode('Escríbelos arriba para poder responderte.')); pideDatos(); return; }
       const texto = mail.innerHTML; mail.disabled = true; mail.textContent = 'Enviando…'; sent.hidden = true;
-      let ok = false;
-      if (window.cmvEnviarSolicitud) { try { ok = await window.cmvEnviarSolicitud('email'); } catch { ok = false; } }
+      let res = { ok: false, error: '' };
+      if (window.cmvEnviarSolicitud) { try { res = await window.cmvEnviarSolicitud('email'); } catch { res = { ok: false, error: '' }; } }
       mail.disabled = false; mail.innerHTML = texto;
-      if (ok) {
+      if (res.ok) {
         form.reset(); update(); sent.hidden = true;   // se borran los datos y se avisa con la ventana
         confirma();
-      } else {
-        const a = document.createElement('a');
-        a.href = `mailto:guillermogomez@digitalsolutionscmv.es?subject=${encodeURIComponent('Solicitud desde la web')}&body=${encodeURIComponent(resumen())}`;
-        a.textContent = 'abrir mi correo con la ficha ya escrita';
-        aviso('err', 'No se ha podido enviar ahora mismo.', document.createTextNode('Tus datos siguen aquí. Puedes '), a, document.createTextNode(' o usar el botón de WhatsApp.'));
+      } else {   // el visitante no envía ningún correo: sus datos se conservan para reintentar o usar WhatsApp
+        aviso('err', 'No se ha podido enviar ahora mismo.', document.createTextNode(res.error || 'Tus datos siguen aquí: vuelve a intentarlo en unos minutos o escríbeme por WhatsApp.'));
       }
     });
   }
